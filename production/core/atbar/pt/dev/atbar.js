@@ -1,7 +1,7 @@
 if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
 	
-	d=document;jf=d.createElement('script');jf.src='https://localhost/production/core/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	d=document;jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
 
 	window.AtKitLoaded = function(){
 		var eventAction = null;
@@ -34,7 +34,7 @@ function __start(){
 			'version': '2.2.0 Dev'
 		};
 		
-		settings.resources = 'https://localhost/production/core/resources/';
+		settings.resources = 'http://localhost/production/core/resources/';
 		
 		var plugins = ["resize", "fonts", "spellngpt", "dictionary", "espeak-tts", "readability", "css", "shortcutkeys", "tooltip", "overlay"];
 		

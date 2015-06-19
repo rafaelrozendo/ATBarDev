@@ -21,14 +21,14 @@
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
 			//__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
-			__baseURL: "https://localhost/production/core/",
+			__baseURL: "http://localhost/production/core/",
 			__APIURL: "http://a.atbar.org/", // API endpoint
-			__pluginURL: "https://localhost/dev/plugins/", // Plugins location
-			__faceboxURL: "https://localhost/production/core/resources/js/facebox.dev.js", // Facebox JS lib
-			__libURL: "https://localhost/production/core/resources/jquery/1.8/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			__pluginURL: "http://localhost/dev/plugins/", // Plugins location
+			__faceboxURL: "http://localhost/production/core/resources/js/facebox.dev.js", // Facebox JS lib
+			__libURL: "http://localhost/production/core/resources/jquery/1.8/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			//__bootstrapJsURL: "https://core.atbar.org/resources/js/bootstrap.min.js",
 			//__bootstrapCssURL: "https://core.atbar.org/resources/css/bootstrap.min.css",
-			__responsiveCssURL: "https://localhost/production/core/resources/css/responsive.css",
+			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
 			__debug: false, // Debug mode on or off.
