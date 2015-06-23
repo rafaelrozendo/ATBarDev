@@ -1,8 +1,8 @@
 if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
 	
-	d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
-
+	//d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	d=document;jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
 	window.AtKitLoaded = function(){
 		var eventAction = null;
 		
@@ -37,7 +37,7 @@ function __start(){
 		settings.resources = 'https://core.atbar.org/resources/';
 		
 		var plugins = ["ftw", "resize", "fonts", "spellng", "dictionary", "insipio-tts", "readability", "wordprediction", "css", "shortcutkeys", "tooltip", "overlay"];
-		
+
 		var onLoad = function(){
 		
 			// Set our logo
@@ -82,8 +82,7 @@ function __start(){
 		
 		
 		AtKit.importPlugins(plugins, onLoad);
-		
-		
+			
 	}(window, AtKit));
 
 }

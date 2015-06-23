@@ -2,7 +2,6 @@
 
 	var pluginName = "insipio-tts";
 	var plugin = function(){
-
 		$lib = AtKit.lib();
 
 		var settings = {
@@ -26,7 +25,7 @@
 			"tts_problem": "Something went wrong while we were converting this page to speech. Please try again shortly.",
 			"tts_servererror": "An error occurred on the server. Please try again later.",
 			"tts_seconds": "seconds",
-			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select the 'selected text' option.",
+			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (CTRL+C) and try again.",
 			"tts_select_voice": "Highlight text and select a voice",
 			"tts_male": "Male",
 			"tts_female": "Female"
@@ -66,7 +65,7 @@
 			"tts_problem": "Algo deu errado enquanto convertíamos essa página para voz. Por favor, tente novamente em instantes.",
 			"tts_servererror": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde.",
 			"tts_seconds": "segundos",
-			"tts_explain": "Para usar o recurso texto a voz com o texto selecionado, por favor, primeiro selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção 'texto selecionado'.",
+			"tts_explain": "Para usar o recurso texto a voz com o texto selecionado, por favor, primeiro selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção 'texto selecionado'. Se isso não funcionou e você está usando Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
 			"tts_male": "Masculino",
 			"tts_female": "Feminino"
@@ -135,13 +134,23 @@
 			
 			if(text == null){
 				var text = '';
-				
 			    if (document.selection && document.selection.type != "Control" && document.selection.createRange().text != "") {
 					text = document.selection.createRange().text;
 				} else if (window.getSelection && window.getSelection().toString() != ""){
 					text = window.getSelection().toString();
 				} else if (document.getSelection){
+					//if selected text is empty, maybe it is inside an iframe
 					text = document.getSelection();
+					for (var i=0; i<window.frames.length; i++) {
+						//for iframes in different domains we might get permission issues
+						try {
+							var iframe = window.frames[i].document;
+							text = iframe.getSelection().toString();
+							if (text != "") break
+						} catch (err) {
+							if (window.clipboardData && window.clipboardData.getData("Text") != "") text = window.clipboardData.getData("Text"); //I.E only
+						}
+					}
 			    }
 		    }
 		    
@@ -155,9 +164,7 @@
 		
 		AtKit.addFn('getSelectedTextInElementInsipio', function(){
 			var e = document.activeElement;
-			
 			return (
-
 				/* mozilla / dom 3.0 */
 				('selectionStart' in e && function() {
 					var l = e.selectionEnd - e.selectionStart;
@@ -166,7 +173,6 @@
 
 				/* exploder */
 				(document.selection && function() {
-				
 					var nn = $lib(e).prop('nodeName');
 					if(nn != "input" && nn != "textarea") return null;
 					
@@ -181,7 +187,6 @@
 					var rc = re.duplicate();
 					re.moveToBookmark(r.getBookmark());
 					rc.setEndPoint('EndToStart', re);
-
 					return r.text;
 				}) ||
 

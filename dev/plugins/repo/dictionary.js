@@ -13,7 +13,7 @@
 		AtKit.addLocalisationMap("en", {
 			"dictionary_title" : "Dictionary",
 			"dictionary_definition": "Dictionary definition for",
-			"dictionary_use": "To use the dictionary select a word on the page and click the dictionary button"
+			"dictionary_use": "To use the dictionary select a word on the page and click the dictionary button. If you have already tried this and you are using Internet Explorer, please copy the selected text (CTRL+C) and try again."
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -25,7 +25,7 @@
 		AtKit.addLocalisationMap("pt", {
 			"dictionary_title" : "Dicionário",
 			"dictionary_definition": "Definição do dicionário para",
-			"dictionary_use": "Para usar o dicionário selecione uma palavra na página e clique no botão do dicionário"
+			"dictionary_use": "Para usar o dicionário selecione uma palavra na página e clique no botão do dicionário. Se isso não funcionou e você está usando o Internet Explorer, por favor copie o texto selecionado (CTRL+C) e tente novamente."
 		});
 
 		// Add functions to AtKit.
@@ -33,10 +33,36 @@
 			var text = '';
 		    if (document.selection && document.selection.type != "Control") {
 				text = document.selection.createRange().text;
-			} else if (window.getSelection){
+			} else if (window.getSelection && window.getSelection() != ""){
 				text = window.getSelection().toString();
-			} else if (document.getSelection){
+			} else if (document.getSelection && document.getSelection() != ""){
 				text = document.getSelection();
+		    } else if (window.getSelection) {
+		    	//if selected text is empty, maybe it is inside an iframe
+		    	text = window.getSelection();
+				for (var i=0; i<window.frames.length; i++) {
+					//for iframes in different domains we might get permission issues
+					try {
+						var iframe = window.frames[i].document;
+						text = iframe.getSelection().toString();
+						if (text != "") break
+					} catch (err) {
+						if (window.clipboardData && window.clipboardData.getData("Text") != "") text = window.clipboardData.getData("Text"); //I.E only
+					}
+				}
+		    } else if (document.getSelection) {
+		    	//if selected text is empty, maybe it is inside an iframe
+		    	text = document.getSelection();
+				for (var i=0; i<window.frames.length; i++) {
+					//for iframes in different domains we might get permission issues
+					try {
+						var iframe = window.frames[i].document;
+						text = iframe.getSelection().toString();
+						if (text != "") break
+					} catch (err) {
+						if (window.clipboardData && window.clipboardData.getData("Text") != "") text = window.clipboardData.getData("Text"); //I.E only
+					}
+				}
 		    }
 		    if(strip === true){
 				return String(text).replace(/([\s]+)/ig, '');

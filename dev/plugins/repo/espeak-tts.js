@@ -64,7 +64,7 @@
 			"tts_problem": "Algo deu errado enquanto convertíamos essa página para voz. Por favor, tente novamente em instantes.",
 			"tts_servererror": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde.",
 			"tts_seconds": "segundos",
-			"tts_explain": "Para usar o recurso texto a voz com o texto selecionado, por favor, primeiro selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção 'texto selecionado'.",
+			"tts_explain": "Para usar o recurso texto a voz, por favor, selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção de voz que você deseja. Se isso não funcionou e você está usando o Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
 			"tts_male": "Masculino"
 		});
@@ -138,7 +138,18 @@
 				} else if (window.getSelection && window.getSelection().toString() != ""){
 					text = window.getSelection().toString();
 				} else if (document.getSelection){
+					//if selected text is empty, maybe it is inside an iframe
 					text = document.getSelection();
+					for (var i=0; i<window.frames.length; i++) {
+						//for iframes in different domains we might get permission issues
+						try {
+							var iframe = window.frames[i].document;
+							text = iframe.getSelection().toString();
+							if (text != "") break
+						} catch (err) {
+							if (window.clipboardData && window.clipboardData.getData("Text") != "") text = window.clipboardData.getData("Text"); //I.E only
+						}
+					}
 			    }
 		    }
 		    
@@ -152,9 +163,7 @@
 		
 		AtKit.addFn('getSelectedTextInElementInsipio', function(){
 			var e = document.activeElement;
-			
 			return (
-
 				/* mozilla / dom 3.0 */
 				('selectionStart' in e && function() {
 					var l = e.selectionEnd - e.selectionStart;
@@ -163,7 +172,6 @@
 
 				/* exploder */
 				(document.selection && function() {
-				
 					var nn = $lib(e).prop('nodeName');
 					if(nn != "input" && nn != "textarea") return null;
 					

@@ -36,12 +36,37 @@
 			if(document.selection && document.selection.type != "Control"){
 				text = document.selection.createRange().text;
 			}
-			else if(window.getSelection){
+			else if (window.getSelection && window.getSelection() != ""){
 				text = window.getSelection().toString();
-			}
-			else if(document.getSelection){
+			} else if (document.getSelection && document.getSelection() != ""){
 				text = document.getSelection();
-			}
+		    } else if (window.getSelection) {
+		    	//if selected text is empty, maybe it is inside an iframe
+		    	text = window.getSelection();
+				for (var i=0; i<window.frames.length; i++) {
+					//for iframes in different domains we might get permission issues
+					try {
+						var iframe = window.frames[i].document;
+						text = iframe.getSelection().toString();
+						if (text != "") break
+					} catch (err) {
+						if (window.clipboardData && window.clipboardData.getData("Text") != "") text = window.clipboardData.getData("Text"); //I.E only
+					}
+				}
+		    } else if (document.getSelection) {
+		    	//if selected text is empty, maybe it is inside an iframe
+		    	text = document.getSelection();
+				for (var i=0; i<window.frames.length; i++) {
+					//for iframes in different domains we might get permission issues
+					try {
+						var iframe = window.frames[i].document;
+						text = iframe.getSelection().toString();
+						if (text != "") break
+					} catch (err) {
+						if (window.clipboardData && window.clipboardData.getData("Text") != "") text = window.clipboardData.getData("Text"); //I.E only
+					}
+				}
+		    }
 			
 			if(strip === true){
 				return String(text).replace(/([\s]+)/ig, '');
