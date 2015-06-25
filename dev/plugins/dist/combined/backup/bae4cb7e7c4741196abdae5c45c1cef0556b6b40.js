@@ -413,167 +413,16 @@
 	}
 
 })();
-(function(){
+﻿(function(){
 
-	var pluginName = "fonts";
-    var plugin = function(){
-
-		$lib = AtKit.lib();
-
-		// Internationalisation
-		AtKit.addLocalisationMap("en", {
-			"fonts_dialogTitle" : "Page font settings",
-			"fonts_fontFace" : "Font Face",
-			"fonts_lineSpacing" : "Line Spacing",
-			"fonts_apply": "Apply"
-		});
-
-		AtKit.addLocalisationMap("ar", {
-			"fonts_dialogTitle" : "&#1575;&#1604;&#1578;&#1581;&#1603;&#1605; &#1601;&#1610; &#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
-			"fonts_fontFace" : "&#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
-			"fonts_lineSpacing": "&#1575;&#1604;&#1605;&#1587;&#1575;&#1601;&#1575;&#1578; &#1576;&#1610;&#1606; &#1575;&#1604;&#1571;&#1587;&#1591;&#1585;",
-			"fonts_apply": "&#1578;&#1591;&#1576;&#1610;&#1602;"
-		});
-
-		AtKit.addLocalisationMap("pt", {
-			"fonts_dialogTitle" : "Configurações da fonte da página",
-			"fonts_fontFace" : "Tipo de fonte",
-			"fonts_lineSpacing" : "Espaçamento entre linhas",
-			"fonts_apply": "Aplicar"
-		});
-
-
-		// Font settings
-		var fontDialogs = {
-				'main': '<h1>' + AtKit.localisation('fonts_dialogTitle') + '</h1><label for="sbfontface">' + AtKit.localisation('fonts_fontFace') + ':</label> <select id="sbfontface"><option value="sitespecific">--Site Specific--</option><option value="arial">Arial</option><option value="courier">Courier</option><option value="cursive">Cursive</option><option value="fantasy">Fantasy</option><option value="georgia">Georgia</option><option value="helvetica">Helvetica</option><option value="impact">Impact</option><option value="monaco">Monaco</option><option value="monospace">Monospace</option><option value="sans-serif">Sans-Serif</option><option value="tahoma">Tahoma</option><option value="times new roman">Times New Roman</option><option value="trebuchet ms">Trebuchet MS</option><option value="verdant">Verdana</option></select><br /><br /> <label for="sblinespacing">' + AtKit.localisation('fonts_lineSpacing') + '</label> <input type="text" name="sblinespacing" id="sblinespacing" maxlength="3" size="3" value="100">%<br /><br /><button id="ATApplyFont">' + AtKit.localisation('fonts_apply') + '</a></div>'
-		};
-		
-		AtKit.addFn('changeFont', function(args){
-			// Get all HTML tags from AtKit
-			var tags = AtKit.getHtmlTags();
-			
-			if(args.fontFace != "--Site Specific--"){
-				// Change font family
-				for(var i = 0; i < tags.length; i++){
-					$lib(tags[i]).css('font-family', args.fontFace);
-				}
-				// Change line height
-				for(var k = 0; k < tags.length; k++){
-					$lib(tags[k]).css('line-height', args.lineHeight + '%');
-				}
-				
-				// Set ATbar line height back to 0%
-				$lib('#sbar').find('div').css('line-height', '0%');
-			}
-			
-		})
-		
-		AtKit.addButton(
-			'fontSettings', 
-			AtKit.localisation("fonts_dialogTitle"),
-			AtKit.getPluginURL() + 'images/font.png',
-			function(dialogs, functions){
-				AtKit.message(dialogs.main);
-				
-				$lib('#ATApplyFont').click(function(){
-					AtKit.call('changeFont', { 
-						'fontFace': $lib('#sbfontface').val(),
-						'lineHeight': $lib('#sblinespacing').val()
-					});
-				});
-				
-				$lib("#sbfontface").focus();
-			},
-			fontDialogs, null
-		);
-
-	}
-
-	if(typeof window['AtKit'] == "undefined"){
-
-		window.AtKitLoaded = function(){
-			var eventAction = null;
-		
-			this.subscribe = function(fn) {
-				eventAction = fn;
-			};
-		
-			this.fire = function(sender, eventArgs) {
-				if (eventAction != null) {
-					eventAction(sender, eventArgs);
-				}
-			};
-		}
-
-		window['AtKitLoaded'] = new AtKitLoaded();
-		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
-	} else {
-		AtKit.registerPlugin(pluginName, plugin);
-	}
-
-})();
-(function(){
-
-	var pluginName = "ftw";
+	var pluginName = "espeak-tts";
 	var plugin = function(){
 
-		// Internationalisation
-		AtKit.addLocalisationMap("en", {
-			"ftw_title" : "Create a fix the web report about this page (opens in a popup window)"
-		});
-
-		AtKit.addButton(
-			pluginName,
-			AtKit.localisation("ftw_title"),
-			AtKit.getPluginURL() + 'images/FTW.png',
-			function(dialogs, functions){
-				loc = window.location.toString();
-				loc = loc.replace(window.location.hash.toString(), "");
-				var url = "http://www.fixtheweb.net/frame/report?url=" + encodeURI(loc);
-				
-				var load = window.open(url,'','scrollbars=no,menubar=no,height=260,width=370,resizable=no,toolbar=no,location=no,status=no');
-				if (window.focus) {load.focus()}
-				
-				var externalWindow = load.document;
-				
-				externalWindow.all['edit-field-report-url'].focus();
-			}, 
-			null, null
-		);
-
-	}
-
-	if(typeof window['AtKit'] == "undefined"){
-
-		window.AtKitLoaded = function(){
-			var eventAction = null;
-		
-			this.subscribe = function(fn) {
-				eventAction = fn;
-			};
-		
-			this.fire = function(sender, eventArgs) {
-				if (eventAction != null) {
-					eventAction(sender, eventArgs);
-				}
-			};
-		}
-
-		window['AtKitLoaded'] = new AtKitLoaded();
-		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
-	} else {
-		AtKit.registerPlugin(pluginName, plugin);
-	}
-
-})();(function(){
-
-	var pluginName = "insipio-tts";
-	var plugin = function(){
 		$lib = AtKit.lib();
 
 		var settings = {
 			"baseURL": "https://core.atbar.org/",
-			"speechServicesURL": 'https://speech.services.atbar.org/',
+			"speechServicesURL": 'https://core.atbar.org/atbar/pt/dev/server-services/speech/',
 			"ttsChunkSize": 400
 		};
 
@@ -592,10 +441,9 @@
 			"tts_problem": "Something went wrong while we were converting this page to speech. Please try again shortly.",
 			"tts_servererror": "An error occurred on the server. Please try again later.",
 			"tts_seconds": "seconds",
-			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (CTRL+C) and try again.",
+			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select the 'selected text' option.",
 			"tts_select_voice": "Highlight text and select a voice",
-			"tts_male": "Male",
-			"tts_female": "Female"
+			"tts_male": "Male"
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -614,8 +462,7 @@
 			"tts_seconds":"&#1579;&#1608;&#1575;&#1606;&#1613;",
 			"tts_explain":"&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1582;&#1575;&#1589;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1578;&#1581;&#1583;&#1610;&#1583; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1585;&#1575;&#1583; &#1578;&#1581;&#1608;&#1610;&#1604;&#1607; &#1593;&#1604;&#1609; &#1607;&#1584;&#1607; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1576;&#1593;&#1583; &#1584;&#1604;&#1603; &#1575;&#1590;&#1594;&#1591; &#1586;&#1585; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1608;&#1575;&#1590;&#1594;&#1591; &#1582;&#1610;&#1575;&#1585; &quot;&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;&quot;.",
 			"tts_select_voice": "&#1602;&#1605; &#1576;&#1578;&#1592;&#1604;&#1610;&#1604; &#1575;&#1604;&#1606;&#1589; &#1608;&#1575;&#1582;&#1578;&#1610;&#1575;&#1585; &#1575;&#1604;&#1589;&#1608;&#1578;",
-			"tts_male": "&#1605;&#1584;&#1603;&#1585;",
-			"tts_female": "&#1605;&#1572;&#1606;&#1579;"
+			"tts_male": "&#1605;&#1584;&#1603;&#1585;"
 		});
 
 		AtKit.addLocalisationMap("pt", {
@@ -632,17 +479,16 @@
 			"tts_problem": "Algo deu errado enquanto convertíamos essa página para voz. Por favor, tente novamente em instantes.",
 			"tts_servererror": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde.",
 			"tts_seconds": "segundos",
-			"tts_explain": "Para usar o recurso texto a voz com o texto selecionado, por favor, primeiro selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção 'texto selecionado'. Se isso não funcionou e você está usando Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
+			"tts_explain": "Para usar o recurso texto a voz, por favor, selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção de voz que você deseja. Se isso não funcionou e você está usando o Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
-			"tts_male": "Masculino",
-			"tts_female": "Feminino"
+			"tts_male": "Masculino"
 		});
 
 		// Text to speech
 		var TTSDialogs = {
 			"options": {
 				"title": AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartInsipioTTSSelectionFemale\"> " + AtKit.localisation("tts_female") + "</button>"
+				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\"> " + AtKit.localisation("tts_male") + "</button>"
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
@@ -701,6 +547,7 @@
 			
 			if(text == null){
 				var text = '';
+				
 			    if (document.selection && document.selection.type != "Control" && document.selection.createRange().text != "") {
 					text = document.selection.createRange().text;
 				} else if (window.getSelection && window.getSelection().toString() != ""){
@@ -754,6 +601,7 @@
 					var rc = re.duplicate();
 					re.moveToBookmark(r.getBookmark());
 					rc.setEndPoint('EndToStart', re);
+
 					return r.text;
 				}) ||
 
@@ -837,9 +685,8 @@
 			}
 			
 			var payload = args.fullData.substring(start, endPoint);
-					
-				
-			var urlString = settings.speechServicesURL + 'insipio-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() +  '&voice=' + args.voice + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+						
+			var urlString = settings.speechServicesURL + 'espeak-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&voice=' + args.voice + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
 			if( args.block == args.totalBlocks-1 ){
 				urlString += "&page=" + encodeURIComponent(window.location);
 			}
@@ -1098,15 +945,15 @@
 					AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male' });
 				});
 				
-				$lib('#sbStartInsipioTTSSelectionFemale').on('click touchend', function(){
+				/*$lib('#sbStartInsipioTTSSelectionFemale').on('click touchend', function(){
 					//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
 					a = document.createElement('audio');
 					audio = new Audio();
 					audio.play();
 					audio.pause();
 					
-					AtKit.call('sbStartInsipioTTSSelection', { 'voice':'female' });
-				});			
+					//AtKit.call('sbStartInsipioTTSSelection', { 'voice':'female' });
+				});*/			
 			},
 			TTSDialogs, TTSFunctions//, TTSExtendedObject
 		);
@@ -1117,26 +964,14 @@
 				selectedDataIOS = AtKit.call('getSelectedTextInsipioTTS');
 			}, 100);
 		}
-		if($lib('body').on)
-		{
-			$lib('body').on('click touchend', 'a#at-lnk-tts', function(e){
-				selectedData = AtKit.call('getSelectedTextInsipioTTS');
-				if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))
-				{
-					selectedData = selectedDataIOS;
-				}
-			});
-		}
-		else if($lib('body').live)
-		{
-			$lib('body').live('click touchend', 'a#at-lnk-tts', function(e){
-				selectedData = AtKit.call('getSelectedTextInsipioTTS');
-				if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))
-				{
-					selectedData = selectedDataIOS;
-				}
-			});
-		}
+		
+		$lib('a#at-lnk-tts').on('click touchend', function(e){
+			selectedData = AtKit.call('getSelectedTextInsipioTTS');
+			if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))
+			{
+				selectedData = selectedDataIOS;
+			}
+		});
 	};
 
 	if(typeof window['AtKit'] == "undefined"){
@@ -1154,6 +989,105 @@
 				}
 			};
 		};
+
+		window['AtKitLoaded'] = new AtKitLoaded();
+		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
+	} else {
+		AtKit.registerPlugin(pluginName, plugin);
+	}
+
+})();
+(function(){
+
+	var pluginName = "fonts";
+    var plugin = function(){
+
+		$lib = AtKit.lib();
+
+		// Internationalisation
+		AtKit.addLocalisationMap("en", {
+			"fonts_dialogTitle" : "Page font settings",
+			"fonts_fontFace" : "Font Face",
+			"fonts_lineSpacing" : "Line Spacing",
+			"fonts_apply": "Apply"
+		});
+
+		AtKit.addLocalisationMap("ar", {
+			"fonts_dialogTitle" : "&#1575;&#1604;&#1578;&#1581;&#1603;&#1605; &#1601;&#1610; &#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
+			"fonts_fontFace" : "&#1606;&#1608;&#1593; &#1575;&#1604;&#1582;&#1591;",
+			"fonts_lineSpacing": "&#1575;&#1604;&#1605;&#1587;&#1575;&#1601;&#1575;&#1578; &#1576;&#1610;&#1606; &#1575;&#1604;&#1571;&#1587;&#1591;&#1585;",
+			"fonts_apply": "&#1578;&#1591;&#1576;&#1610;&#1602;"
+		});
+
+		AtKit.addLocalisationMap("pt", {
+			"fonts_dialogTitle" : "Configurações da fonte da página",
+			"fonts_fontFace" : "Tipo de fonte",
+			"fonts_lineSpacing" : "Espaçamento entre linhas",
+			"fonts_apply": "Aplicar"
+		});
+
+
+		// Font settings
+		var fontDialogs = {
+				'main': '<h1>' + AtKit.localisation('fonts_dialogTitle') + '</h1><label for="sbfontface">' + AtKit.localisation('fonts_fontFace') + ':</label> <select id="sbfontface"><option value="sitespecific">--Site Specific--</option><option value="arial">Arial</option><option value="courier">Courier</option><option value="cursive">Cursive</option><option value="fantasy">Fantasy</option><option value="georgia">Georgia</option><option value="helvetica">Helvetica</option><option value="impact">Impact</option><option value="monaco">Monaco</option><option value="monospace">Monospace</option><option value="sans-serif">Sans-Serif</option><option value="tahoma">Tahoma</option><option value="times new roman">Times New Roman</option><option value="trebuchet ms">Trebuchet MS</option><option value="verdant">Verdana</option></select><br /><br /> <label for="sblinespacing">' + AtKit.localisation('fonts_lineSpacing') + '</label> <input type="text" name="sblinespacing" id="sblinespacing" maxlength="3" size="3" value="100">%<br /><br /><button id="ATApplyFont">' + AtKit.localisation('fonts_apply') + '</a></div>'
+		};
+		
+		AtKit.addFn('changeFont', function(args){
+			// Get all HTML tags from AtKit
+			var tags = AtKit.getHtmlTags();
+			
+			if(args.fontFace != "--Site Specific--"){
+				// Change font family
+				for(var i = 0; i < tags.length; i++){
+					$lib(tags[i]).css('font-family', args.fontFace);
+				}
+				// Change line height
+				for(var k = 0; k < tags.length; k++){
+					$lib(tags[k]).css('line-height', args.lineHeight + '%');
+				}
+				
+				// Set ATbar line height back to 0%
+				$lib('#sbar').find('div').css('line-height', '0%');
+			}
+			
+		})
+		
+		AtKit.addButton(
+			'fontSettings', 
+			AtKit.localisation("fonts_dialogTitle"),
+			AtKit.getPluginURL() + 'images/font.png',
+			function(dialogs, functions){
+				AtKit.message(dialogs.main);
+				
+				$lib('#ATApplyFont').click(function(){
+					AtKit.call('changeFont', { 
+						'fontFace': $lib('#sbfontface').val(),
+						'lineHeight': $lib('#sblinespacing').val()
+					});
+				});
+				
+				$lib("#sbfontface").focus();
+			},
+			fontDialogs, null
+		);
+
+	}
+
+	if(typeof window['AtKit'] == "undefined"){
+
+		window.AtKitLoaded = function(){
+			var eventAction = null;
+		
+			this.subscribe = function(fn) {
+				eventAction = fn;
+			};
+		
+			this.fire = function(sender, eventArgs) {
+				if (eventAction != null) {
+					eventAction(sender, eventArgs);
+				}
+			};
+		}
 
 		window['AtKitLoaded'] = new AtKitLoaded();
 		window['AtKitLoaded'].subscribe(function(){ AtKit.registerPlugin(pluginName, plugin); });
@@ -1568,7 +1502,7 @@
 
 (function(){
 
-	var pluginName = "spellng";
+	var pluginName = "spellngpt";
 	var plugin = function(){
 		
 		$lib = AtKit.lib();
@@ -1694,7 +1628,7 @@
 		
 		AtKit.addFn('recordSpellng', function(){
 			
-			var spellngRecordURL = "https://spell.services.atbar.org/spellng/record-spellng.php?l=" + AtKit.getLanguage() + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore + "&s=" + spellngSentance;
+			var spellngRecordURL = "https://core.atbar.org/atbar/pt/dev/server-services/spell/spellng/record-spellng.php?l=" + "pt_BR" + "&e=" + spellngIncorrect + "&c=" + spellngCorrection + "&i=" + spellngIgnore + "&s=" + spellngSentance;
 			
 			$lib("#sbar").prepend('<img src="' + spellngRecordURL + '" />');
 			
@@ -1777,7 +1711,7 @@
 					spellngSentance = input;
 					var self = this, timeout;
 					
-					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
+					$lib.getJSON("https://core.atbar.org/atbar/pt/dev/server-services/spell/spellng/spellng.php?l=" + "pt_BR" + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
 					});
 
@@ -1791,7 +1725,7 @@
 					var self = this, timeout;
 					spellngSentance = this.text;					
 					
-					$lib.getJSON("https://spell.services.atbar.org/spellng/spellng.php?l=" + this.options.lang + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
+					$lib.getJSON("https://core.atbar.org/atbar/pt/dev/server-services/spell/spellng/spellng.php?l=" + "pt_BR" + "&r=" + encodeURIComponent(this.text) + "&callback=?", function(data){
 						self.parseResults( data );
 					});
 
@@ -1926,8 +1860,8 @@
 				// Initialise spelling if not already
 				if(AtKit.get('spellInitialised') === false) AtKit.call('initSpell');
 
-				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
-				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
+				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR", baseURL: spell_settings.baseURL });
+				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR", baseURL: spell_settings.baseURL });
 
 				// Are there any TinyMCE fields on this page?
 				if((typeof AtKit.__env.window.tinyMCE) != 'undefined'){
@@ -1936,7 +1870,7 @@
 					tinyMCE.activeEditor.onKeyPress.add(function(ed, e) {
 						var content = tinyMCE.activeEditor.getContent();
 						if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
-						rteSpellTimer = window.setTimeout(function() { $lib("#" + tinyMCE.activeEditor.editorContainer).rteSpellCheck(content, tinyMCE.activeEditor, { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'tMCE' }); }, 750);
+						rteSpellTimer = window.setTimeout(function() { $lib("#" + tinyMCE.activeEditor.editorContainer).rteSpellCheck(content, tinyMCE.activeEditor, { useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR",  RTEType: 'tMCE' }); }, 750);
 					});
 				}
 				
@@ -1946,7 +1880,7 @@
 						CKE.instances[o].document.bind('keypress', function(){
 							if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
 							var content = CKE.instances[o].getData();
-							rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
+							rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR",  RTEType: 'CKE' }); }, 750);
 						});
 					}
 				}
@@ -2300,7 +2234,7 @@
 
 })();(function(){
 
-	var pluginName = "wordprediction";
+	var pluginName = "wordprediction-pt";
 	var plugin = function(){
 
 		$lib = AtKit.lib();
@@ -2308,17 +2242,6 @@
 		var wpTimeout;
 
 		// Internationalisation
-		AtKit.addLocalisationMap("en", {
-			"wp_title" : "Word Prediction",
-			"wp_ignore": "Ignore",
-			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
-		});
-
-		AtKit.addLocalisationMap("ar", {
-			"wp_title" : "&#1578;&#1588;&#1594;&#1610;&#1604; &#1605;&#1602;&#1578;&#1585;&#1581; &#1575;&#1604;&#1603;&#1604;&#1605;&#1575;&#1578;",
-			"wp_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;",
-			"wp_instruct": "&#1605;&#1601;&#1575;&#1578;&#1610;&#1581;: Esc &#1604;&#1604;&#1582;&#1585;&#1608;&#1580;&#1548; Ctrl+Alt+(1,2,3...)"	
-		});
 		
 		AtKit.addLocalisationMap("pt", {
 			"wp_title" : "Predição de palavras",
@@ -2399,23 +2322,14 @@
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
-						var predictURL = "https://predict.services.atbar.org/wordprediction/";
+						var predictURL = "http://localhost/production/core/atbar/pt/dev/server-services/predict/wordpredictionpt/";
 
-						if(AtKit.getLanguage() == "ar") {
-							predictURL += "?lang=AR";
-						} 
-						else if(AtKit.getLanguage() == "pt") {
-							predictURL += "?lang=PT_BR";
-						} 
-						else {
-							predictURL += "?lang=EN";
-						}
-
-						predictURL += "&l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
+						predictURL += "?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
+						console.log(encodeURIComponent(leadingText));
 						
 						$lib.getJSON(predictURL, function(response){
+							
 							var data = response.payload.split(";");
-							console.log("data before = " + data);
 							
 							var input = data.splice(0, 2);
 
@@ -2433,7 +2347,6 @@
 							var pos = el.position();
 							var width = el.width();
 							var height = el.outerHeight();
-
 
 							var suggestions = "";
 
@@ -2541,7 +2454,7 @@
 								}	
 							});
 
-						});
+						}); //get response
 					
 					}, 500);
 				});

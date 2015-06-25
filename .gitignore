@@ -22,6 +22,10 @@
 !/production/core/atbar/pt/dev
 /production/core/atbar/pt/dev/*
 !/production/core/atbar/pt/dev/atbar.js
+!/production/core/atbar/pt/dev/server-services
+/production/core/atbar/pt/dev/server-services/*
+!/production/core/atbar/pt/dev/server-services/predict
+
 
 !/production/core/atkit
 

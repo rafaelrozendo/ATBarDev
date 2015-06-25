@@ -36,7 +36,7 @@ function __start(){
 		
 		settings.resources = 'http://localhost/production/core/resources/';
 		
-		var plugins = ["resize", "fonts", "spellngpt", "dictionary", "espeak-tts", "readability", "wordprediction","css", "shortcutkeys", "tooltip", "overlay"];
+		var plugins = ["resize", "fonts", "spellngpt", "dictionary", "espeak-tts", "readability", "wordprediction-pt","css", "shortcutkeys", "tooltip", "overlay"];
 		
 		var onLoad = function(){
 		
