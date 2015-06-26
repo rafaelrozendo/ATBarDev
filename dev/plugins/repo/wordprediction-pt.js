@@ -86,6 +86,7 @@
 						AtKit.set('WordPrediction_CaretPos', pos);
 						
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
+						console.log(leadingText);
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
 						var predictURL = "http://localhost/production/core/atbar/pt/dev/server-services/predict/wordpredictionpt/";

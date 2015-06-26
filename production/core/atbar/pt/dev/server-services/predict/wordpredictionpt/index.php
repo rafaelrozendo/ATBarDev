@@ -8,7 +8,7 @@ if(isset($_GET['l'], $_GET['t']) == FALSE){
 	$leading = $_GET['l'];
 	$trailing = $_GET['t'];
 
-	$command = escapeshellcmd('python script.py "' . $leading . '"');
+	$command = escapeshellcmd('python predict.py "' . $leading . '"');
 	$data = shell_exec($command);
 
 	$response = json_encode(array("status" => "OK", "payload" => $data));
