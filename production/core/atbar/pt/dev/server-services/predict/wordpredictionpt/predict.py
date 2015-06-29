@@ -9,8 +9,8 @@ import re
 import operator
 import sqlite3 as lite
 
-#reload(sys)
-#sys.setdefaultencoding('latin-1')
+reload(sys)
+sys.setdefaultencoding('UTF-8')
 
 def get_suggestion(args):
 	#Output must be a string in the following format: "0+input_word;;freq1+suggestion1;freq2+suggestion2;"
@@ -23,31 +23,47 @@ def get_suggestion(args):
 	word = "" #the last complete word
 	current_word = "" #the word that the user is typing
 	if len(leading_text_list) > 0:
+
+		#try:
+
 		if leading_text[-1] == " ":
-			word = leading_text_list[-1].decode('UTF-8').encode('latin-1') #in this case, the user have finished a word
+			word = leading_text_list[-1]#.decode('UTF-8').encode('latin-1') #in this case, the user have finished a word
 		else:
-			current_word = leading_text_list[-1].decode('UTF-8').encode('latin-1')
+			current_word = leading_text_list[-1]#.decode('UTF-8').encode('latin-1')
 			if (len(leading_text_list) >= 2):
-				word = leading_text_list[-2].decode('UTF-8').encode('latin-1')
-	
+				word = leading_text_list[-2]#.decode('UTF-8').encode('latin-1')
+		#except:
+		#	if leading_text[-1] == " ":
+		#		word = leading_text_list[-1].decode('latin-1') #in this case, the user have finished a word
+		#	else:
+		#		current_word = leading_text_list[-1].decode('latin-1')
+		#		if (len(leading_text_list) >= 2):
+		#			word = leading_text_list[-2].decode('latin-1')
 
 	
 
 	con = lite.connect("words-pt.db")
+	con.text_factory = str
+
 	with con:
 
 		command_string = None
 		empty_string = None
 		if word == "":
-			command_string = "SELECT word,count FROM _1_gram WHERE word LIKE ? ORDER BY -count LIMIT 6"
+			command_string = u"SELECT word,count FROM _1_gram WHERE word LIKE ? ORDER BY -count LIMIT 6".encode('UTF-8')
 			empty_string = True
 
 		else:
-			command_string = "SELECT word,count FROM _2_gram WHERE word_1=? AND word LIKE ? ORDER BY -count LIMIT 6"
+			command_string = u"SELECT word,count FROM _2_gram WHERE word_1=? AND word LIKE ? ORDER BY -count LIMIT 6".encode('UTF-8')
 			empty_string = False
 
 		#will be parsed by the JavaScript function
-		output = u"0".encode('UTF-8') + current_word.decode('latin-1').encode('UTF-8') + u";;".encode('UTF-8')
+		output = None
+		#try:
+		output = "0" + current_word + ";;"
+		#except:
+		#	output = u"0".encode('UTF-8') + current_word.encode('UTF-8') + u";;".encode('UTF-8')
+		
 		current_word += "%" #wildcard
 	
 		cur = con.cursor()
