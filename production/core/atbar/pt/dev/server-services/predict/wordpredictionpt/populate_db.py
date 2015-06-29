@@ -1,7 +1,8 @@
 import sqlite3 as lite
 import sys
 
-from nltk.corpus import gutenberg
+from bs4 import BeautifulSoup
+import urllib2
 from nltk.probability import ConditionalFreqDist
 from nltk.probability import FreqDist
 import re
@@ -11,15 +12,27 @@ global_fd = FreqDist()
 
 # For each token, count current word given previous word
 prev_word = None
-#for word in gutenberg.words('austen-persuasion.txt'):
-with open('samba.txt','r') as f:
-	for line in f:
-		for word in filter(None, re.split("[,.;\"() \-!?:]+", line)):
-		#for word in line.split():
-			word = unicode(word.decode("latin-1"))	
-			cfd[prev_word][word]+=1
-			global_fd[word] += 1
-			prev_word = word
+
+#with open('samba.txt','r') as f:
+#	for line in f:
+#		for word in filter(None, re.split("[,.;\"\[\]() \-!?\d:]+", text)):
+#			word = unicode(word.decode("latin-1"))	
+#			cfd[prev_word][word]+=1
+#			global_fd[word] += 1
+#			prev_word = word
+
+url="https://pt.wikipedia.org/wiki/Carnaval"
+page=urllib2.urlopen(url)
+soup = BeautifulSoup(page.read())
+content = soup.findAll('p');
+
+for paragraph in content:
+	text = paragraph.text
+	for word in filter(None, re.split("[,.;\"\[\]() \-!?\d:]+", text)):
+		word = unicode(word)	
+		cfd[prev_word][word]+=1
+		global_fd[word] += 1
+		prev_word = word
 
 
 global_frequencies = []

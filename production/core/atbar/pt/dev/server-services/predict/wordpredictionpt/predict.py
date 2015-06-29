@@ -22,12 +22,13 @@ def get_suggestion(args):
 
 	word = "" #the last complete word
 	current_word = "" #the word that the user is typing
-	if leading_text[-1] == " ":
-		word = leading_text_list[-1].decode('UTF-8').encode('latin-1') #in this case, the user have finished a word
-	else:
-		current_word = leading_text_list[-1].decode('UTF-8').encode('latin-1')
-		if (len(leading_text_list) >= 2):
-			word = leading_text_list[-2].decode('UTF-8').encode('latin-1')
+	if len(leading_text_list) > 0:
+		if leading_text[-1] == " ":
+			word = leading_text_list[-1].decode('UTF-8').encode('latin-1') #in this case, the user have finished a word
+		else:
+			current_word = leading_text_list[-1].decode('UTF-8').encode('latin-1')
+			if (len(leading_text_list) >= 2):
+				word = leading_text_list[-2].decode('UTF-8').encode('latin-1')
 	
 
 	
@@ -65,9 +66,9 @@ def get_suggestion(args):
 			suggestion_count = row[1]
 			if suggestion_count > 9 - i:
 				suggestion_count = 9 - i
-			output += str(suggestion_count)
-			output += suggestion_word
-			output += ";"
+			output += str(suggestion_count).encode('UTF-8')
+			output += suggestion_word.encode('UTF-8')
+			output += u";".encode('UTF-8')
 			i += 1
 
 
