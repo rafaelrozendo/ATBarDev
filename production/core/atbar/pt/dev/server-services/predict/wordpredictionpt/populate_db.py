@@ -15,7 +15,7 @@ current_url = "/wiki/Brasil" #the initial URL
 found_links = set()
 
 max_links_per_page = 6
-max_links = 1000
+max_links = 10000
 
 links_to_explore = []
 links_to_explore.append(current_url)
@@ -57,17 +57,20 @@ prev_word = None
 
 print "vai comecar a construir distribuicao de probabilidades"
 for link in found_links:
-	page=urllib2.urlopen(base_url + link)
-	soup = BeautifulSoup(page.read())
-	content = soup.findAll('p');
+	try:
+		page=urllib2.urlopen(base_url + link)
+		soup = BeautifulSoup(page.read())
+		content = soup.findAll('p');
 
-	for paragraph in content:
-		text = paragraph.text
-		for word in filter(None, re.split("[,.;\"\'′/*\+\[\]()<>={}%#&$@·•«»►⊆≥≤≠≈∞∈→↑←ℝ€₣…†“” \-!?\d:]+", text)):
-			word = unicode(word)	
-			cfd[prev_word][word]+=1
-			global_fd[word] += 1
-			prev_word = word
+		for paragraph in content:
+			text = paragraph.text
+			for word in filter(None, re.split("[,.;\"\'′/*\+\[\]()<>={}%#&$@·•«»►⊆≥≤≠≈∞∈→↑←ℝ€₣…†“” \-!?\d:]+", text)):
+				word = unicode(word)	
+				cfd[prev_word][word]+=1
+				global_fd[word] += 1
+				prev_word = word
+	except:
+		print "falhou um link..."
 
 print "terminou distrib probabilidades"
 

@@ -495,6 +495,14 @@
 		
 		// Shut down the toolbar
 		function stop(){
+
+			//first, remove tooltips
+			var tooltips = document.getElementsByClassName("tooltip fade bottom in");
+
+			while (tooltips.length > 0) {
+				tooltips[0].parentNode.removeChild(tooltips[0]);
+			}
+
 			// Run unload functions
 			for(f in API.__env.global.unloadFn){
 				API.__env.global.unloadFn[f]();

@@ -52,6 +52,26 @@
 			"tts_what": "&#1605;&#1575; &#1607;&#1608; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1584;&#1610; &#1578;&#1585;&#1610;&#1583; &#1606;&#1591;&#1602;&#1607"
 		});
 
+		AtKit.addLocalisationMap("pt", {
+			"tts_title" : "Texto a voz",
+			"tts_options": "Opções do Texto a voz",
+			"tts_converting": "Convertendo texto a voz.",
+			"tts_timeremaining": "Tempo restante:",
+			"tts_pleasewait": "Por favor espere...",
+			"tts_playpause" : "Reproduzir / Pausar",
+			"tts_rewind": "Tocar novamente",
+			"tts_stop": "Parar & Fechar TTS",
+			"tts_error": "Erro",
+			"tts_overloaded": "O servidor está sobrecarregado no momento para conversões texto a voz. Por favor tente novamente mais tarde.",
+			"tts_problem": "Algo deu errado enquanto convertíamos essa página para voz. Por favor, tente novamente em instantes.",
+			"tts_servererror": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde.",
+			"tts_seconds": "segundos",
+			"tts_explain": "Para usar o recurso texto a voz, por favor, selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção de voz que você deseja. Se isso não funcionou e você está usando o Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
+			"tts_select_voice": "Destaque o texto e selecione uma voz",
+			"tts_selected": "Texto selecionado",
+			"tts_what": "O que você deseja converter para voz?"
+		});
+
 		// Text to speech
 		var TTSDialogs = {
 			"options": {
@@ -242,12 +262,13 @@
 			
 			var payload = args.fullData.substring(start, endPoint);
 			
-			var urlString = settings.speechServicesURL + 'google-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+			//var urlString = settings.speechServicesURL + 'google-tts/request.php?rt=tts&v=2&i=1&l=' + AtKit.getLanguage() + '&id=' + args.reqID + '&data=' + payload + "&chunkData=" + args.totalBlocks + "-" + args.block;
+			var urlString = "http://translate.google.com.br/translate_tts?ie=UTF-8&q="+ payload +"&tl=" +  AtKit.getLanguage();
 			if( args.block == args.totalBlocks-1 ){
-				urlString += "&page=" + encodeURIComponent(window.location);
+				//urlString += "&page=" + encodeURIComponent(window.location);
 			}
 			
-			urlString += "&callback=?";
+			//urlString += "&callback=?";
 			
 			$lib.getJSON(urlString, function(RO){
 				$lib("#compactStatus").html(args.block + " / " + args.totalBlocks);

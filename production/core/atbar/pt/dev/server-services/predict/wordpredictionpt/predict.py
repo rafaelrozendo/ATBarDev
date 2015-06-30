@@ -22,16 +22,23 @@ def get_suggestion(args):
 
 	word = "" #the last complete word
 	current_word = "" #the word that the user is typing
+	first_letter = True
 	if len(leading_text_list) > 0:
 
 		#try:
 
 		if leading_text[-1] == " ":
 			word = leading_text_list[-1]#.decode('UTF-8').encode('latin-1') #in this case, the user have finished a word
+			if leading_text[-2] != ".":
+				first_letter = False
+
 		else:
 			current_word = leading_text_list[-1]#.decode('UTF-8').encode('latin-1')
 			if (len(leading_text_list) >= 2):
 				word = leading_text_list[-2]#.decode('UTF-8').encode('latin-1')
+				#if leading_text[len(word)] != ".":
+				if "." not in leading_text[len(word):(len(leading_text)-len(current_word))]:
+					first_letter = False
 		#except:
 		#	if leading_text[-1] == " ":
 		#		word = leading_text_list[-1].decode('latin-1') #in this case, the user have finished a word
@@ -50,11 +57,11 @@ def get_suggestion(args):
 		command_string = None
 		empty_string = None
 		if word == "":
-			command_string = u"SELECT word,count FROM _1_gram WHERE word LIKE ? ORDER BY -count LIMIT 6".encode('UTF-8')
+			command_string = u"SELECT word,count FROM _1_gram WHERE word LIKE ? ORDER BY -count LIMIT 12".encode('UTF-8')
 			empty_string = True
 
 		else:
-			command_string = u"SELECT word,count FROM _2_gram WHERE word_1=? AND word LIKE ? ORDER BY -count LIMIT 6".encode('UTF-8')
+			command_string = u"SELECT word,count FROM _2_gram WHERE word_1=? AND word LIKE ? ORDER BY -count LIMIT 12".encode('UTF-8')
 			empty_string = False
 
 		#will be parsed by the JavaScript function
@@ -76,16 +83,26 @@ def get_suggestion(args):
 		rows = cur.fetchall()
 		
 		i = 0 #used to fix a bug in JavaScript (word counts with more than 2 digits would be partially displayed)
+		max_suggestions = 6
+
+		suggestions = set()
 
 		for row in rows:
 			suggestion_word = row[0]
 			suggestion_count = row[1]
 			if suggestion_count > 9 - i:
 				suggestion_count = 9 - i
-			output += str(suggestion_count).encode('UTF-8')
-			output += suggestion_word.encode('UTF-8')
-			output += u";".encode('UTF-8')
-			i += 1
+
+			if suggestion_word.lower() not in suggestions:
+				suggestions.add(suggestion_word.lower())
+				if first_letter:
+					suggestion_word = suggestion_word.title()
+				output += str(suggestion_count).encode('UTF-8')
+				output += suggestion_word.encode('UTF-8')
+				output += u";".encode('UTF-8')
+				i += 1
+				if i >= max_suggestions:
+					break
 
 
 	#output = "0Hel;;8hello;8he's;8her;8here;8here's;7he'll;"

@@ -115,13 +115,8 @@
 						
 						$lib.getJSON(predictURL, function(response){
 							var data = response.payload.split(";");
-							console.log("data before = " + data);
 							
 							var input = data.splice(0, 2);
-
-							console.log(data);
-							console.log(input);
-							console.log(response.payload);
 
 							// Remove any digits signifying liklihood
 							$lib.each(input, function(i, v){
