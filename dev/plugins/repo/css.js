@@ -6,8 +6,10 @@
 		var settings_css = {
 			'baseURL': 'https://styles.services.atbar.org/css/'
 		};
+
+		var reset_colour = "#EBEAED";
 		
-		$lib = AtKit.lib();
+		$lib = AtKit.lib();		
 
 		// Internationalisation
 		AtKit.addLocalisationMap("en", {
@@ -134,7 +136,7 @@
 				
 				$lib('#sbRandomColour').click(function(){ AtKit.call('setColour', "rand"); });
 				$lib('#sbSetColour').click(function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
-				$lib('#sbColourReset').click(function(){ AtKit.call('setColour', "#EBEAED"); });
+				$lib('#sbColourReset').click(function(){ AtKit.call('setColour', reset_colour); });
 			},
 			"siteColours": function(){
 				$lib('#applyPageColours').click(function(e){ 			
@@ -217,7 +219,29 @@
 				colour = code;
 			}
 			$lib('#sbar').css('background-color', colour);
+			var currColourInput = document.getElementById("atbar_background_colour");
+			if (currColourInput) {
+				currColourInput.value = colour;
+			} 
 		});
+
+		function changeBackgroundColour() {
+			var element = document.getElementById('atbar_background_colour');
+			if (!element) {
+				var input = document.createElement("input");
+				input.setAttribute("type", "hidden");
+				input.setAttribute("id", "atbar_background_colour");
+				input.setAttribute("name", "atbar_background_colour");
+				input.setAttribute("value", reset_colour); //the default value
+				document.getElementById("sbar").appendChild(input);
+				element = input;
+			}
+			
+			var currentColour = element.value;
+			if (currentColour && currentColour != "") {
+				AtKit.call('setColour', $lib("#atbar_background_colour").val() ); 
+			}
+		}
 		
 		AtKit.addButton(
 			pluginName,
@@ -229,17 +253,22 @@
 				$lib('#sbColourChange').click(function(){
 					AtKit.show(dialogs.toolbar);
 					functions.changeToolbar();
+					changeBackgroundColour();
 				});
 
 				$lib('#sbChangeSiteColours').click(function(){
 					AtKit.show(dialogs.siteColours);
 					functions.siteColours();
+					changeBackgroundColour();
 				});
 
 				$lib('#sbAttachCSSStyle').click(function(){
 					AtKit.show(dialogs.CSSStyles);
 					functions.CSSStyles();
+					changeBackgroundColour();
 				});
+
+				changeBackgroundColour();
 			}, 
 			CSSDialogs, CSSFunctions
 		);		

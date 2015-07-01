@@ -1,13 +1,11 @@
  # -*- coding: utf-8 -*-
 
 import sys
-from nltk.corpus import gutenberg
 from nltk.probability import ConditionalFreqDist
 from nltk.probability import FreqDist
-from random import choice
 import re
-import operator
 import sqlite3 as lite
+import string
 
 reload(sys)
 sys.setdefaultencoding('UTF-8')
@@ -22,32 +20,25 @@ def get_suggestion(args):
 
 	word = "" #the last complete word
 	current_word = "" #the word that the user is typing
-	first_letter = True
+	first_letter = True #should the current word start with capital letter?
 	if len(leading_text_list) > 0:
 
-		#try:
-
 		if leading_text[-1] == " ":
-			word = leading_text_list[-1]#.decode('UTF-8').encode('latin-1') #in this case, the user have finished a word
+			word = leading_text_list[-1] #in this case, the user have finished a word and we must check if the next word should start with a capital letter 
 			if leading_text[-2] != ".":
 				first_letter = False
+		
+		elif leading_text[-1] == ".": #in this case, the user have finished a word and the next word should start with a capital letter
+			word = leading_text_list[-1]
+
 
 		else:
-			current_word = leading_text_list[-1]#.decode('UTF-8').encode('latin-1')
+			current_word = leading_text_list[-1]
 			if (len(leading_text_list) >= 2):
-				word = leading_text_list[-2]#.decode('UTF-8').encode('latin-1')
-				#if leading_text[len(word)] != ".":
-				if "." not in leading_text[len(word):(len(leading_text)-len(current_word))]:
+				word = leading_text_list[-2]
+				if "." not in leading_text[len(word):(len(leading_text)-len(current_word))]: #i.e., if there isn't any "." between the last 2 words
 					first_letter = False
-		#except:
-		#	if leading_text[-1] == " ":
-		#		word = leading_text_list[-1].decode('latin-1') #in this case, the user have finished a word
-		#	else:
-		#		current_word = leading_text_list[-1].decode('latin-1')
-		#		if (len(leading_text_list) >= 2):
-		#			word = leading_text_list[-2].decode('latin-1')
-
-	
+		
 
 	con = lite.connect("words-pt.db")
 	con.text_factory = str
@@ -66,10 +57,8 @@ def get_suggestion(args):
 
 		#will be parsed by the JavaScript function
 		output = None
-		#try:
+	
 		output = "0" + current_word + ";;"
-		#except:
-		#	output = u"0".encode('UTF-8') + current_word.encode('UTF-8') + u";;".encode('UTF-8')
 		
 		current_word += "%" #wildcard
 	
@@ -96,7 +85,7 @@ def get_suggestion(args):
 			if suggestion_word.lower() not in suggestions:
 				suggestions.add(suggestion_word.lower())
 				if first_letter:
-					suggestion_word = suggestion_word.title()
+					suggestion_word = string.capwords(suggestion_word)
 				output += str(suggestion_count).encode('UTF-8')
 				output += suggestion_word.encode('UTF-8')
 				output += u";".encode('UTF-8')
@@ -104,8 +93,6 @@ def get_suggestion(args):
 				if i >= max_suggestions:
 					break
 
-
-	#output = "0Hel;;8hello;8he's;8her;8here;8here's;7he'll;"
 	return output
 
 print get_suggestion(sys.argv)
