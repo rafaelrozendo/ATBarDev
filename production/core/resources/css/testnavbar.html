@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Fixed Top Navbar Example for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <!--<link href="blue.css" rel="stylesheet">-->
+    <!--<link href="pink.css" rel="stylesheet">-->
+
+    <script type="text/javascript">
+
+    // *** TO BE CUSTOMISED ***
+
+var style_cookie_name = "style" ;
+var style_cookie_duration = 30 ;
+
+// *** END OF CUSTOMISABLE SECTION ***
+// You do not need to customise anything below this line
+
+function switch_style ( css_title )
+{
+// You may use this script on your site free of charge provided
+// you do not remove this notice or the URL below. Script from
+// http://www.thesitewizard.com/javascripts/change-style-sheets.shtml
+  var i, link_tag ;
+  for (i = 0, link_tag = document.getElementsByTagName("link") ;
+    i < link_tag.length ; i++ ) {
+    if ((link_tag[i].rel.indexOf( "stylesheet" ) != -1) &&
+      link_tag[i].title) {
+      link_tag[i].disabled = true ;
+      if (link_tag[i].title == css_title) {
+        link_tag[i].disabled = false ;
+      }
+    }
+    set_cookie( style_cookie_name, css_title,
+      style_cookie_duration );
+  }
+}
+function set_style_from_cookie()
+{
+  var css_title = get_cookie( style_cookie_name );
+  if (css_title.length) {
+    switch_style( css_title );
+  }
+}
+function set_cookie ( cookie_name, cookie_value,
+    lifespan_in_days, valid_domain )
+{
+    // http://www.thesitewizard.com/javascripts/cookies.shtml
+    var domain_string = valid_domain ?
+                       ("; domain=" + valid_domain) : '' ;
+    document.cookie = cookie_name +
+                       "=" + encodeURIComponent( cookie_value ) +
+                       "; max-age=" + 60 * 60 *
+                       24 * lifespan_in_days +
+                       "; path=/" + domain_string ;
+    console.log("set cookie");
+}
+function get_cookie ( cookie_name )
+{
+    // http://www.thesitewizard.com/javascripts/cookies.shtml
+    var cookie_string = document.cookie ;
+    if (cookie_string.length != 0) {
+        var cookie_value = cookie_string.match (
+                        '(^|;)[\s]*' +
+                        cookie_name +
+                        '=([^;]*)' );
+        return decodeURIComponent ( cookie_value[2] ) ;
+    }
+    return '' ;
+}
+
+
+    </script>
+
+    <!-- Custom styles for this template -->
+    
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--<script src="../../assets/js/ie-emulation-modes-warning.js"></script>-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top" >
+      <a class="navbar-brand" href="#"><img src="atbar-beta.png"></img></a> 
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a title = "Aumentar tamanho da fonte" href="#"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></a></li>
+          <li><a title = "Reduzir tamanho da fonte" href="#about"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-font" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-check" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-volume-up" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-lamp" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></li>
+          <li><a href="#contact"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a></li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-certificate" aria-hidden="true"></span> <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Sem overlay</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Amarelo</a></li>
+              <li><a href="#">Vermelho</a></li>
+              <li><a href="#">Azul</a></li>
+              <li><a href="#">Vede</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"><img src="../img/help.png"></img></span></a></li>
+          <!--<li><a href="#"><img src="../img/help.png"></img></a></li>-->
+          <li><a href="#"><span class="glyphicon glyphicon-retweet" aria-hidden="true"></span></a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="jumbotron">
+        <h1>Navbar example</h1>
+        <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
+        <p>To see the difference between static and fixed top navbars, just scroll.</p>
+
+        <form>
+<input type="submit" onclick="switch_style('blue');return false;" name="theme" value="Blue Theme" id="blue">
+<input type="submit" onclick="switch_style('pink');return false;" name="theme" value="Pink Theme" id="pink">
+</form>
+        <p>
+          <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
+        </p>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <!--<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>-->
+  </body>
+</html>

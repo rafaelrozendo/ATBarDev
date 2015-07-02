@@ -1,0 +1,72 @@
+@media only screen and (min-width: 750px)
+{
+	#at-collapse
+	{
+		display: inline!important;
+		padding: 0;
+		width:initial;
+		-webkit-box-sizing: content-box;
+		-moz-box-sizing: content-box;
+		box-sizing: content-box;
+		height:initial;
+		width:initial;
+		margin:0px;
+		padding:0;
+		border:0;
+		vertical-align:baseline;
+		font-size: initial;
+		font: inherit;
+		float:none;
+		line-height:initial;
+		color:initial;
+	}
+
+	#at-btn-atkit-toggle
+	{
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 750px)
+{
+	#at-collapse
+	{
+		display: none;
+		position: fixed;
+		left: 0;
+		top: 40px;
+		width:100%;
+		padding: 0 0 5px 0;
+		background-color:#ccc;
+	}
+
+	#at-btn-atkit-toggle
+	{
+		display: inline!important;
+	}
+	
+	#at-facebox
+	{
+		top: 40px!important;
+		left: 0!important;
+		width: 100%!important;
+		font-size: 15px!important;
+		overflow-x:auto!important;
+		position: fixed!important;
+	}
+	
+	.at-fb-content
+	{
+		min-width: 250px!important;
+	}
+}
+
+.at-visible
+{
+	display: inline!important;
+}
+
+.at-hidden
+{
+	display: none!important;
+}

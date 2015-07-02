@@ -1,7 +1,8 @@
 if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
-	
-	d=document;jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	d=document;
+	//jf1=d.createElement('script');jf1.src='http://localhost/production/core/resources/jquery/1.9.1/jquery.min.js';jf1.type='text/javascript';jf1.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf1);
+	jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit2.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
 
 	window.AtKitLoaded = function(){
 		var eventAction = null;

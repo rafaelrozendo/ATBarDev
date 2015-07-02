@@ -29,6 +29,12 @@
 
 !/production/core/atkit
 
+!/production/core/resources
+/production/core/resources/*
+!/production/core/resources/css
+!/production/core/resources/jquery
+
+
 !/production/core/plugins
 /production/core/plugins/*
 !/production/core/plugins/dist
