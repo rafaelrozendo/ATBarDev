@@ -219,7 +219,7 @@
 					
 					}, 500);
 				});
-			}
+			}, null, null, {'cssClass':'glyphicon glyphicon-pencil'}
 		);
 
 	};

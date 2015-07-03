@@ -56,7 +56,7 @@
 			function(dialogs, functions){
 				AtKit.call('resizeText', '1');
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-zoom-in'}
 		);
 		
 		AtKit.addButton(
@@ -66,7 +66,7 @@
 			function(dialogs, functions){
 				AtKit.call('resizeText', '-1');
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-zoom-out'}
 		);
 
 	}

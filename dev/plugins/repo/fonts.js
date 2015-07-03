@@ -69,7 +69,7 @@
 				
 				$lib("#sbfontface").focus();
 			},
-			fontDialogs, null
+			fontDialogs, null, {'cssClass':'glyphicon glyphicon-font'}
 		);
 
 	}

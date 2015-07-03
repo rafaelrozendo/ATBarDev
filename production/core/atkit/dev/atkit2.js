@@ -25,9 +25,8 @@
 			__APIURL: "http://a.atbar.org/", // API endpoint
 			__pluginURL: "http://localhost/dev/plugins/", // Plugins location
 			__faceboxURL: "http://localhost/production/core/resources/js/facebox.dev.js", // Facebox JS lib
-			__requireURL: "http://localhost/production/core/resources/js/require.js",
-			__libURL: "http://localhost/production/core/resources/jquery/1.9.1/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
-			__bootstrapJsURL: "http://localhost/production/core/resources/js/bootstrap.js",
+			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			__bootstrapJsURL: "http://localhost/production/core/resources/js/bootstrap.min.js",
 			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
 			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
@@ -73,7 +72,9 @@
 			},
 			debugCallback: null,
 			language:'en',
-			defaultLanguage: 'en'
+			defaultLanguage: 'en',
+			defaultIconMode: 0,
+			iconMode: 1
 		}
 	
 		AtKit.internal.__resourceURL = AtKit.internal.__baseURL;
@@ -109,7 +110,7 @@
 				"barGhost": "<center><img src=\"" + AtKit.internal.__assetURL + "img/loading.gif\" style=\"margin-top:10px;\" /></center>",
 				"barFailed": "<center>library loading failed</center>",
 				//"button": '<div id="at-btn-(ID)" title="(TITLE)" class="at-btn (CLASS)"><a title="(TITLE)" id="at-lnk-(ID)" href="#ATBarLink"><img src="(SRC)" alt="(TITLE)" height="16" width="16" border="0" /></a></div>',
-				"button": '<li><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)"><span title="(TITLE)" id="at-btn-(ID)" class="(CLASS)" aria-hidden="true"><img src="(SRC)" alt="(TITLE)" /></img></a></div></li>',
+				"button": '<li><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)"><span title="(TITLE)" id="at-btn-(ID)" class="(CLASS)" aria-hidden="true">(SRC)</a></div></li>',
 				"spacer": '<div class="at-spacer"></div>',
 				"separator": '<div class="at-separator at-separator-(ID)"></div>'
 			},
@@ -224,7 +225,7 @@
 			// Do we have a jQuery library loaded already?
 			
 			// load the custom built responsive css. We did not use bootstrap because there might a version conflict
-			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );
+			//attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );
 			
 			if(typeof window.jQuery != "undefined"){
 				try {
@@ -260,15 +261,17 @@
 			attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
 			attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {
 				//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-				setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
+				//setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
 			} );
 			//window.$ = window.jQuery = require(__libURL);
+
+			setTimeout(function(){ alert("hello"); }, 100);
 			
 			var loadJquery = function() {
 				attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
 				alert("carregou");
 			}
-			//setTimeout(function(){ loadJquery }, 100);
+			
 
 			//alert("Script loaded and executed.");
 			// here you can use anything you defined in the loaded script
@@ -277,7 +280,7 @@
 			
 			// load bootstrap
 			console.log("vai carregar bootstrap");
-			//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL );
+			attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL );
 			//attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
 			console.log("carregou bootstrap");
 			
@@ -348,9 +351,9 @@
 			// Replace in the template.
 			b = b.replace(/\(ID\)/ig, ident);
 			b = b.replace(/\(TITLE\)/ig, API.__env.buttons[ident].tooltip);
-			b = b.replace(/\(SRC\)/ig, API.__env.buttons[ident].icon);
-			b = b.replace(/\(CLASS\)/ig, API.__env.buttons[ident].cssClass)
-	
+			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img src="+ API.__env.buttons[ident].icon +" /></img>" : "");
+			b = b.replace(/\(CLASS\)/ig, (AtKit.internal.iconMode === 1) ? API.__env.buttons[ident].cssClass : "");
+
 			// jQuery'ify
 			b = API.$(b);
 	
@@ -367,11 +370,11 @@
 			
 			// Emulate CSS active, hover, etc.
 			b.children('a').bind('focus', function(){
-				API.$(this).attr('style', API.$(this).attr('style') + API.__CSS[".at-btn a:active"]);
+				//API.$(this).attr('style', API.$(this).attr('style') + API.__CSS[".at-btn a:active"]);
 			});
 			
 			b.children('a').bind('focusout', function(){
-				API.$(this).attr('style', API.__CSS[".at-btn a"]);
+				//API.$(this).attr('style', API.__CSS[".at-btn a"]);
 			});
 			
 			// Commit the HTML
@@ -414,32 +417,40 @@
 			
 			API.$("<img>", { "src": "https://misc.services.atbar.org/stats/stat.php?channel=" + AtKit.internal.__channel + "-" + API.settings.name + "&version=" + AtKit.internal.__version.toFixed(1) + "." + AtKit.internal.__build, "alt": " " }).appendTo("#sbar");
 			
-			
-			// add the close button (if we have been told to use this)
-			if( API.settings.allowclose ){
-				API.addButton('atkit-unload', API.localisation("exit"), AtKit.internal.__assetURL + 'img/close.png', function(){ API.close(); }, null, null, {'cssClass':'fright'});
-			}
-					
-			// add the reset button (if we have been told to use this)
-			if( API.settings.allowreset ){
-				API.addButton('atkit-reset', API.localisation("reset"), AtKit.internal.__assetURL + 'img/reset.png', function(){ API.reset(); }, null, null, {'cssClass':'fright'});
-			}
-			
 			// add the help button (if we have been told to use this)
 			if( API.settings.allowhelp ){
-				API.addButton('atkit-help', API.localisation("help"), AtKit.internal.__assetURL + 'img/help.png', function(){ API.help(); }, null, null, {'cssClass':'fright'});
+				API.addButton('atkit-help', API.localisation("help"), AtKit.internal.__assetURL + 'img/help.png', function(){ API.help(); }, null, null, {'cssClass':'glyphicon glyphicon-question-sign', 'allign':'right'});
 			}
-			
+
+			// add the reset button (if we have been told to use this)
+			if( API.settings.allowreset ){
+				API.addButton('atkit-reset', API.localisation("reset"), AtKit.internal.__assetURL + 'img/reset.png', function(){ API.reset(); }, null, null, {'cssClass':'glyphicon glyphicon-retweet', 'allign':'right'});
+			}
+
+			// add the close button (if we have been told to use this)
+			if( API.settings.allowclose ){
+				API.addButton('atkit-unload', API.localisation("exit"), AtKit.internal.__assetURL + 'img/close.png', function(){ API.close(); }, null, null, {'cssClass':'glyphicon glyphicon-remove', 'allign':'right'});
+			}
+						
 			// Add a collapsible container before adding the plugin buttons.
 			//API.$( API.$('<div>', { id: 'at-collapse' }) ).appendTo("#sbar");
 			API.$(
 				API.$("<div>", { id: 'at-collapse-parent', class: 'navbar-collapse collapse' }).append(
-					API.$("<ul>", { id: 'at-collapse', class: 'nav navbar-nav' }) 
+					API.$("<ul>", { id: 'at-collapse', class: 'nav navbar-nav'}) 
 				)
 			).appendTo('#sbar');
+
+			API.$("<ul>", { id: "at-right-buttons", class: "nav navbar-nav navbar-right" }).appendTo("#at-collapse-parent");
 			
 			// Add a button that collapses the toolbar plugin buttons when in small devices.
-			API.addButton('atkit-toggle', API.localisation("collapse"), AtKit.internal.__assetURL + 'img/collapse.gif', function(){
+			API.$("<button>", {type:"button", id: "at-btn-atkit-toggle", class: "navbar-toggle collapsed", "data-toggle":"collapse", "data-target":"#at-collapse-parent", "aria-expanded":"false", "aria-controls":"at-collapse-parent" }).appendTo("#sbar");
+			API.$("<span>", { class: "sr-only"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+
+
+			/*API.addButton('atkit-toggle', API.localisation("collapse"), AtKit.internal.__assetURL + 'img/collapse.gif', function(){
 				if($('#at-collapse').is(':visible'))
 				{
 					$('#at-collapse').slideUp('fast', function(){
@@ -454,12 +465,12 @@
 						$('#at-collapse').removeClass('at-hidden');
 					});
 				}
-			}, null, null, {'cssClass':'fright'});
+			}, null, null, {'cssClass':'fright'});*/
 			
 			// Add buttons. Only add the plugin buttons to the collapsible div
 			for(b in API.__env.buttons){
-				if(API.__env.buttons[b].cssClass == 'fright')
-					API.$( renderButton(b) ).appendTo('#sbar');
+				if(API.__env.buttons[b].allign == 'right')
+					API.$( renderButton(b) ).appendTo('#at-right-buttons');
 				else
 					API.$( renderButton(b) ).appendTo('#at-collapse');
 			}
@@ -813,9 +824,11 @@
 			API.__env.buttons[identifier] = { 'icon': icon, 'tooltip': tooltip, 'action': action, 'dialogs': dialogs, 'functions': functions };
 			
 			if(options != null) API.__env.buttons[identifier] = API.$.extend(true, API.__env.buttons[identifier], options);
+			else console.log("nao tem options");
 	
 			if(AtKit.internal.__invoked){
-				//If the toolbar buttons have already been rendered 
+				//If the toolbar buttons have already been rendered
+				console.log("vsf"); 
 				API.$( renderButton(identifier) ).appendTo('#at-collapse');
 				applyCSS();
 			}
@@ -990,6 +1003,13 @@
 			if(typeof API.$ == 'function') return API.$;
 			if(typeof API.$ == 'string' && typeof window.jQuery == 'function') return window.jQuery;
 			return false;
+		}
+
+		API.setIconMode = function(iconMode){
+			if (iconMode === 0 || iconMode === 1)
+				AtKit.internal.iconMode = iconMode;
+			else
+				AtKit.internal.iconMode = AtKit.internal.defaultIconMode;
 		}
 		
 		// Toolbar calls this to render the bar.

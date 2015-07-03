@@ -109,7 +109,7 @@
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-book'}
 		);
 
 		

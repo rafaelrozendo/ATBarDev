@@ -7,7 +7,7 @@
 			'baseURL': 'https://styles.services.atbar.org/css/'
 		};
 
-		var reset_colour = "#EBEAED";
+		var reset_colour = "#F8F8F8";
 		
 		$lib = AtKit.lib();		
 
@@ -270,7 +270,7 @@
 
 				changeBackgroundColour();
 			}, 
-			CSSDialogs, CSSFunctions
+			CSSDialogs, CSSFunctions, {'cssClass':'glyphicon glyphicon-eye-open'}
 		);		
 
 	}
@@ -409,7 +409,7 @@
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-book'}
 		);
 
 		
@@ -984,7 +984,7 @@
 					//AtKit.call('sbStartInsipioTTSSelection', { 'voice':'female' });
 				});*/			
 			},
-			TTSDialogs, TTSFunctions//, TTSExtendedObject
+			TTSDialogs, TTSFunctions, {'cssClass':'glyphicon glyphicon-volume-up'}//, TTSExtendedObject
 		);
 		
 		if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))
@@ -1097,7 +1097,7 @@
 				
 				$lib("#sbfontface").focus();
 			},
-			fontDialogs, null
+			fontDialogs, null, {'cssClass':'glyphicon glyphicon-font'}
 		);
 
 	}
@@ -1287,7 +1287,7 @@
 				}
 				
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-certificate'}
 		);
 	};
 
@@ -1336,7 +1336,7 @@
 			function(dialogs, functions){
 				window.readabilityToken='';
 				AtKit.addScript(document.location.protocol + "//www.readability.com/bookmarklet/read.js");
-			}
+			}, null, null, {'cssClass':'glyphicon glyphicon-lamp'}
 		);
 
 	}
@@ -1422,7 +1422,7 @@
 			function(dialogs, functions){
 				AtKit.call('resizeText', '1');
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-zoom-in'}
 		);
 		
 		AtKit.addButton(
@@ -1432,7 +1432,7 @@
 			function(dialogs, functions){
 				AtKit.call('resizeText', '-1');
 			},
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-zoom-out'}
 		);
 
 	}
@@ -1947,7 +1947,9 @@
 						}	
 					});
 				});
-			});
+			}, null, null,
+			{'cssClass':'glyphicon glyphicon-check'}
+			);
 	};
 
 	if(typeof window['AtKit'] == "undefined"){
@@ -2482,7 +2484,7 @@
 					
 					}, 500);
 				});
-			}
+			}, null, null, {'cssClass':'glyphicon glyphicon-pencil'}
 		);
 
 	};

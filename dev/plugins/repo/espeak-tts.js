@@ -540,7 +540,7 @@
 					//AtKit.call('sbStartInsipioTTSSelection', { 'voice':'female' });
 				});*/			
 			},
-			TTSDialogs, TTSFunctions//, TTSExtendedObject
+			TTSDialogs, TTSFunctions, {'cssClass':'glyphicon glyphicon-volume-up'}//, TTSExtendedObject
 		);
 		
 		if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))

@@ -433,7 +433,9 @@
 						}	
 					});
 				});
-			});
+			}, null, null,
+			{'cssClass':'glyphicon glyphicon-check'}
+			);
 	};
 
 	if(typeof window['AtKit'] == "undefined"){

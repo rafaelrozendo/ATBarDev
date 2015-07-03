@@ -19,7 +19,7 @@
 			function(dialogs, functions){
 				window.readabilityToken='';
 				AtKit.addScript(document.location.protocol + "//www.readability.com/bookmarklet/read.js");
-			}
+			}, null, null, {'cssClass':'glyphicon glyphicon-lamp'}
 		);
 
 	}

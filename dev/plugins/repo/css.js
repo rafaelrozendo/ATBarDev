@@ -7,7 +7,7 @@
 			'baseURL': 'https://styles.services.atbar.org/css/'
 		};
 
-		var reset_colour = "#EBEAED";
+		var reset_colour = "#F8F8F8";
 		
 		$lib = AtKit.lib();		
 
@@ -270,7 +270,7 @@
 
 				changeBackgroundColour();
 			}, 
-			CSSDialogs, CSSFunctions
+			CSSDialogs, CSSFunctions, {'cssClass':'glyphicon glyphicon-eye-open'}
 		);		
 
 	}
