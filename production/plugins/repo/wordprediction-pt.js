@@ -63,8 +63,8 @@
 			AtKit.localisation("wp_title"),
 			AtKit.getPluginURL() + 'images/aitype.png',
 			function(dialogs, functions){
-				
-				$lib('#at-btn-wordprediction').attr('class', 'active');			
+
+				$lib('#at-btn-wordprediction').attr('class', 'active');
 
 				ctrlModifier = false;
 				altModifier = false;

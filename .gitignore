@@ -12,6 +12,9 @@
 !/production
 /production/*
 !/production/core
+!/production/plugins
+/production/plugins/*
+!/production/plugins/repo
 /production/core/*
 !/production/core/atbar
 /production/core/atbar/*

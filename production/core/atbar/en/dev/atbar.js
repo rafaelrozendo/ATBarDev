@@ -2,7 +2,7 @@ if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
 	
 	//d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
-	d=document;jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	d=document;jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit2.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
 	window.AtKitLoaded = function(){
 		var eventAction = null;
 		

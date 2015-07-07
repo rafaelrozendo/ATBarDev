@@ -1258,28 +1258,28 @@
 						AtKit.getPluginURL() + 'images/overlay-yellow.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayYellow', {});
-						});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'yellow'});
 					
 					AtKit.addButton('overlayRed', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_red"),
 						AtKit.getPluginURL() + 'images/overlay-red.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayRed', {});
-						});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'red'});
 					
 					AtKit.addButton('overlayBlue', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_blue"),
 						AtKit.getPluginURL() + 'images/overlay-blue.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayBlue', {});
-						});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'blue'});
 					
 					AtKit.addButton('overlayGreen', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_green"),
 						AtKit.getPluginURL() + 'images/overlay-green.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayGreen', {});
-						});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'green'});
 				}
 				else{
 					overlayRunning = 0;
@@ -2328,6 +2328,8 @@
 			AtKit.localisation("wp_title"),
 			AtKit.getPluginURL() + 'images/aitype.png',
 			function(dialogs, functions){
+				
+				$lib('#at-btn-wordprediction').attr('class', 'active');			
 
 				ctrlModifier = false;
 				altModifier = false;

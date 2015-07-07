@@ -131,7 +131,7 @@
 						AtKit.getPluginURL() + 'images/overlay-yellow.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayYellow', {});
-						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'yellow'});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'#FFCC00'});
 					
 					AtKit.addButton('overlayRed', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_red"),

@@ -1,6 +1,6 @@
 (function(){
 
-	var pluginName = "wordprediction-pt";
+	var pluginName = "wordprediction";
 	var plugin = function(){
 
 		$lib = AtKit.lib();
@@ -8,6 +8,17 @@
 		var wpTimeout;
 
 		// Internationalisation
+		AtKit.addLocalisationMap("en", {
+			"wp_title" : "Word Prediction",
+			"wp_ignore": "Ignore",
+			"wp_instruct": "Keystrokes: esc to close, Ctrl + Alt + (1, 2, 3 etc)"
+		});
+
+		AtKit.addLocalisationMap("ar", {
+			"wp_title" : "&#1578;&#1588;&#1594;&#1610;&#1604; &#1605;&#1602;&#1578;&#1585;&#1581; &#1575;&#1604;&#1603;&#1604;&#1605;&#1575;&#1578;",
+			"wp_ignore": "&#1578;&#1580;&#1575;&#1607;&#1604;",
+			"wp_instruct": "&#1605;&#1601;&#1575;&#1578;&#1610;&#1581;: Esc &#1604;&#1604;&#1582;&#1585;&#1608;&#1580;&#1548; Ctrl+Alt+(1,2,3...)"	
+		});
 		
 		AtKit.addLocalisationMap("pt", {
 			"wp_title" : "Predição de palavras",
@@ -63,8 +74,8 @@
 			AtKit.localisation("wp_title"),
 			AtKit.getPluginURL() + 'images/aitype.png',
 			function(dialogs, functions){
-				
-				$lib('#at-btn-wordprediction').attr('class', 'active');			
+
+				$lib('#at-btn-wordprediction').attr('class', 'active');
 
 				ctrlModifier = false;
 				altModifier = false;
@@ -90,12 +101,21 @@
 						var leadingText = elData.substring(0, pos).split(" ").slice(-6).join(" ");
 						var trailingText = elData.substring(pos).split(" ").slice(0, 2).join(" ");
 						
-						var predictURL = "http://localhost/production/core/atbar/pt/dev/server-services/predict/wordpredictionpt/";
+						var predictURL = "https://predict.services.atbar.org/wordprediction/";
 
-						predictURL += "?l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
+						if(AtKit.getLanguage() == "ar") {
+							predictURL += "?lang=AR";
+						} 
+						else if(AtKit.getLanguage() == "pt") {
+							predictURL += "?lang=PT_BR";
+						} 
+						else {
+							predictURL += "?lang=EN";
+						}
+
+						predictURL += "&l=" + encodeURIComponent(leadingText) + "&t=" + encodeURIComponent(trailingText) + "&callback=?";
 						
 						$lib.getJSON(predictURL, function(response){
-							
 							var data = response.payload.split(";");
 							
 							var input = data.splice(0, 2);
@@ -110,6 +130,7 @@
 							var pos = el.position();
 							var width = el.width();
 							var height = el.outerHeight();
+
 
 							var suggestions = "";
 
@@ -217,7 +238,7 @@
 								}	
 							});
 
-						}); //get response
+						});
 					
 					}, 500);
 				});
