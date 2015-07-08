@@ -44,19 +44,22 @@
 					"exit": "Exit",
 					"reset": "Reset webpage",
 					"help": "Help & instructions",
-					"collapse": "Collapse and uncollapse plugins"
+					"collapse": "Collapse and uncollapse plugins",
+					"closemodal": "Close"
 				},
 				"ar": {
 					"exit": "&#1582;&#1585;&#1608;&#1580;",
 					"reset": "&#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1605;&#1580;&#1583;&#1583;&#1575;",
 					"help": "&#1605;&#1587;&#1575;&#1593;&#1583;&#1577; &#1608; &#1605;&#1593;&#1604;&#1608;&#1605;&#1575;&#1578; &#1575;&#1590;&#1575;&#1601;&#1610;&#1577;",
-					"collapse": "&#1593;&#1585;&#1590; &#1571;&#1608; &#1573;&#1582;&#1601;&#1575;&#1569; &#1575;&#1604;&#1604;&#1575;&#1574;&#1581;&#1577;"
+					"collapse": "&#1593;&#1585;&#1590; &#1571;&#1608; &#1573;&#1582;&#1601;&#1575;&#1569; &#1575;&#1604;&#1604;&#1575;&#1574;&#1581;&#1577;",
+					"closemodal": "&#1582;&#1585;&#1608;&#1580;"
 				},
 				"pt": {	
 					"exit": "Sair",
 					"reset": "Atualizar página",
 					"help": "Ajuda e instruções",
-					"collapse": "Collapse and uncollapse plugins"
+					"collapse": "Collapse and uncollapse plugins",
+					"closemodal": "Fechar"
 				}
 			},
 			templates:{
@@ -111,7 +114,7 @@
 				"barGhost": "<center><img src=\"" + AtKit.internal.__assetURL + "img/loading.gif\" style=\"margin-top:10px;\" /></center>",
 				"barFailed": "<center>library loading failed</center>",
 				//"button": '<div id="at-btn-(ID)" title="(TITLE)" class="at-btn (CLASS)"><a title="(TITLE)" id="at-lnk-(ID)" href="#ATBarLink"><img src="(SRC)" alt="(TITLE)" height="16" width="16" border="0" /></a></div>',
-				"button": '<li id="at-btn-(ID)"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true" data-toggle="modal" data-target="(MODAL)">(SRC)</a></div></li>',
+				"button": '<li id="at-btn-(ID)"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)" data-toggle="modal" data-target="(MODAL)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true">(SRC)</a></div></li>',
 				"spacer": '<div class="at-spacer"></div>',
 				"separator": '<div class="at-separator at-separator-(ID)"></div>'
 			},
@@ -335,19 +338,23 @@
 		}
 		
 		function loadFacebox(){
-			if(typeof API.$.facebox == "undefined") API.addScript(AtKit.internal.__faceboxURL);
+			//if(typeof API.$.facebox == "undefined") API.addScript(AtKit.internal.__faceboxURL);
+
+			//initialize facebox structure
 
 			API.$("<div>", { id: "at-modal", class: "modal fade", role: "dialog" }).insertAfter("#sbar");
 			API.$("<div>", { id: "at-modal-dialog", class: "modal-dialog" }).appendTo("#at-modal");
 			API.$("<div>", { id: "at-modal-content", class: "modal-content" }).appendTo("#at-modal-dialog");
 			API.$("<div>", { id: "at-modal-header", class: "modal-header" }).appendTo("#at-modal-content");
 			API.$("<button>", {id: "at-modal-x-btn" , type:"button", class: "close", 'data-dismiss':"modal" }).appendTo("#at-modal-header");
-			API.$("<h4>", { id: "at-modal-title", class: "modal-title" }).appendTo("#at-modal-header");
+			API.$("<h1>", { id: "at-modal-title", class: "modal-title" }).appendTo("#at-modal-header");
 			API.$("<div>", { id: "at-modal-body", class: "modal-body" }).appendTo("#at-modal-content");
 			API.$("<div>", { id: "at-modal-footer", class: "modal-footer" }).appendTo("#at-modal-content");
-			API.$("<button>", {type:"button", class: "btn btn-default", 'data-dismiss':"modal" }).appendTo("#at-modal-footer");
+			API.$("<button>", {id:"at-modal-close-btn", type:"button", class: "btn btn-default", 'data-dismiss':"modal" }).appendTo("#at-modal-footer");
 
-			//$lib('#at-modal-x-btn').html("&times;");
+			API.$('#at-modal-close-btn').html(API.localisation("closemodal"));
+			API.$('#at-modal-x-btn').html("&times;");
+
 		}
 
 		function broadcastLoaded(){
@@ -443,7 +450,7 @@
 				)
 			).appendTo('#sbar');*/
 			API.$(
-				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', click: function(){ showAbout() } }).append(
+				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', 'data-toggle':"modal", 'data-target':"#at-modal", click: function(){ showAbout() } }).append(
 					API.$("<img>", { "src": API.settings.logoURL, "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo" }) 
 				)
 			).appendTo('#sbar');
@@ -626,7 +633,7 @@
 		
 		function showAbout(){
 			// Create the dialog
-			AtKit.internal.__aboutDialog.HTML = "<h2>About " + API.settings.name + "</h2>";
+			AtKit.internal.__aboutDialog.HTML = "";
 			
 			// Append user text
 			AtKit.internal.__aboutDialog.HTML += "<p id='ATKFBUserSpecifiedAbout'>" + API.settings.about + "</p>";
@@ -640,7 +647,7 @@
 				AtKit.internal.__aboutDialog.HTML += "<br /> Registered plugins: ";
 
 				plugins.map(function(el, index, fullList){
-					AtKit.internal.__aboutDialog.HTML += "<button class='pluginLink'>" + el + "</button>";
+					AtKit.internal.__aboutDialog.HTML += "<button class='btn btn-default'>" + el + "</button>";
 				});
 			}
 			
@@ -649,7 +656,7 @@
 			// Convert to jQuery object & wrap
 			AtKit.internal.__aboutDialog.HTML = API.$("<div>", { id: "ATKFBAbout" }).append(AtKit.internal.__aboutDialog.HTML);
 
-			API.message(AtKit.internal.__aboutDialog.HTML);
+			API.message("About " + API.settings.name, AtKit.internal.__aboutDialog.HTML);
 			applyCSS(AtKit.internal.__aboutDialog.CSS);
 		}
 		
@@ -961,7 +968,7 @@
 		
 		// Pass in a dialog and we'll format it and show to the users.
 		API.show = function(dialog, callback){
-			dialog = API.$("<div>", { "class": "userDialog" }).append(
+			/*dialog = API.$("<div>", { "class": "userDialog" }).append(
 				API.$('<h2>', { 'html': dialog.title }),
 				API.$("<p>", { 'html': dialog.body })
 			);
@@ -972,22 +979,33 @@
 			
 			applyCSS();
 			
-			if(typeof callback != "null" && typeof callback != "undefined") callback();
+			if(typeof callback != "null" && typeof callback != "undefined") callback();*/
+			API.$("#at-modal-title").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-title").html(dialog.title);
+			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-body").html(dialog.body);
 		}
 		
 		// Show message not stored in a dialog object.
-		API.message = function(data, callback){
-			API.$('body').find('.facebox_hide').remove();
+		API.message = function(title, data, callback){
+			/*API.$('body').find('.facebox_hide').remove();
 
 			API.$.facebox(data);
 			
 			applyCSS();
 			
-			if(typeof callback != "null" && typeof callback != "undefined") callback();
+			if(typeof callback != "null" && typeof callback != "undefined") callback();*/
+			API.$("#at-modal-title").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-title").html(title);
+			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-body").html(data);
 		}
 		
 		API.hideDialog = function(){
-			API.$(window.document).trigger('close.facebox');
+			//API.$(window.document).trigger('close.facebox');
+			API.$('#at-modal').modal('hide');
+			API.$("#at-modal-title").html("");
+			API.$("#at-modal-body").html("");
 		}
 		
 		// Call a global function

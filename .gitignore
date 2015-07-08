@@ -15,6 +15,11 @@
 !/production/plugins
 /production/plugins/*
 !/production/plugins/repo
+!/production/plugins/app
+/production/plugins/app/*
+!/production/plugins/app/classes
+/production/plugins/app/classes/*
+!/production/plugins/app/classes/compiler.class.php
 /production/core/*
 !/production/core/atbar
 /production/core/atbar/*

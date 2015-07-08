@@ -73,7 +73,7 @@
 		var TTSDialogs = {
 			"options": {
 				"title": AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\"> " + AtKit.localisation("tts_male") + "</button>"
+				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_male") + "</button>"
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
@@ -281,18 +281,18 @@
 			$lib.getJSON(urlString, function(RO){
 				$lib("#compactStatus").html(args.block + " / " + args.totalBlocks);
 				
-				var errorTitle = "<h2>" + AtKit.localisation("tts_error") + "</h2>";
+				var errorTitle = AtKit.localisation("tts_error");
 				if(args.block == args.totalBlocks){
 					// Finished request..
 					AtKit.show(TTSDialogs.starting);
 					if(RO.status == "encoding"){
 						AtKit.call('countdownInsipioTTS', { 'timeLeft':(RO.est_completion / RO.chunks), 'id': RO.ID });
 					} else if(RO.status == "failure" && RO.reason == "overcapacity"){
-						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_overloaded") + "</p>");
+						AtKit.message(errorTitle , AtKit.localisation("tts_overloaded"));
 					} else if(RO.status == "failure" && RO.message === "") {
-						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_problem") + "</p>");
+						AtKit.message(errorTitle , AtKit.localisation("tts_problem"));
 					} else {
-						AtKit.message(errorTitle + "<p>" + RO.reason + " " + RO.data.message + "</p>");
+						AtKit.message(errorTitle , RO.reason + " " + RO.data.message );
 					}
 
 				} else {
@@ -300,7 +300,7 @@
 					if(RO.data.message == "ChunkSaved"){
 						AtKit.call('sendInsipioTTSChunk', { 'fullData':args.fullData, 'block':(args.block + 1), 'totalBlocks':args.totalBlocks, 'reqID':args.reqID });
 					} else {
-						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_servererror") + "</p>");
+						AtKit.message(errorTitle , AtKit.localisation("tts_servererror"));
 					}
 				}
 				
@@ -310,7 +310,7 @@
 		
 		AtKit.addFn('countdownInsipioTTS', function(arg){
 			if(isNaN(arg.timeLeft)){
-				AtKit.message("<h2>" + AtKit.localisation("tts_error") + "</h2> <p>" + AtKit.localisation("tts_problem") + "</p>");
+				AtKit.message(AtKit.localisation("tts_error"), AtKit.localisation("tts_problem"));
 			} else {
 				if(arg.timeLeft == 0){
 
@@ -462,15 +462,15 @@
 				if(chunks > 0){
 					var reqID = Math.floor(Math.random() * 5001);
 					
-					AtKit.message( "<h2>" + AtKit.localisation("tts_pleasewait") + "</h2><p>" + AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
+					AtKit.message(AtKit.localisation("tts_pleasewait") , AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div>" );
 					
 					AtKit.call('sendInsipioTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID, 'voice':args.voice });
 				} else {
-					AtKit.message( "<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_problem") + "</p>" );
+					AtKit.message(AtKit.localisation("tts_error"), AtKit.localisation("tts_problem") );
 				}
 				
 			} else {
-				AtKit.message("<h2>" + AtKit.localisation("tts_title") + "</h2><p>" + AtKit.localisation("tts_explain") + "</p>");
+				AtKit.message(AtKit.localisation("tts_title"), AtKit.localisation("tts_explain"));
 			}
 		
 		});
@@ -540,7 +540,7 @@
 					//AtKit.call('sbStartInsipioTTSSelection', { 'voice':'female' });
 				});*/			
 			},
-			TTSDialogs, TTSFunctions, {'cssClass':'glyphicon glyphicon-volume-up'}//, TTSExtendedObject
+			TTSDialogs, TTSFunctions, {'cssClass':'glyphicon glyphicon-volume-up', 'modal':'true'}//, TTSExtendedObject
 		);
 		
 		if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))

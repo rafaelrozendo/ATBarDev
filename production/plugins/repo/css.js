@@ -114,19 +114,19 @@
 		var CSSDialogs = {
 			"main": {
 				"title":AtKit.localisation("css_changeColour"),
-				"body":"<button id=\"sbColourChange\"> " + AtKit.localisation("css_changeToolbar") + "</button> <br /><button id=\"sbChangeSiteColours\"> " + AtKit.localisation("css_changeText") + "</button><br /> <button id=\"sbAttachCSSStyle\">" + AtKit.localisation("css_changePage") + "</button>"
+				"body":"<button id=\"sbColourChange\" class=\"btn btn-default\"> " + AtKit.localisation("css_changeToolbar") + "</button> <br /><button id=\"sbChangeSiteColours\" class=\"btn btn-default\"> " + AtKit.localisation("css_changeText") + "</button><br /> <button id=\"sbAttachCSSStyle\" class=\"btn btn-default\">" + AtKit.localisation("css_changePage") + "</button>"
 			},
 			"toolbar": {
 				"title":AtKit.localisation("css_changeATbar"),
-				"body":"<label for=\"sbbackgroundcolour\">" + AtKit.localisation("css_changeBackground") + "</label><input type=\"text\" name=\"sbbackgroundcolour\" id=\"sbbackgroundcolour\"> <button id=\"sbSetColour\">" + AtKit.localisation("css_set") + "</button> <br /> <p><button onclick=\"document.getElementById('sbbackgroundcolour').value = 'black';\">" + AtKit.localisation("css_black") + "</button> <button onclick=\"document.getElementById('sbbackgroundcolour').value = 'white';\">" + AtKit.localisation("css_white") + "</button> <button onclick=\"document.getElementById('sbbackgroundcolour').value = 'grey';\">" + AtKit.localisation("css_grey") + "</button></p> <br /> <button id=\"sbRandomColour\"> " + AtKit.localisation("css_random") + "</button> <button id=\"sbColourReset\">" + AtKit.localisation("css_reset_defaults") + "</button>"
+				"body":"<label for=\"sbbackgroundcolour\">" + AtKit.localisation("css_changeBackground") + "</label><input type=\"text\" name=\"sbbackgroundcolour\" id=\"sbbackgroundcolour\"> <button id=\"sbSetColour\" class=\"btn btn-default\">" + AtKit.localisation("css_set") + "</button> <br /> <p><button class=\"btn btn-default\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'black';\">" + AtKit.localisation("css_black") + "</button> <button class=\"btn btn-default\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'white';\">" + AtKit.localisation("css_white") + "</button> <button class=\"btn btn-default\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'grey';\">" + AtKit.localisation("css_grey") + "</button></p> <br /> <button class=\"btn btn-default\" id=\"sbRandomColour\"> " + AtKit.localisation("css_random") + "</button> <button id=\"sbColourReset\" class=\"btn btn-default\">" + AtKit.localisation("css_reset_defaults") + "</button>"
 			},
 			"siteColours": {
 				"title": AtKit.localisation("css_change_linktext"),
-				"body": "<label for=\"sbtextcolour\" style=\"display:block\">" + AtKit.localisation("css_textcolour") + "</label><select id=\"sbtextcolour\" name=\"sbtextcolour\">" + colourOptions + "</select><br /><br /><label for=\"sblinkcolour\" style=\"display:block\">" + AtKit.localisation("css_linkColour") + "</label><select id =\"sblinkcolour\">" + colourOptions + "</select> <br /><br /><button id=\"applyPageColours\">" + AtKit.localisation("css_apply") + "</button>"
+				"body": "<label for=\"sbtextcolour\" style=\"display:block\">" + AtKit.localisation("css_textcolour") + "</label><select id=\"sbtextcolour\" name=\"sbtextcolour\">" + colourOptions + "</select><br /><br /><label for=\"sblinkcolour\" style=\"display:block\">" + AtKit.localisation("css_linkColour") + "</label><select id =\"sblinkcolour\">" + colourOptions + "</select> <br /><br /><button id=\"applyPageColours\" class=\"btn btn-default\">" + AtKit.localisation("css_apply") + "</button>"
 			},
 			"CSSStyles":{
 				"title": AtKit.localisation("css_change_page"),
-				"body": "<button id=\"sbApplyCSS-wb\">" + AtKit.localisation("css_black_white") + "</button><br /> <button id=\"sbApplyCSS-wbw\">" + AtKit.localisation("css_white_black") + "</button><br /> <button id=\"sbApplyCSS-yb\">" + AtKit.localisation("css_yellow_black") + "</button><br /> <button id=\"sbApplyCSS-by\">" + AtKit.localisation("css_black_yellow") + "</button><br /> <button id=\"sbApplyCSS-gw\">" + AtKit.localisation("css_white_grey") + "</button>"
+				"body": "<button id=\"sbApplyCSS-wb\" class=\"btn btn-default\">" + AtKit.localisation("css_black_white") + "</button><br /> <button id=\"sbApplyCSS-wbw\" class=\"btn btn-default\">" + AtKit.localisation("css_white_black") + "</button><br /> <button id=\"sbApplyCSS-yb\" class=\"btn btn-default\">" + AtKit.localisation("css_yellow_black") + "</button><br /> <button id=\"sbApplyCSS-by\" class=\"btn btn-default\">" + AtKit.localisation("css_black_yellow") + "</button><br /> <button id=\"sbApplyCSS-gw\" class=\"btn btn-default\">" + AtKit.localisation("css_white_grey") + "</button>"
 			}
 		};
 		
@@ -270,7 +270,7 @@
 
 				changeBackgroundColour();
 			}, 
-			CSSDialogs, CSSFunctions, {'cssClass':'glyphicon glyphicon-eye-open'}
+			CSSDialogs, CSSFunctions, {'cssClass':'glyphicon glyphicon-eye-open', 'modal':'true'}
 		);		
 
 	}

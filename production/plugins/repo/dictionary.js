@@ -82,7 +82,12 @@
 				
 				if(text == "" && stored != "") text = stored;
 				
-				var data = eval("\"" + text.split(" ").slice(0, 1) + "\";");
+				var data = "";
+
+				try {
+					data = eval("\"" + text.split(" ").slice(0, 1) + "\";");
+				} catch (err) {
+				}
 				
 				if(data != ""){
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/loading.gif");
@@ -100,16 +105,15 @@
 							}
 						}
 						
-						AtKit.message("<h2>" + AtKit.localisation("dictionary_definition") + " \"" + title + "\"</h2><div style=\"height:300px; overflow-x:scroll\">" + definition + "</div>");
+						AtKit.message(AtKit.localisation("dictionary_definition") + " \"" + title , "<div style=\"height:300px; overflow-x:scroll\">" + definition + "</div>");
 						$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 					});
-					
 				} else {
-					AtKit.message("<h2>" + AtKit.localisation("dictionary_title") + "</h2><p>" + AtKit.localisation("dictionary_use") + "</p>");
+					AtKit.message(AtKit.localisation("dictionary_title") , AtKit.localisation("dictionary_use"));
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 			},
-			null, null, {'cssClass':'glyphicon glyphicon-book'}
+			null, null, {'cssClass':'glyphicon glyphicon-book', 'modal':'true'}
 		);
 
 		

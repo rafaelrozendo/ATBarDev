@@ -97,7 +97,7 @@
 					height = '';
 				}
 				
-				AtKit.message('<h2>' + AtKit.localisation("dictionary_stemmer_definition") + ': ' + finalWord + '</h2><div style="' + height + ' overflow-x:scroll">' + message + '</div>');
+				AtKit.message(AtKit.localisation("dictionary_stemmer_definition") + ': ' + finalWord , '<div style="' + height + ' overflow-x:scroll">' + message + '</div>');
 				$lib("#at-lnk-dictionary-stemmer").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				
 			});
@@ -128,7 +128,7 @@
 					AtKit.show(dictionaryStemmerDialogs.options);
 				}
 				else{
-					AtKit.message("<h2>" + AtKit.localisation("dictionary_stemmer_title") + "</h2><p>" + AtKit.localisation("dictionary_stemmer_use") + "</p>");
+					AtKit.message(AtKit.localisation("dictionary_stemmer_title") , AtKit.localisation("dictionary_stemmer_use"));
 					$lib("#at-lnk-dictionary-stemmer").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 				
