@@ -64,7 +64,7 @@
 			"tts_problem": "Algo deu errado enquanto convertíamos essa página para voz. Por favor, tente novamente em instantes.",
 			"tts_servererror": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde.",
 			"tts_seconds": "segundos",
-			"tts_explain": "Para usar o recurso texto a voz, por favor, selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção de voz que você deseja. Se isso não funcionou e você está usando o Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
+			"tts_explain": "Para usar o recurso texto a voz, por favor, selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção de voz que você deseja. Se isso não funcionou e você está usando o Internet Explorer, copie o texto selecionado (<kbd>CTRL+C</kbd>) e tente novamente.",
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
 			"tts_male": "Masculino"
 		});

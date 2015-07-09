@@ -73,6 +73,7 @@
 			AtKit.localisation("fonts_dialogTitle"),
 			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');				
 				AtKit.message(dialogs.title, dialogs.body);
 				
 				$lib('#ATApplyFont').click(function(){

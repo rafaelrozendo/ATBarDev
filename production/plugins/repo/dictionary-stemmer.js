@@ -115,6 +115,8 @@
 			AtKit.localisation("dictionary_title"),
 			AtKit.getPluginURL() + 'images/book_open.png',
 			function(dialogs, functions){
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+				
 				var text = AtKit.call('getSelectedStemmerText');
 				var stored = AtKit.get('dictionaryStemmerSelectedData');
 				

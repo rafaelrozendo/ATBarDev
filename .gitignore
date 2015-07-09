@@ -22,6 +22,9 @@
 !/production/plugins/app/classes/compiler.class.php
 /production/core/*
 !/production/core/atbar
+!/production/core/resources
+/production/core/resources/*
+!/production/core/resources/css
 /production/core/atbar/*
 !/production/core/atbar/en
 !/production/core/atbar/ar

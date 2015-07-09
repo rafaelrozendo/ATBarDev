@@ -25,7 +25,7 @@
 			"tts_problem": "Something went wrong while we were converting this page to speech. Please try again shortly.",
 			"tts_servererror": "An error occurred on the server. Please try again later.",
 			"tts_seconds": "seconds",
-			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (CTRL+C) and try again.",
+			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (<kbd>CTRL+C</kbd>) and try again.",
 			"tts_select_voice": "Highlight text and select a voice",
 			"tts_male": "Male",
 			"tts_female": "Female"

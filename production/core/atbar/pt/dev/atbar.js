@@ -42,7 +42,7 @@ function __start(){
 		var onLoad = function(){
 		
 			// Set our logo
-			AtKit.setLogo(settings.resources + "img/atbar-beta.png");
+			AtKit.setLogo(settings.resources + "img/atbar-beta-transparent2.png");
 			AtKit.setName("ATBarPortuguese");
 			
 			AtKit.setLanguage("pt");
@@ -77,7 +77,7 @@ function __start(){
 			});	
 		
 			// Run
-			//AtKit.setIconMode(1);
+			AtKit.setIconMode(1);
 			AtKit.render();
 			
 			// Select the first button.

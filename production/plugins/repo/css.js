@@ -248,6 +248,8 @@
 			AtKit.localisation("css_title"),
 			AtKit.getPluginURL() + 'images/palette.png',
 			function(dialogs, functions){
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+				
 				AtKit.show(dialogs.main);
 				
 				$lib('#sbColourChange').click(function(){

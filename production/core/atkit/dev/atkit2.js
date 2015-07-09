@@ -26,6 +26,7 @@
 			__pluginURL: "http://localhost/production/plugins/", // Plugins location
 			__faceboxURL: "http://localhost/production/core/resources/js/facebox.dev.js", // Facebox JS lib
 			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
 			__bootstrapJsURL: "http://localhost/production/core/resources/js/bootstrap.js",
 			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
 			__awesomeFontsCssURL: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css",
@@ -78,7 +79,7 @@
 			language:'en',
 			defaultLanguage: 'en',
 			defaultIconMode: 0,
-			iconMode: 1
+			iconMode: 0 //0 = original icons, 1 = bootstrap icons
 		}
 	
 		AtKit.internal.__resourceURL = AtKit.internal.__baseURL;
@@ -113,7 +114,6 @@
 			__templates: {
 				"barGhost": "<center><img src=\"" + AtKit.internal.__assetURL + "img/loading.gif\" style=\"margin-top:10px;\" /></center>",
 				"barFailed": "<center>library loading failed</center>",
-				//"button": '<div id="at-btn-(ID)" title="(TITLE)" class="at-btn (CLASS)"><a title="(TITLE)" id="at-lnk-(ID)" href="#ATBarLink"><img src="(SRC)" alt="(TITLE)" height="16" width="16" border="0" /></a></div>',
 				"button": '<li id="at-btn-(ID)"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)" data-toggle="modal" data-target="(MODAL)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true">(SRC)</a></div></li>',
 				"spacer": '<div class="at-spacer"></div>',
 				"separator": '<div class="at-separator at-separator-(ID)"></div>'
@@ -243,8 +243,8 @@
 						debug('loaded version acceptable, using.');
 						API.$ = window.jQuery;
 						
-						// Load facebox.
-						//loadFacebox();
+						// Load modal.
+						//loadModal();
 						console.log("versao maior que 1.9");
 						broadcastLoaded();
 						needToLoadJQuery = false;
@@ -281,6 +281,7 @@
 					console.log("vai carregar bootstrap");
 					//setTimeout(loadBootstrap, 3000);
 					attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
+					attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
 					console.log("carregou bootstrap");
 					//setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
 				} );
@@ -288,7 +289,11 @@
 			else {
 				console.log("vai carregar bootstrap 2");
 				attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
+				attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
 			}
+
+			
+			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );
 			
 			//window.$ = window.jQuery = require(__libURL);
 			
@@ -329,18 +334,17 @@
 				if(typeof window._jQuery != "undefined") window.jQuery = window._jQuery;
 				if(typeof window._$ != "undefined") window.$ = window._$;
 
-				// Load facebox.
-				//loadFacebox();
+				// Load modal.
+				//loadModal();
 				
 				// Once the document is ready broadcast ready event.
 				API.$(document).ready(function(){ broadcastLoaded(); });
 			}
 		}
 		
-		function loadFacebox(){
-			//if(typeof API.$.facebox == "undefined") API.addScript(AtKit.internal.__faceboxURL);
+		function loadModal(){
 
-			//initialize facebox structure
+			//initialize modal structure
 
 			API.$("<div>", { id: "at-modal", class: "modal fade", role: "dialog" }).insertAfter("#sbar");
 			API.$("<div>", { id: "at-modal-dialog", class: "modal-dialog" }).appendTo("#at-modal");
@@ -354,6 +358,14 @@
 
 			API.$('#at-modal-close-btn').html(API.localisation("closemodal"));
 			API.$('#at-modal-x-btn').html("&times;");
+
+			API.$("#at-modal").draggable({
+			    handle: ".modal-header"
+			});
+
+			/*API.$("#at-modal").modal({
+			  backdrop: false
+			});*/
 
 		}
 
@@ -387,7 +399,7 @@
 			// Replace in the template.
 			b = b.replace(/\(ID\)/ig, ident);
 			b = b.replace(/\(TITLE\)/ig, API.__env.buttons[ident].tooltip);
-			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img src="+ API.__env.buttons[ident].icon +" /></img>" : "");
+			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img src="+ API.__env.buttons[ident].icon +" class='at-btn-icon'/></img>" : "");
 			b = b.replace(/\(CLASS\)/ig, (AtKit.internal.iconMode === 1) ? API.__env.buttons[ident].cssClass : "");
 			b = b.replace(/\(COLOUR\)/ig, (AtKit.internal.iconMode === 1 && API.__env.buttons[ident].colour) ? "color:"+API.__env.buttons[ident].colour : "");
 			b = b.replace(/\(MODAL\)/ig, (API.__env.buttons[ident].modal) ? "#at-modal" : "");
@@ -436,8 +448,8 @@
 			//API.$( API.$('<div>', { id: 'sbar' }) ).insertAfter("#sbarGhost");
 			API.$( API.$('<nav>', { id: 'sbar', class: 'navbar navbar-default navbar-fixed-top' }) ).insertAfter("#sbarGhost");
 
-			// Load facebox.
-			loadFacebox();
+			// Load modal.
+			loadModal();
 			
 			// Insert the logo.
 			
@@ -478,7 +490,7 @@
 			// Add a collapsible container before adding the plugin buttons.
 			//API.$( API.$('<div>', { id: 'at-collapse' }) ).appendTo("#sbar");
 			API.$(
-				API.$("<div>", { id: 'at-collapse-parent', class: 'navbar-collapse collapse' }).append(
+				API.$("<div>", { id: 'at-collapse-parent', class: 'navbar-collapse collapse in', 'aria-expanded':"true" }).append(
 					API.$("<ul>", { id: 'at-collapse', class: ulPluginsClass}) 
 				)
 			).appendTo('#sbar');
@@ -486,11 +498,11 @@
 			API.$("<ul>", { id: "at-right-buttons", class: ulOtherButtonsClass }).appendTo("#at-collapse-parent");
 			
 			// Add a button that collapses the toolbar plugin buttons when in small devices.
-			API.$("<button>", {type:"button", id: "at-btn-atkit-toggle", class: "navbar-toggle collapsed", "data-toggle":"collapse", "data-target":"#at-collapse-parent", "aria-expanded":"false", "aria-controls":"at-collapse-parent" }).appendTo("#sbar");
+			/*API.$("<button>", {type:"button", id: "at-btn-atkit-toggle", class: "navbar-toggle collapsed", "data-toggle":"collapse", "data-target":"#at-collapse-parent", "aria-expanded":"false", "aria-controls":"at-collapse-parent" }).appendTo("#sbar");
 			API.$("<span>", { class: "sr-only"}).appendTo("#at-btn-atkit-toggle");
 			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
 			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
-			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");*/
 
 
 			/*API.addButton('atkit-toggle', API.localisation("collapse"), AtKit.internal.__assetURL + 'img/collapse.gif', function(){
@@ -870,7 +882,7 @@
 		}	
 		
 		// Attach a button to the toolbar
-		// Assets should be an object containing any dialogs that will be shown with facebox, as well a
+		// Assets should be an object containing any dialogs that will be shown with modal, as well a
 		API.addButton = function(identifier, tooltip, icon, action, dialogs, functions, options){
 			if(typeof API.__env.buttons[identifier] != "undefined") return;
 			API.__env.buttons[identifier] = { 'icon': icon, 'tooltip': tooltip, 'action': action, 'dialogs': dialogs, 'functions': functions };
@@ -968,18 +980,6 @@
 		
 		// Pass in a dialog and we'll format it and show to the users.
 		API.show = function(dialog, callback){
-			/*dialog = API.$("<div>", { "class": "userDialog" }).append(
-				API.$('<h2>', { 'html': dialog.title }),
-				API.$("<p>", { 'html': dialog.body })
-			);
-
-			API.$('body').find('.facebox_hide').remove();
-
-			API.$.facebox(dialog);
-			
-			applyCSS();
-			
-			if(typeof callback != "null" && typeof callback != "undefined") callback();*/
 			API.$("#at-modal-title").html(""); //clear everything to avoid bugs
 			API.$("#at-modal-title").html(dialog.title);
 			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
@@ -988,13 +988,6 @@
 		
 		// Show message not stored in a dialog object.
 		API.message = function(title, data, callback){
-			/*API.$('body').find('.facebox_hide').remove();
-
-			API.$.facebox(data);
-			
-			applyCSS();
-			
-			if(typeof callback != "null" && typeof callback != "undefined") callback();*/
 			API.$("#at-modal-title").html(""); //clear everything to avoid bugs
 			API.$("#at-modal-title").html(title);
 			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
@@ -1002,7 +995,6 @@
 		}
 		
 		API.hideDialog = function(){
-			//API.$(window.document).trigger('close.facebox');
 			API.$('#at-modal').modal('hide');
 			API.$("#at-modal-title").html("");
 			API.$("#at-modal-body").html("");
@@ -1067,6 +1059,8 @@
 			return false;
 		}
 
+		// Set the icon mode. If iconMode is 0, the original icons will be used. If iconMode is 1, the bootstrap icons will be used
+		// Any other value will be understood as the default mode
 		API.setIconMode = function(iconMode){
 			if (iconMode === 0 || iconMode === 1)
 				AtKit.internal.iconMode = iconMode;
