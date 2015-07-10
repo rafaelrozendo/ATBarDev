@@ -285,6 +285,7 @@
 				if(args.block == args.totalBlocks){
 					// Finished request..
 					AtKit.show(TTSDialogs.starting);
+
 					if(RO.status == "encoding"){
 						AtKit.call('countdownInsipioTTS', { 'timeLeft':(RO.est_completion / RO.chunks), 'id': RO.ID });
 					} else if(RO.status == "failure" && RO.reason == "overcapacity"){
@@ -303,6 +304,7 @@
 						AtKit.message(errorTitle , AtKit.localisation("tts_servererror"));
 					}
 				}
+				$lib("#at-modal-close-btn").focus();
 				
 			});
 		
@@ -463,7 +465,7 @@
 					var reqID = Math.floor(Math.random() * 5001);
 					
 					AtKit.message(AtKit.localisation("tts_pleasewait") , AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div>" );
-					
+
 					AtKit.call('sendInsipioTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID, 'voice':args.voice });
 				} else {
 					AtKit.message(AtKit.localisation("tts_error"), AtKit.localisation("tts_problem") );
@@ -472,6 +474,7 @@
 			} else {
 				AtKit.message(AtKit.localisation("tts_title"), AtKit.localisation("tts_explain"));
 			}
+			$lib("#at-modal-close-btn").focus();
 		
 		});
 		
@@ -508,6 +511,11 @@
 			AtKit.getPluginURL() + 'images/sound.png',
 			function(dialogs, functions){
 				if(AtKit.set('TTS_clickEnabled') == false) return;
+
+				// Set focus to the male voice button
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#sbStartInsipioTTSSelectionMale').focus();
+				})
 				
 				var text = AtKit.call('getSelectedTextInsipioTTS');
 

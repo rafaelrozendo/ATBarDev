@@ -3,22 +3,17 @@
 }
 
 #sbar .navbar-collapse {  
-	font-size: 20pt;
-}
-@media (min-width:768px) {
-  #sbar .navbar-collapse { 
-  	font-size: 12pt; 
-  }
-}
-
-#sbar .navbar-collapse {  
 	width: 100px;
 	height: 100vh;
+	font-size: 20pt;
 }
 @media (min-width:768px) {
   #sbar .navbar-collapse { 
   	width: auto;
 	height: auto; 
+	padding-left: 10px;
+	padding-right: 10px; 
+	font-size: 12pt; 
   }
 }
 
@@ -29,7 +24,9 @@
 @media (min-width:768px) {
   #sbar.navbar {
   	width: auto;
-	height: auto; 
+	height: auto;
+	padding-left: 10px;
+	padding-right: 10px; 
   }
 }
 

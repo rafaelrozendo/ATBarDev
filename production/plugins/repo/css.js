@@ -249,6 +249,11 @@
 			AtKit.getPluginURL() + 'images/palette.png',
 			function(dialogs, functions){
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+
+				// Set focus to the "change toolbar colour" button
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#sbColourChange').focus();
+				})
 				
 				AtKit.show(dialogs.main);
 				

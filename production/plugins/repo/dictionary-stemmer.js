@@ -116,6 +116,11 @@
 			AtKit.getPluginURL() + 'images/book_open.png',
 			function(dialogs, functions){
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+
+				// Set focus to the close button
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#at-modal-close-btn').focus();
+				})
 				
 				var text = AtKit.call('getSelectedStemmerText');
 				var stored = AtKit.get('dictionaryStemmerSelectedData');

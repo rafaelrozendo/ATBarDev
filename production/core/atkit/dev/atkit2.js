@@ -267,12 +267,6 @@
 			attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
 			//attachCss( 'atkit-awesome-fonts-css', AtKit.internal.__awesomeFontsCssURL );
 
-
-			var loadBootstrap = function() {
-				attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-				console.log("carregou bootstrap");
-			}
-
 			if (needToLoadJQuery) {
 				console.log("vai carregar jquery");
 				attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {
@@ -362,10 +356,6 @@
 			API.$("#at-modal").draggable({
 			    handle: ".modal-header"
 			});
-
-			/*API.$("#at-modal").modal({
-			  backdrop: false
-			});*/
 
 		}
 
@@ -670,6 +660,11 @@
 
 			API.message("About " + API.settings.name, AtKit.internal.__aboutDialog.HTML);
 			applyCSS(AtKit.internal.__aboutDialog.CSS);
+
+			// Set focus to the close button
+			$lib('#at-modal').on('shown.bs.modal', function () {
+			    $lib('#at-modal-close-btn').focus();
+			})
 		}
 		
 		function debug(msg){
@@ -888,7 +883,6 @@
 			API.__env.buttons[identifier] = { 'icon': icon, 'tooltip': tooltip, 'action': action, 'dialogs': dialogs, 'functions': functions };
 			
 			if(options != null) API.__env.buttons[identifier] = API.$.extend(true, API.__env.buttons[identifier], options);
-			else console.log("nao tem options");
 	
 			if(AtKit.internal.__invoked){
 				//If the toolbar buttons have already been rendered
@@ -1059,8 +1053,8 @@
 			return false;
 		}
 
-		// Set the icon mode. If iconMode is 0, the original icons will be used. If iconMode is 1, the bootstrap icons will be used
-		// Any other value will be understood as the default mode
+		// Set the icon mode. If iconMode is 0, the original icons will be used. If iconMode is 1, bootstrap icons will be used
+		// Any other value is understood as the default mode
 		API.setIconMode = function(iconMode){
 			if (iconMode === 0 || iconMode === 1)
 				AtKit.internal.iconMode = iconMode;

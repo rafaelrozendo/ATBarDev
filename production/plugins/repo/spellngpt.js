@@ -115,7 +115,6 @@
 				dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_disallow"), "id": "AtKitSpellRecordDisallow", "class":"btn btn-default" }));
 				
 				AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
-				$lib("#AtKitSpellRecordDialog").focus();
 				
 				$lib('#AtKitSpellRecordAllow').click(function(){
 					AtKit.call('recordSpellng');
@@ -315,7 +314,11 @@
 
 					AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
 					$lib("#at-modal").modal('toggle');
-					$lib("#AtKitSpellDialog").focus();
+					
+					// Set focus to the suggestions select
+					$lib('#at-modal').on('shown.bs.modal', function () {
+					    $lib('#spellchecksuggestions').focus();
+					})
 					
 					// Add items to spellcheckmistakes.
 					$lib.each(this.results.words, function(i,v){
@@ -433,9 +436,6 @@
 						if(ctrlModifier && altModifier && e.keyCode == shortcutKey) {
 							ctrlModifier = false;
 							altModifier = false;
-							
-							// Set focus to dialog box
-							$lib('#spellcheckmistakes').focus();
 							
 							e.returnValue = false;
 						}	
