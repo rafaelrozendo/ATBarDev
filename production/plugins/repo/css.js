@@ -254,7 +254,7 @@
 				$lib('#at-modal').on('shown.bs.modal', function () {
 				    $lib('#sbColourChange').focus();
 				})
-				
+
 				AtKit.show(dialogs.main);
 				
 				$lib('#sbColourChange').click(function(){

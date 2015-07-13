@@ -313,7 +313,7 @@
 
 
 					AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
-					$lib("#at-modal").modal('toggle');
+					AtKit.showModal();
 					
 					// Set focus to the suggestions select
 					$lib('#at-modal').on('shown.bs.modal', function () {

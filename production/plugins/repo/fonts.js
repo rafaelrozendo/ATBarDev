@@ -74,8 +74,12 @@
 			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');	
-					
-				AtKit.message(dialogs.title, dialogs.body);
+
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#sbfontface').focus();
+				})
+
+				AtKit.message(dialogs.title, dialogs.body);	
 				
 				$lib('#ATApplyFont').click(function(){
 					AtKit.call('changeFont', { 
@@ -83,10 +87,6 @@
 						'lineHeight': $lib('#sblinespacing').val()
 					});
 				});
-				
-				$lib('#at-modal').on('shown.bs.modal', function () {
-				    $lib('#sbfontface').focus();
-				})
 			},
 			fontDialogs, null, {'cssClass':'glyphicon glyphicon-font', 'modal':'true'}
 		);

@@ -28,7 +28,7 @@
 			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
 			__bootstrapJsURL: "http://localhost/production/core/resources/js/bootstrap.js",
-			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
+			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.css",
 			__awesomeFontsCssURL: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css",
 			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
@@ -274,7 +274,7 @@
 					console.log(jQversion);
 					console.log("vai carregar bootstrap");
 					//setTimeout(loadBootstrap, 3000);
-					attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
+					//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
 					attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
 					console.log("carregou bootstrap");
 					//setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
@@ -282,7 +282,7 @@
 			}
 			else {
 				console.log("vai carregar bootstrap 2");
-				attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
+				//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
 				attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
 			}
 
@@ -355,6 +355,14 @@
 
 			API.$("#at-modal").draggable({
 			    handle: ".modal-header"
+			});
+
+			API.$("#at-modal-close-btn").click(function(){
+				API.hideModal();
+			});
+
+			API.$("#at-modal-x-btn").click(function(){
+				API.hideModal();
 			});
 
 		}
@@ -517,13 +525,13 @@
 				var btn = API.$( renderButton(b) );
 				if(API.__env.buttons[b].allign == 'right') {
 					if (API.settings.isRightToLeft)
-						$lib( "#at-right-buttons" ).prepend( btn );
+						API.$( "#at-right-buttons" ).prepend( btn );
 					else
 						btn.appendTo('#at-right-buttons');
 				}	
 				else {
 					if (API.settings.isRightToLeft)
-						$lib( "#at-collapse" ).prepend( btn );
+						API.$( "#at-collapse" ).prepend( btn );
 					else
 						btn.appendTo('#at-collapse');
 				}	
@@ -662,8 +670,8 @@
 			applyCSS(AtKit.internal.__aboutDialog.CSS);
 
 			// Set focus to the close button
-			$lib('#at-modal').on('shown.bs.modal', function () {
-			    $lib('#at-modal-close-btn').focus();
+			API.$('#at-modal').on('shown.bs.modal', function () {
+			    API.$('#at-modal-close-btn').focus();
 			})
 		}
 		
@@ -978,6 +986,7 @@
 			API.$("#at-modal-title").html(dialog.title);
 			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
 			API.$("#at-modal-body").html(dialog.body);
+			API.showModal();
 		}
 		
 		// Show message not stored in a dialog object.
@@ -986,12 +995,36 @@
 			API.$("#at-modal-title").html(title);
 			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
 			API.$("#at-modal-body").html(data);
+			API.showModal();
 		}
 		
 		API.hideDialog = function(){
-			API.$('#at-modal').modal('hide');
+			API.hideModal();
 			API.$("#at-modal-title").html("");
 			API.$("#at-modal-body").html("");
+		}
+
+		API.showModal = function() {
+			if (typeof(API.$("#at-modal-div-overlay").attr("class")) === "undefined") {
+				API.$("<div>", { id:"at-modal-div-overlay" , class: "modal-backdrop fade" }).appendTo("body"); //prepare to fade in overlay
+			}
+			API.$('body').addClass('modal-open');
+			API.$('#at-modal').css('display', 'block'); //prepare to slide down modal
+			setTimeout(function(){ //after .15s:
+				API.$('#at-modal-div-overlay').addClass('in'); //fade in overlay
+				API.$('#at-modal').addClass('in'); //slide down modal
+			}, 150);
+			API.$("#at-modal").trigger('shown.bs.modal');
+		}
+
+		API.hideModal = function() {
+			API.$('#at-modal').removeClass('in'); //slide up modal
+			API.$('#at-modal-div-overlay').removeClass('in'); //fade out overlay
+			setTimeout(function(){ //after .15s:
+				API.$('#at-modal').css('display', 'none'); //remove modal
+				API.$("#at-modal-div-overlay").remove(); //remove overlay
+				API.$('body').removeClass('modal-open');
+			}, 150);
 		}
 		
 		// Call a global function
