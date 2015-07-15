@@ -370,7 +370,7 @@
 				// Initialise spelling if not already
 				if(AtKit.get('spellInitialised') === false) AtKit.call('initSpell');
 
-				$lib('#at-btn-spell').attr('class', 'active');
+				$lib('#at-btn-spell').addClass('active');
 
 				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
 				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });

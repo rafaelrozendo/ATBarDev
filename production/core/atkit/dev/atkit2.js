@@ -24,12 +24,11 @@
 			__baseURL: "http://localhost/production/core/",
 			__APIURL: "http://a.atbar.org/", // API endpoint
 			__pluginURL: "http://localhost/production/plugins/", // Plugins location
-			__faceboxURL: "http://localhost/production/core/resources/js/facebox.dev.js", // Facebox JS lib
 			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
+			__draggableURL: "http://localhost/production/core/resources/js/draggable.min.js",
 			__bootstrapJsURL: "http://localhost/production/core/resources/js/bootstrap.js",
 			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.css",
-			__awesomeFontsCssURL: "http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css",
 			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
@@ -114,27 +113,27 @@
 			__templates: {
 				"barGhost": "<center><img src=\"" + AtKit.internal.__assetURL + "img/loading.gif\" style=\"margin-top:10px;\" /></center>",
 				"barFailed": "<center>library loading failed</center>",
-				"button": '<li id="at-btn-(ID)"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)" data-toggle="modal" data-target="(MODAL)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true">(SRC)</a></div></li>',
+				"button": '<li id="at-btn-(ID)" class="at-btn"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)" data-toggle="modal" data-target="(MODAL)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true">(SRC)</a></div></li>',
 				"spacer": '<div class="at-spacer"></div>',
 				"separator": '<div class="at-separator at-separator-(ID)"></div>'
 			},
 			__CSS: {
-				//"#sbarGhost, #sbar": default_css,
+				"#sbarGhost": "box-sizing: border-box;",
 				//"#sbarGhost *, #sbar *": default_css,
-				//"#sbarlogo": default_css + "float:left",
-				//"#sbarlogo img": default_css + "margin-top:10px; vertical-align:middle;",
-				//"#sbar": default_css + "height:40px; left:0; line-height:40px; margin-left:auto; margin-right:auto; position:fixed; top:0;width:100%; z-index:2147483646; padding:0 5px; background:url(" + AtKit.internal.__assetURL + "img/background.png) repeat-x #EBEAED;",
-				//"#sbarGhost": default_css + "height:40px; width:100%;",
-				//"#at-collapse": "",
-				//".at-spacer": default_css + "display:block; height:40px; width:40px; float:left",
-				//".at-separator": default_css + "display:block; height:25px; border-left:2px solid #a9a9a9; margin:7px 1px 4px 7px; float:left;",
-				//".at-btn": default_css + "height:28px; width:28px; line-height:14px; text-align:center; color:#FFF; clear:none; margin:5px 0 0 5px;background:url(" + AtKit.internal.__assetURL + "img/button_background.png) no-repeat; float:left;",
-				//".at-btn a": default_css + "display:block; height:28px; width:28px; background:transparent; position:inherit;",
-				//".at-btn a:active": default_css + "font-size: 100%; font: inherit; border:yellow solid 2px;",
-				//".at-btn img": default_css + "padding:6px; default_css + border:none; background:none;",
-				//".no-float": "float: none !important;",
-				//"#at-btn-atkit-reset, #at-btn-atkit-unload, #at-btn-atkit-help, #at-btn-atkit-toggle": default_css + "height:28px; width:28px; line-height:14px; text-align:center; color:#FFF; clear:none; float:right; margin:5px 10px 0 0; background:url(" + AtKit.internal.__assetURL + "img/button_background.png) no-repeat;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer": default_css + "border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); padding-top:5px; margin-top:10px; display:block; text-align:left;",
+				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: ; line-height: 20px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; text-decoration: none;' ,
+				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
+				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 0px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
+				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 1px; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; max-height: 85vh; overflow-x: visible; overflow-y: auto;',
+				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				".at-btn": 'box-sizing: border-box; position: relative; display: block;',
+				".at-btn > a": 'box-sizing: border-box; color: rgb(119, 119, 119); display: block; line-height: 20px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px; padding-top: 10px; position: relative; text-decoration: none;',
+				//".at-btn > a > span": 'box-sizing: border-box;',
+				//".at-btn > a > span.glyphicon": '1: top; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px;',
+				".at-btn > a > span > img.at-btn-icon": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; vertical-align: middle;',
+				"#at-right-buttons": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				"#at-modal.modal": '0: opacity; 1050: ; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
+				"#at-modal-dialog": '-webkit-transition-delay: initial; -webkit-transition-duration: 0.3s; -webkit-transition-property: transform; -webkit-transition-timing-function: ease-out; box-sizing: border-box; margin-bottom: 10px; margin-top: 10px; position: relative; transition-delay: initial; transition-duration: 0.3s; transition-property: transform; transition-timing-function: ease-out;',
+				//"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer": default_css + "border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); padding-top:5px; margin-top:10px; display:block; text-align:left;",
 				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer > a ": default_css + "float: left;",
 				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer > a > img ": default_css + "float: left;",
 				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content > .user-dialog > h1": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:18pt; font-weight:bold; color:black; display:block; margin:10px 0px 10px 0px;"/*float:left;"*/,
@@ -265,7 +264,6 @@
 			
 			//attachJS( 'atkit-require-js', AtKit.internal.__requireURL );
 			attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
-			//attachCss( 'atkit-awesome-fonts-css', AtKit.internal.__awesomeFontsCssURL );
 
 			if (needToLoadJQuery) {
 				console.log("vai carregar jquery");
@@ -275,7 +273,8 @@
 					console.log("vai carregar bootstrap");
 					//setTimeout(loadBootstrap, 3000);
 					//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-					attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+					//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+					//attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
 					console.log("carregou bootstrap");
 					//setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
 				} );
@@ -283,7 +282,8 @@
 			else {
 				console.log("vai carregar bootstrap 2");
 				//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-				attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+				//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+				//attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
 			}
 
 			
@@ -353,9 +353,11 @@
 			API.$('#at-modal-close-btn').html(API.localisation("closemodal"));
 			API.$('#at-modal-x-btn').html("&times;");
 
-			API.$("#at-modal").draggable({
+			/*API.$("#at-modal").draggable({
 			    handle: ".modal-header"
-			});
+			});*/
+
+			//API.$('#at-modal').drags({handle: '.modal-header'})
 
 			API.$("#at-modal-close-btn").click(function(){
 				API.hideModal();
@@ -363,6 +365,12 @@
 
 			API.$("#at-modal-x-btn").click(function(){
 				API.hideModal();
+			});
+
+			API.$('body').on('mousedown', function (e) {
+			    if (e.target.getAttribute("id") === "at-modal") {
+			    	API.hideModal();
+			    }
 			});
 
 		}
@@ -397,7 +405,7 @@
 			// Replace in the template.
 			b = b.replace(/\(ID\)/ig, ident);
 			b = b.replace(/\(TITLE\)/ig, API.__env.buttons[ident].tooltip);
-			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img src="+ API.__env.buttons[ident].icon +" class='at-btn-icon'/></img>" : "");
+			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img id='at-btn-icon-" + ident +  "' src="+ API.__env.buttons[ident].icon +" class='at-btn-icon'/></img>" : "");
 			b = b.replace(/\(CLASS\)/ig, (AtKit.internal.iconMode === 1) ? API.__env.buttons[ident].cssClass : "");
 			b = b.replace(/\(COLOUR\)/ig, (AtKit.internal.iconMode === 1 && API.__env.buttons[ident].colour) ? "color:"+API.__env.buttons[ident].colour : "");
 			b = b.replace(/\(MODAL\)/ig, (API.__env.buttons[ident].modal) ? "#at-modal" : "");
@@ -432,6 +440,37 @@
 			return API.__env.buttons[ident].HTML;
 		}
 		
+		function css(a) {
+		    var sheets = document.styleSheets, o = {};
+		    for (var i in sheets) {
+		        var rules = sheets[i].rules || sheets[i].cssRules;
+		        for (var r in rules) {
+		            if (a.is(rules[r].selectorText)) {
+		                o = API.$.extend(o, css2json(rules[r].style), css2json(a.attr('style')));
+		            }
+		        }
+		    }
+		    return o;
+		}
+
+		function css2json(css) {
+		    var s = {};
+		    if (!css) return s;
+		    if (css instanceof CSSStyleDeclaration) {
+		        for (var i in css) {
+		            if ((css[i]).toLowerCase) {
+		                s[(css[i]).toLowerCase()] = (css[css[i]]);
+		            }
+		        }
+		    } else if (typeof css == "string") {
+		        css = css.split("; ");
+		        for (var i in css) {
+		            var l = css[i].split(": ");
+		            s[l[0].toLowerCase()] = (l[1]);
+		        }
+		    }
+		    return s;
+		}
 	
 		// Private function used to actually start the toolbar.
 		function start(){
@@ -461,7 +500,7 @@
 			).appendTo('#sbar');*/
 			API.$(
 				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', 'data-toggle':"modal", 'data-target':"#at-modal", click: function(){ showAbout() } }).append(
-					API.$("<img>", { "src": API.settings.logoURL, "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo" }) 
+					API.$("<img>", { id:'sbarlogo-img', "src": API.settings.logoURL, "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo" }) 
 				)
 			).appendTo('#sbar');
 			
@@ -563,6 +602,8 @@
 			}
 			
 			API.$('body').trigger('AtKitRenderComplete');
+
+			console.log(css(API.$("#at-modal-dialog")));
 		}
 		
 		// Apply the CSS rules that have been defined
@@ -668,6 +709,8 @@
 
 			API.message("About " + API.settings.name, AtKit.internal.__aboutDialog.HTML);
 			applyCSS(AtKit.internal.__aboutDialog.CSS);
+
+			API.$("#at-modal-dialog").attr('class', 'modal-dialog');	
 
 			// Set focus to the close button
 			API.$('#at-modal').on('shown.bs.modal', function () {

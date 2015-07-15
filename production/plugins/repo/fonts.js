@@ -57,9 +57,11 @@
 				var spans = document.getElementsByTagName("span");
 				for (var j = 0; j<spans.length; j++) {
 					var spanID = spans[j].getAttribute("id");
-					if (!spanID.startsWith("at-spn-")) {
-						spans[j].setAttribute("style", "font-family:" + args.fontFace + "; line-height: " + args.lineHeight + "%;");	
-					}
+					try {
+						if (!spanID.startsWith("at-spn-")) {
+							spans[j].setAttribute("style", "font-family:" + args.fontFace + "; line-height: " + args.lineHeight + "%;");	
+						}
+					} catch (err) {}
 				}
 
 				// Set ATbar line height back to 0%
