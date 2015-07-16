@@ -90,7 +90,14 @@
 			CSS: {
 				"#ATKFBAbout" : "font-family:Helvetica, Verdana, Arial, sans-serif; font-size:12px; color:#364365; direction: ltr; text-align:left",
 				"#ATKFBAbout h2" : "border-bottom:1px solid #DDD; font-size:16px; margin-bottom:5px; margin-top:10px; padding-bottom:5px; direction: ltr; text-align:left",
-				"#ATKFBAbout p#ATKFBAboutFooter" : "border-top:1px solid #DDD;p adding-top:10px; margin-top:25px;"
+				"#ATKFBAbout p#ATKFBAboutFooter" : "border-top:1px solid #DDD;p adding-top:10px; margin-top:25px;",
+				"#ATKFBAbout .btn.btn-default" : '-webkit-appearance: button; -webkit-user-select: none; background-color: rgb(255, 255, 255); background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
+			}
+		}
+
+		AtKit.internal.__modalBody = {
+			CSS: {
+				"#at-modal-body .btn.btn-default": '-webkit-appearance: button; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;',
 			}
 		}
 		
@@ -105,8 +112,8 @@
 		}
 		
 		//Default CSS attributes settings that help enhance the interoperability of the toolbar by preventing pages' css form affecting the toolbar's. Add it before you declare any css to any element in the toolbar or dialogs
-		default_css = "-webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; height:initial; width:initial; margin:0px; padding:0; border:0; vertical-align:baseline; font-size: initial; font: inherit; float:none; line-height:initial; color:initial; background:initial;";
-		
+		//default_css = "-webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; height:initial; width:initial; margin:0px; padding:0; border:0; vertical-align:baseline; font-size: initial; font: inherit; float:none; line-height:initial; color:initial; background:initial;";
+
 		// API object. Everything in here becomes public after AtKit has finished executing
 		var API = {
 			__env: AtKit.external, // Load public object into API accessible object
@@ -120,12 +127,12 @@
 			__CSS: {
 				"#sbarGhost": "box-sizing: border-box;",
 				//"#sbarGhost *, #sbar *": default_css,
-				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: ; line-height: 20px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; text-decoration: none;' ,
+				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
 				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
 				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 0px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
 				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 1px; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; max-height: 85vh; overflow-x: visible; overflow-y: auto;',
 				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
-				".at-btn": 'box-sizing: border-box; position: relative; display: block;',
+				".at-btn": 'box-sizing: border-box; position: relative; display: block; text-align: center;',
 				".at-btn > a": 'box-sizing: border-box; color: rgb(119, 119, 119); display: block; line-height: 20px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px; padding-top: 10px; position: relative; text-decoration: none;',
 				//".at-btn > a > span": 'box-sizing: border-box;',
 				//".at-btn > a > span.glyphicon": '1: top; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px;',
@@ -133,20 +140,11 @@
 				"#at-right-buttons": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
 				"#at-modal.modal": '0: opacity; 1050: ; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
 				"#at-modal-dialog": '-webkit-transition-delay: initial; -webkit-transition-duration: 0.3s; -webkit-transition-property: transform; -webkit-transition-timing-function: ease-out; box-sizing: border-box; margin-bottom: 10px; margin-top: 10px; position: relative; transition-delay: initial; transition-duration: 0.3s; transition-property: transform; transition-timing-function: ease-out;',
-				//"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer": default_css + "border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); padding-top:5px; margin-top:10px; display:block; text-align:left;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer > a ": default_css + "float: left;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer > a > img ": default_css + "float: left;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content > .user-dialog > h1": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:18pt; font-weight:bold; color:black; display:block; margin:10px 0px 10px 0px;"/*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content h1": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:18pt; font-weight:bold; color:black; display:block; margin:10px 0px 10px 0px;"/*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content h2": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:16pt; font-weight:bold; color:black; display:block; margin:5px 0px 5px 0px;"/*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content p": default_css + "display:block;" /*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content > .user-dialog > p": default_css + "display:block;" /*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content button": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; height:26px; margin:10px; padding:5px; color:white; background-color:#0064CD; border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25); text-shadow:0 -1px 0 rgba(0,0,0,0.25); background-image: -webkit-linear-gradient(top, #049cdb, #0064cd); border-radius:4px;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content label": default_css + "float:left; display:block; margin:0px; margin-right:5px;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content select": default_css + "border:1px solid black; float:left; display:block;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content input": default_css + "border:1px solid black; float:left; display:block;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content select#spellchecksuggestions": default_css + "border:1px solid black; float:none; display:block;width:360px;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content select#spellcheckmistakes": default_css + "border:1px solid black; float:none; display:block;width:360px;"
+				"#at-modal-content": '-webkit-background-clip: padding-box; -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; background-clip: padding-box; background-color: rgb(255, 255, 255); border-bottom-color: rgba(0, 0, 0, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgba(0, 0, 0, 0.2); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.2); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 6px; border-top-right-radius: 6px; border-top-style: solid; border-top-width: 1px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; box-sizing: border-box; outline-color: initial; outline-style: initial; outline-width: 0px; position: relative;',
+				"#at-modal-header": 'border-bottom-color: rgb(229, 229, 229); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; min-height: 16.42857143px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px;',
+				"#at-modal-body": 'box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative;',
+				"#at-modal-footer": 'border-top-color: rgb(229, 229, 229); border-top-style: solid; border-top-width: 1px; box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; right: ;text-align: right;',
+				"#at-modal .btn.btn-default": '-webkit-appearance: button; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
 			},
 			settings: {
 				"noiframe": true, // Don't load if we're in an iframe.
@@ -359,11 +357,11 @@
 
 			//API.$('#at-modal').drags({handle: '.modal-header'})
 
-			API.$("#at-modal-close-btn").click(function(){
+			API.$("#at-modal-close-btn").on('click', function(){
 				API.hideModal();
 			});
 
-			API.$("#at-modal-x-btn").click(function(){
+			API.$("#at-modal-x-btn").on('click', function(){
 				API.hideModal();
 			});
 
@@ -414,7 +412,7 @@
 			b = API.$(b);
 	
 			// Bind the click event and pass in reference to the button object
-			b.children('a').bind('click touchend', { button: API.__env.buttons[ident] }, function(button){
+			b.children('a').on('click touchend', null, { button: API.__env.buttons[ident] }, function(button){
 				try {
 					API.__env.buttons[ident].action(button.data.button.dialogs, button.data.button.functions);
 				} catch (err){
@@ -422,15 +420,6 @@
 				}
 				
 				button.preventDefault();
-			});
-			
-			// Emulate CSS active, hover, etc.
-			b.children('a').bind('focus', function(){
-				//API.$(this).attr('style', API.$(this).attr('style') + API.__CSS[".at-btn a:active"]);
-			});
-			
-			b.children('a').bind('focusout', function(){
-				//API.$(this).attr('style', API.__CSS[".at-btn a"]);
 			});
 			
 			// Commit the HTML
@@ -483,7 +472,7 @@
 
 			// Insert the bar holder 
 			//API.$( API.$('<div>', { id: 'sbar' }) ).insertAfter("#sbarGhost");
-			API.$( API.$('<nav>', { id: 'sbar', class: 'navbar navbar-default navbar-fixed-top' }) ).insertAfter("#sbarGhost");
+			API.$( API.$('<nav>', { id: 'sbar', class: 'navbar navbar-default navbar-fixed-top col-xs-12' }) ).insertAfter("#sbarGhost");
 
 			// Load modal.
 			loadModal();
@@ -499,10 +488,12 @@
 				)
 			).appendTo('#sbar');*/
 			API.$(
-				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', 'data-toggle':"modal", 'data-target':"#at-modal", click: function(){ showAbout() } }).append(
+				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', 'data-toggle':"modal", 'data-target':"#at-modal" }).append(
 					API.$("<img>", { id:'sbarlogo-img', "src": API.settings.logoURL, "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo" }) 
 				)
 			).appendTo('#sbar');
+
+			API.$("#sbarlogo").on('click', function(){showAbout();});
 			
 			API.$("<img>", { "src": "https://misc.services.atbar.org/stats/stat.php?channel=" + AtKit.internal.__channel + "-" + API.settings.name + "&version=" + AtKit.internal.__version.toFixed(1) + "." + AtKit.internal.__build, "alt": " " }).appendTo("#sbar");
 			
@@ -603,7 +594,7 @@
 			
 			API.$('body').trigger('AtKitRenderComplete');
 
-			console.log(css(API.$("#at-modal-dialog")));
+			console.log(css(API.$("#at-modal-close-btn")));
 		}
 		
 		// Apply the CSS rules that have been defined
@@ -1049,23 +1040,30 @@
 
 		API.showModal = function() {
 			if (typeof(API.$("#at-modal-div-overlay").attr("class")) === "undefined") {
-				API.$("<div>", { id:"at-modal-div-overlay" , class: "modal-backdrop fade" }).appendTo("body"); //prepare to fade in overlay
+				//API.$("<div>", { id:"at-modal-div-overlay" , class: "modal-backdrop fade" }).appendTo("body"); //prepare to fade in overlay
 			}
 			API.$('body').addClass('modal-open');
 			API.$('#at-modal').css('display', 'block'); //prepare to slide down modal
 			setTimeout(function(){ //after .15s:
-				API.$('#at-modal-div-overlay').addClass('in'); //fade in overlay
+				//API.$('#at-modal-div-overlay').addClass('in'); //fade in overlay
 				API.$('#at-modal').addClass('in'); //slide down modal
 			}, 150);
-			API.$("#at-modal").trigger('shown.bs.modal');
+			//API.$("#at-modal").trigger('shown.bs.modal');
+			try {
+				API.$("#at-modal").trigger('shown.bs.modal');
+			} catch (err) {
+				if(AtKit.internal.__debug) debug(err);
+			}
+				
+			applyCSS(AtKit.internal.__modalBody.CSS);
 		}
 
 		API.hideModal = function() {
 			API.$('#at-modal').removeClass('in'); //slide up modal
-			API.$('#at-modal-div-overlay').removeClass('in'); //fade out overlay
+			//API.$('#at-modal-div-overlay').removeClass('in'); //fade out overlay
 			setTimeout(function(){ //after .15s:
 				API.$('#at-modal').css('display', 'none'); //remove modal
-				API.$("#at-modal-div-overlay").remove(); //remove overlay
+				//API.$("#at-modal-div-overlay").remove(); //remove overlay
 				API.$('body').removeClass('modal-open');
 			}, 150);
 		}

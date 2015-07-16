@@ -1,6 +1,6 @@
-#at-modal .modal-backdrop {
+/*#at-modal .modal-backdrop {
     background-color: transparent;
-}
+}*/
 
 
 #at-collapse-parent.navbar-collapse {  
@@ -10,11 +10,22 @@
 	padding-right: 10px; 
 	font-size: 12pt;
 }
+
+@media (max-width: 768px) {
+	#sbarlogo.navbar-brand {
+		margin-left: -10px;
+	}
+}
+
+
 @media (max-width:768px) {
   #at-collapse-parent.navbar-collapse { 
 	width: 90px;
 	height: 100vh;
 	font-size: 20pt; 
+	padding-left: 5px;
+	padding-right: 5px;
+	margin-left: -10px;
   }
 
 #sbar.navbar {  
@@ -47,8 +58,10 @@
   max-height: 85vh;
 }
 
+
+
 body {
-	margin-top: 50px;
+	margin-top: 10px; 
 	margin-left: 0px;
 }
 

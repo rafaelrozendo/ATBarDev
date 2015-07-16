@@ -153,7 +153,7 @@
 		);
 
 		
-		$lib('#at-btn-dictionary-stemmer').mouseover(function(){
+		$lib('#at-btn-dictionary-stemmer').on("mouseover", function(){
 			AtKit.set('DictionaryStemmerText', AtKit.call('getSelectedStemmerText'));
 		});
 

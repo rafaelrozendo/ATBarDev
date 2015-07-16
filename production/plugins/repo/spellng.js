@@ -195,7 +195,7 @@
 				bindEvents: function() {
 					if ( !this.options.events ) return;
 					var self = this, timeout;
-					this.$element.bind(this.options.events, function(event) {
+					this.$element.on(this.options.events, function(event) {
 						if ( /^key[press|up|down]/.test(event.type) ) {
 							if ( timeout ) clearTimeout(timeout);
 							timeout = setTimeout(function() { self.checkSpelling(); }, self.options.autocheck);
@@ -389,7 +389,7 @@
 				if((typeof AtKit.__env.window.CKEDITOR) != 'undefined'){
 					CKE = AtKit.__env.window.CKEDITOR;
 					for(var o in CKE.instances){
-						CKE.instances[o].document.bind('keypress', function(){
+						CKE.instances[o].document.on('keypress', function(){
 							if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
 							var content = CKE.instances[o].getData();
 							rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(),  RTEType: 'CKE' }); }, 750);
@@ -403,7 +403,7 @@
 				ctrlModifier = false;
 				altModifier = false;
 				
-				$lib('input[type="text"], textarea').bind('keydown', function(e){
+				$lib('input[type="text"], textarea').on('keydown', function(e){
 					
 					var textElement = $lib(this);
 					

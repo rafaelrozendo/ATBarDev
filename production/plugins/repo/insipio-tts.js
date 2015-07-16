@@ -499,10 +499,23 @@
 
 		AtKit.set('TTS_clickEnabled', true);
 		
-		$lib(document).delegate('#at-btn-tts', 'mousemove, focus, mouseover', function(){
-			var text = AtKit.call('getSelectedTextInsipioTTS');
-			if(typeof text == "undefined" || text == "") return;		
-			AtKit.set('TTSselectedData', text);
+		//same function for mousemove, focus and mouseover
+		$lib("#at-btn-tts").on({
+		    mousemove: function () {
+		        var text = AtKit.call('getSelectedTextInsipioTTS');
+				if(typeof text == "undefined" || text == "") return;		
+				AtKit.set('TTSselectedData', text);
+		    },
+		    focus: function () {
+		        var text = AtKit.call('getSelectedTextInsipioTTS');
+				if(typeof text == "undefined" || text == "") return;		
+				AtKit.set('TTSselectedData', text);
+		    },
+		    mouseover: function() {
+		    	var text = AtKit.call('getSelectedTextInsipioTTS');
+				if(typeof text == "undefined" || text == "") return;		
+				AtKit.set('TTSselectedData', text);
+		    }
 		});
 
 		AtKit.addButton(

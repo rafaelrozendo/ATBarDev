@@ -132,14 +132,18 @@
 		
 		CSSFunctions = {
 			"changeToolbar": function(){
-				$lib("#sbbackgroundcolour").focus();
+				try {
+					$lib("#sbbackgroundcolour").focus();
+				} catch (err) {
+					console.log("couldn't focus element");
+				}
 				
-				$lib('#sbRandomColour').click(function(){ AtKit.call('setColour', "rand"); });
-				$lib('#sbSetColour').click(function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
-				$lib('#sbColourReset').click(function(){ AtKit.call('setColour', reset_colour); });
+				$lib('#sbRandomColour').on('click', function(){ AtKit.call('setColour', "rand"); });
+				$lib('#sbSetColour').on('click', function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
+				$lib('#sbColourReset').on('click', function(){ AtKit.call('setColour', reset_colour); });
 			},
 			"siteColours": function(){
-				$lib('#applyPageColours').click(function(e){ 			
+				$lib('#applyPageColours').on('click', function(e){ 			
 					if( $lib('#sbtextcolour').val() != "undefined" && $lib('#sbtextcolour').val() != "original" ){
 						$lib('*').css('color', "#" + $lib('#sbtextcolour').val());
 					}
@@ -149,7 +153,7 @@
 					}
 				});
 				
-				$lib('#sblinkcolour').keypress(function(e){ 
+				$lib('#sblinkcolour').on('keypress', function(e){ 
 					if(e.keyCode == 13){  
 						if( $lib('#sbpagebackgroundcolour').val() != "undefined"){
 							$lib('body').css('backgroundColor', $lib('#sbpagebackgroundcolour').val());
@@ -168,38 +172,42 @@
 				
 				});
 				
-				$lib("#sbtextcolour").focus();			
+				try {
+					$lib("#sbtextcolour").focus();
+				} catch (err) {
+					console.log("couldn't focus element");
+				}			
 			},
 			"CSSStyles": function(){
-				$lib('#sbApplyCSS-yb').click(function(e){ 
+				$lib('#sbApplyCSS-yb').on('click', function(e){ 
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-yo.css", "highvis-yo");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-yo");
 				});
 				
-				$lib('#sbApplyCSS-wb').click(function(e){ 
+				$lib('#sbApplyCSS-wb').on('click', function(e){ 
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-wb.css", "highvis-wb");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wb");
 				});
 				
-				$lib('#sbApplyCSS-wbw').click(function(e){
+				$lib('#sbApplyCSS-wbw').on('click', function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-bw.css", "highvis-wbw");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wbw");
 				});
 				
-				$lib('#sbApplyCSS-by').click(function(e){
+				$lib('#sbApplyCSS-by').on('click', function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-by.css", "highvis-by");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});
 				
-				$lib('#sbApplyCSS-gw').click(function(e){
+				$lib('#sbApplyCSS-gw').on('click', function(e){
 					$lib(document).trigger('close.facebox');
 					$lib('link[rel=stylesheet]').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-gw.css", "highvis-by");
@@ -207,7 +215,11 @@
 				});	
 				
 				
-				$lib("#sbApplyCSS-wb").focus();
+				try {
+					$lib("#sbApplyCSS-wb").focus();
+				} catch (err) {
+					console.log("couldn't focus element");
+				}		
 			}
 		};
 		
@@ -252,24 +264,28 @@
 
 				// Set focus to the "change toolbar colour" button
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    $lib('#sbColourChange').focus();
+				    try {
+						$lib("#sbColourChange").focus();
+					} catch (err) {
+						console.log("couldn't focus element");
+					}
 				})
 
 				AtKit.show(dialogs.main);
 				
-				$lib('#sbColourChange').click(function(){
+				$lib('#sbColourChange').on('click', function(){
 					AtKit.show(dialogs.toolbar);
 					functions.changeToolbar();
 					changeBackgroundColour();
 				});
 
-				$lib('#sbChangeSiteColours').click(function(){
+				$lib('#sbChangeSiteColours').on('click', function(){
 					AtKit.show(dialogs.siteColours);
 					functions.siteColours();
 					changeBackgroundColour();
 				});
 
-				$lib('#sbAttachCSSStyle').click(function(){
+				$lib('#sbAttachCSSStyle').on('click', function(){
 					AtKit.show(dialogs.CSSStyles);
 					functions.CSSStyles();
 					changeBackgroundColour();

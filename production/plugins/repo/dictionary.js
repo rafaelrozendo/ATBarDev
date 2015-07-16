@@ -124,7 +124,7 @@
 		);
 
 		
-		$lib('#at-btn-dictionary').mouseover(function(){
+		$lib('#at-btn-dictionary').on("mouseover", function(){
 			AtKit.set('DictionaryText', AtKit.call('getSelectedText'));
 		});
 

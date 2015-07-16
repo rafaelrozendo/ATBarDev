@@ -76,14 +76,14 @@
 			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');	
-
+				
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    $lib('#sbfontface').focus();
+				    //$lib('#sbfontface').focus();			    
 				})
-
+				
 				AtKit.message(dialogs.title, dialogs.body);	
 				
-				$lib('#ATApplyFont').click(function(){
+				$lib('#ATApplyFont').on('click', function(){
 					AtKit.call('changeFont', { 
 						'fontFace': $lib('#sbfontface').val(),
 						'lineHeight': $lib('#sblinespacing').val()
