@@ -118,8 +118,9 @@
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
 
 				// Set focus to the close button
+				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    $lib('#at-modal-close-btn').focus();
+				    $lib('#at-modal-close-btn')[0].focus();
 				})
 				
 				var text = AtKit.call('getSelectedStemmerText');

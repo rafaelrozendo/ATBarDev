@@ -24,7 +24,7 @@
 					//return false;
 				} else if( e.which >= 49 && e.which <= 57 && ctrlModifier && TModifier){
 					// Select the button at offset
-					$lib('.at-btn:eq(' + ( String.fromCharCode(e.which) - 1 ) + ') a').focus();
+					$lib('.at-btn:eq(' + ( String.fromCharCode(e.which) - 1 ) + ') a')[0].focus();
 					return false;
 				} 
 		    }

@@ -132,11 +132,8 @@
 		
 		CSSFunctions = {
 			"changeToolbar": function(){
-				try {
-					$lib("#sbbackgroundcolour").focus();
-				} catch (err) {
-					console.log("couldn't focus element");
-				}
+				
+				$lib("#sbbackgroundcolour")[0].focus();
 				
 				$lib('#sbRandomColour').on('click', function(){ AtKit.call('setColour', "rand"); });
 				$lib('#sbSetColour').on('click', function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
@@ -172,11 +169,7 @@
 				
 				});
 				
-				try {
-					$lib("#sbtextcolour").focus();
-				} catch (err) {
-					console.log("couldn't focus element");
-				}			
+				$lib("#sbtextcolour")[0].focus();			
 			},
 			"CSSStyles": function(){
 				$lib('#sbApplyCSS-yb').on('click', function(e){ 
@@ -214,12 +207,8 @@
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});	
 				
-				
-				try {
-					$lib("#sbApplyCSS-wb").focus();
-				} catch (err) {
-					console.log("couldn't focus element");
-				}		
+				$lib("#sbApplyCSS-wb")[0].focus();
+						
 			}
 		};
 		
@@ -263,29 +252,29 @@
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
 
 				// Set focus to the "change toolbar colour" button
+				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    try {
-						$lib("#sbColourChange").focus();
-					} catch (err) {
-						console.log("couldn't focus element");
-					}
+					$lib("#sbColourChange")[0].focus();
 				})
 
 				AtKit.show(dialogs.main);
 				
 				$lib('#sbColourChange').on('click', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					AtKit.show(dialogs.toolbar);
 					functions.changeToolbar();
 					changeBackgroundColour();
 				});
 
 				$lib('#sbChangeSiteColours').on('click', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					AtKit.show(dialogs.siteColours);
 					functions.siteColours();
 					changeBackgroundColour();
 				});
 
 				$lib('#sbAttachCSSStyle').on('click', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					AtKit.show(dialogs.CSSStyles);
 					functions.CSSStyles();
 					changeBackgroundColour();

@@ -87,7 +87,7 @@ function __start(){
 			AtKit.render();
 			
 			// Select the first button.
-			$lib('.at-btn:first a').focus();
+			$lib('.at-btn:first a')[0].focus();
 			
 			// Save state
 			if(typeof localStorage != null) localStorage.setItem("ATBarAutoLoad", 1);

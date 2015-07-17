@@ -77,8 +77,9 @@
 			function(dialogs, functions){
 				$lib("#at-modal-dialog").attr('class', 'modal-dialog');	
 				
+				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    //$lib('#sbfontface').focus();			    
+				    $lib('#sbfontface')[0].focus();			    
 				})
 				
 				AtKit.message(dialogs.title, dialogs.body);	

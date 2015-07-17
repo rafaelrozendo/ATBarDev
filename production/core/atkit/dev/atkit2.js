@@ -703,15 +703,16 @@
 			// Convert to jQuery object & wrap
 			AtKit.internal.__aboutDialog.HTML = API.$("<div>", { id: "ATKFBAbout" }).append(AtKit.internal.__aboutDialog.HTML);
 
+			// Set focus to the close button
+			API.$( "#at-modal" ).off('shown.bs.modal');
+			API.$('#at-modal').on('shown.bs.modal', function () {
+			    API.$('#at-modal-close-btn')[0].focus();
+			})
+
+			API.$("#at-modal-dialog").attr('class', 'modal-dialog');
+
 			API.message("About " + API.settings.name, AtKit.internal.__aboutDialog.HTML);
 			applyCSS(AtKit.internal.__aboutDialog.CSS);
-
-			API.$("#at-modal-dialog").attr('class', 'modal-dialog');	
-
-			// Set focus to the close button
-			API.$('#at-modal').on('shown.bs.modal', function () {
-			    API.$('#at-modal-close-btn').focus();
-			})
 		}
 		
 		function debug(msg){
@@ -1053,12 +1054,7 @@
 				//API.$('#at-modal-div-overlay').addClass('in'); //fade in overlay
 				API.$('#at-modal').addClass('in'); //slide down modal
 			}, 150);
-			//API.$("#at-modal").trigger('shown.bs.modal');
-			try {
-				API.$("#at-modal").trigger('shown.bs.modal');
-			} catch (err) {
-				if(AtKit.internal.__debug) debug(err);
-			}
+			API.$("#at-modal").trigger('shown.bs.modal');
 				
 			applyCSS(AtKit.internal.__modalBody.CSS);
 		}

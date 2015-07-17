@@ -279,6 +279,7 @@
 			urlString += "&callback=?";
 			
 			$lib.getJSON(urlString, function(RO){
+				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib("#compactStatus").html(args.block + " / " + args.totalBlocks);
 				
 				var errorTitle = AtKit.localisation("tts_error");
@@ -304,7 +305,7 @@
 						AtKit.message(errorTitle , AtKit.localisation("tts_servererror"));
 					}
 				}
-				$lib("#at-modal-close-btn").focus();
+				$lib("#at-modal-close-btn")[0].focus();
 				
 			});
 		
@@ -474,7 +475,7 @@
 			} else {
 				AtKit.message(AtKit.localisation("tts_title"), AtKit.localisation("tts_explain"));
 			}
-			$lib("#at-modal-close-btn").focus();
+			$lib("#at-modal-close-btn")[0].focus();
 		
 		});
 		
@@ -526,8 +527,9 @@
 				if(AtKit.set('TTS_clickEnabled') == false) return;
 
 				// Set focus to the male voice button
+				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    $lib('#sbStartInsipioTTSSelectionMale').focus();
+				    $lib('#sbStartInsipioTTSSelectionMale')[0].focus();
 				})
 				
 				var text = AtKit.call('getSelectedTextInsipioTTS');
@@ -542,6 +544,7 @@
 				
 				
 				$lib('#sbStartInsipioTTSSelectionMale').on('click touchend', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
 					a = document.createElement('audio');
 					audio = new Audio();

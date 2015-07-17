@@ -93,6 +93,7 @@
 
 			// If there are no more replacements, we're done.
 			if($lib(selector).children().length === 0){
+				$lib('#at-modal-close-btn')[0].focus();
 				AtKit.message(AtKit.localisation("spell_modal_title"), spell_settings.completeDialog);
 			} else {
 				$lib(selector).trigger('change');
@@ -116,13 +117,13 @@
 				
 				AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
 				
-				$lib('#AtKitSpellRecordAllow').click(function(){
+				$lib('#AtKitSpellRecordAllow').on('click', function(){
 					AtKit.call('recordSpellng');
 					AtKit.message(AtKit.localisation("spell_modal_title"),spell_settings.completeDialog);
 					allowRecord = true;
 				});
 				
-				$lib('#AtKitSpellRecordDisallow').click(function(){
+				$lib('#AtKitSpellRecordDisallow').on('click', function(){
 					AtKit.message(AtKit.localisation("spell_modal_title"),spell_settings.completeDialog);
 					allowRecord = false;
 				});
@@ -287,7 +288,7 @@
 					var self = this;
 
 					dlg.children("#AtKitSpellMistakeContainer").append(
-						$lib('<select>', { "name": "spellcheckmistakes", "id": "spellcheckmistakes", "size": 7, "style": "width: 250px;", "class": "no-float" }).change(
+						$lib('<select>', { "name": "spellcheckmistakes", "id": "spellcheckmistakes", "style": "width: 250px;", "class": "no-float" }).on('change',
 							function(){
 								// Remove children from suggestions
 								$lib('#spellchecksuggestions').empty();
@@ -308,17 +309,16 @@
 					);
 
 					dlg.children("#AtKitSpellSuggestionContainer").append(
-						$lib('<select>', { "name": "spellchecksuggestions", "id": "spellchecksuggestions", "size": 7, "style": "width: 250px;", "class": "no-float" })
+						$lib('<select>', { "name": "spellchecksuggestions", "id": "spellchecksuggestions", "style": "width: 250px;", "class": "no-float" })
 					);
 
 
 					AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
 					AtKit.showModal();
-					console.log("clicou");
 					// Set focus to the suggestions select
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					$lib('#at-modal').on('shown.bs.modal', function () {
-						console.log("mostrou");
-					    $lib('#spellchecksuggestions').focus();
+					    $lib('#spellchecksuggestions')[0].focus();
 					})
 					
 					// Add items to spellcheckmistakes.
@@ -330,7 +330,8 @@
 
 
 					// Ignore this mistake
-					$lib('#AtKitSpellIgnore').click(function(){
+					$lib('#AtKitSpellIgnore').on('click', function(){
+						$lib( "#at-modal" ).off('shown.bs.modal');
 						// Record error and correction
 						spellngIgnore = 1;
 						
@@ -341,7 +342,8 @@
 						AtKit.call('removeIncorrectWord');
 					});
 
-					$lib('#AtKitSpellReplace').click(function(){
+					$lib('#AtKitSpellReplace').on('click', function(){
+						$lib( "#at-modal" ).off('shown.bs.modal');
 						var selector = "#spellcheckmistakes";
 
 						var mistake = dlg.find(selector).val();
@@ -423,10 +425,12 @@
 					var textElement = $lib(this);
 					
 					// Bind shortcutkeys
-					textElement.keyup(function (e) {
+					textElement.on('keyup', function (e) {
 						if(e.keyCode == 17) ctrlModifier = false;
 						if(e.keyCode == 18) altModifier = false;
-					}).keydown(function (e) {
+					});
+
+					textElement.on('keydown', function (e) {
 						if(e.keyCode == 17) ctrlModifier = true;
 						if(e.keyCode == 18) altModifier = true;
 						
