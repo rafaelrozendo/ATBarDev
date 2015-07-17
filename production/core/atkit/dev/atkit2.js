@@ -130,7 +130,7 @@
 				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
 				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
 				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 0px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
-				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 1px; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; max-height: 85vh; overflow-x: visible; overflow-y: auto;',
+				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; max-height: 85vh; overflow-x: visible; overflow-y: auto;',
 				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
 				".at-btn": 'box-sizing: border-box; position: relative; display: block; text-align: center;',
 				".at-btn > a": 'box-sizing: border-box; color: rgb(119, 119, 119); display: block; line-height: 20px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px; padding-top: 10px; position: relative; text-decoration: none;',
@@ -271,7 +271,7 @@
 					console.log("vai carregar bootstrap");
 					//setTimeout(loadBootstrap, 3000);
 					//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-					//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+					attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
 					//attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
 					console.log("carregou bootstrap");
 					//setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
@@ -280,7 +280,7 @@
 			else {
 				console.log("vai carregar bootstrap 2");
 				//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-				//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+				attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
 				//attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
 			}
 
@@ -601,6 +601,9 @@
 		function applyCSS(obj){
 			var cssObj = (typeof obj == "undefined") ? API.__CSS : obj;
 
+			// sbar background colour will be changed, so we have to set it to the previous colour after "applyCss" is done
+			var prevColour = API.$('#sbar').css('background-color');
+
 			for(c in cssObj){
 				if(/:active/.test( c ) || API.$( c ).length == 0) continue;
 				try {		
@@ -629,6 +632,8 @@
 					debug(e.description);	
 				}
 			}
+
+			API.$('#sbar').css('background-color', prevColour);
 		}
 		
 		// Shut down the toolbar

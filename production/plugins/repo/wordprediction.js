@@ -146,7 +146,8 @@
 									"color": "black",
 									"border": "2px solid black",
 									"z-index": "9999999999",
-									"padding": "10px"
+									"padding": "10px",
+									"height": "auto"
 								});
 							} else {
 								suggestions = $lib('#AtKitWordPrediction').empty();
@@ -154,7 +155,7 @@
 							
 							
 							suggestions.append(
-								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red;padding-right:10px;float:left;" }).on('click', function(){
+								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red;padding-right:10px;float:left;display:block;padding-top:0px;padding-left:0px;padding-bottom:0px;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).on('click', function(){
 									$lib('#AtKitWordPrediction').remove();
 									el.focus();
 								})
@@ -171,7 +172,7 @@
 								// Remove the liklihood from the string.
 								suggestion = suggestion.substring(1);
 
-								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px;float:left;" }).data('suggestion', suggestion).on('click', function(e){
+								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px;float:left;display:block;padding-top:0px;padding-left:0px;padding-bottom:0px;color:#337ab7;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).data('suggestion', suggestion).on('click', function(e){
 									var pos = AtKit.get('WordPrediction_CaretPos');
 									var toInsert = $lib(this).data('suggestion') + " ";
 									var el = AtKit.get('WordPrediction_TextSelected');
