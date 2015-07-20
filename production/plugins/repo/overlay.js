@@ -153,6 +153,11 @@
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayGreen', {});
 						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'green'});
+
+					$lib("#at-spn-overlayYellow").css('color', '#FFCC00');
+					$lib("#at-spn-overlayRed").css('color', 'red');
+					$lib("#at-spn-overlayBlue").css('color', 'blue');
+					$lib("#at-spn-overlayGreen").css('color', 'green');
 				}
 				else{
 					overlayRunning = 0;

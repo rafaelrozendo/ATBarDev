@@ -20,15 +20,13 @@
 			__version: 1.6, // Version.
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
-			//__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
-			__baseURL: "http://localhost/production/core/",
+			__baseURL: "http://localhost/production/core/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
 			__pluginURL: "http://localhost/production/plugins/", // Plugins location
 			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
-			__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
+			//__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
 			__draggableURL: "http://localhost/production/core/resources/js/draggable.min.js",
-			__bootstrapJsURL: "http://localhost/production/core/resources/js/bootstrap.js",
-			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.css",
+			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
 			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
@@ -78,7 +76,7 @@
 			language:'en',
 			defaultLanguage: 'en',
 			defaultIconMode: 0,
-			iconMode: 0 //0 = original icons, 1 = bootstrap icons
+			iconMode: 0 //0 = original icons (images), 1 = bootstrap icons (glyphicons)
 		}
 	
 		AtKit.internal.__resourceURL = AtKit.internal.__baseURL;
@@ -110,9 +108,6 @@
 			languageMap: {}, // Translations
 			siteFixes: [] // Contains object for each site {regex: /regex/, function: function()} //
 		}
-		
-		//Default CSS attributes settings that help enhance the interoperability of the toolbar by preventing pages' css form affecting the toolbar's. Add it before you declare any css to any element in the toolbar or dialogs
-		//default_css = "-webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; height:initial; width:initial; margin:0px; padding:0; border:0; vertical-align:baseline; font-size: initial; font: inherit; float:none; line-height:initial; color:initial; background:initial;";
 
 		// API object. Everything in here becomes public after AtKit has finished executing
 		var API = {
@@ -126,16 +121,17 @@
 			},
 			__CSS: {
 				"#sbarGhost": "box-sizing: border-box;",
-				//"#sbarGhost *, #sbar *": default_css,
 				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
 				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
-				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 0px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
-				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; max-height: 85vh; overflow-x: visible; overflow-y: auto;',
+				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
+				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; max-height: 75vh; overflow-x: hidden; overflow-y: auto;',
 				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
 				".at-btn": 'box-sizing: border-box; position: relative; display: block; text-align: center;',
 				".at-btn > a": 'box-sizing: border-box; color: rgb(119, 119, 119); display: block; line-height: 20px; padding-bottom: 10px; padding-left: 15px; padding-right: 15px; padding-top: 10px; position: relative; text-decoration: none;',
-				//".at-btn > a > span": 'box-sizing: border-box;',
-				//".at-btn > a > span.glyphicon": '1: top; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px;',
+				
+				".at-btn > a > span": 'box-sizing: border-box;',
+				".at-btn > a > span.glyphicon": '1: top; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px;',
+				
 				".at-btn > a > span > img.at-btn-icon": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; vertical-align: middle;',
 				"#at-right-buttons": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
 				"#at-modal.modal": '0: opacity; 1050: ; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
@@ -156,6 +152,7 @@
 				"name": '',
 				"about": ''
 			},
+			//removed "span" tag because it is used to display the glyphicons
 			htmlTags: ["a","abbr","acronym","address","applet","area","article","aside","audio","b","base","basefont","bdi","bdo","big","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","command","datalist","dd","del","details","dfn","dir","div","dl","dt","em","embed","fieldset","figcaption","figure","font","footer","form","frame","frameset","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","map","mark","menu","meta","meter","nav","noframes","noscript","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","strike","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","tt","u","ul","var","video","wbr"],
 			version: AtKit.internal.__APIVersion,
 			$: '', // Library used for the Toolbar
@@ -203,7 +200,7 @@
 			debug('bootstrapping AtKit ' + AtKit.internal.versionString + '...');
 			// If we're invoked already don't load again.
 			if( isLoaded() || AtKit.internal.__invoked ) return;
-	
+
 			// Don't load if we're not the top window (running in an iframe)
 			if(API.settings.noiframe && window != window.top) return;
 
@@ -225,16 +222,12 @@
 			debug('loadLibrary called');
 			// Do we have a jQuery library loaded already?
 			
-			// load the custom built responsive css. We did not use bootstrap because there might a version conflict
-			//attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );
 			var needToLoadJQuery = true;
 			if(typeof window.jQuery != "undefined"){
 				try {
-					console.log("lol");
 					// We need jQuery 1.5 or above. Get the version string.
 					jQversion = parseFloat(window.jQuery().jquery.match(/\d\.\d/));
 					debug('jQuery already loaded, v' + jQversion);
-					console.log(jQversion);
 				
 					if(jQversion > 1.9) {
 						debug('loaded version acceptable, using.');
@@ -242,7 +235,7 @@
 						
 						// Load modal.
 						//loadModal();
-						console.log("versao maior que 1.9");
+
 						broadcastLoaded();
 						needToLoadJQuery = false;
 					} else {
@@ -258,48 +251,24 @@
 				newVersion = parseFloat(AtKit.internal.__libURL.match(/\d\.\d\d/));
 				debug('jQuery not loaded, loading ' + newVersion);
 			}
-			// jQuery not loaded. Attach.
 			
-			//attachJS( 'atkit-require-js', AtKit.internal.__requireURL );
+			// attach bootstrap css
 			attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
 
+			// if jQuery not loaded, then attach.
 			if (needToLoadJQuery) {
-				console.log("vai carregar jquery");
 				attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {
-					jQversion = parseFloat(window.jQuery().jquery.match(/\d\.\d\d/));
-					console.log(jQversion);
-					console.log("vai carregar bootstrap");
-					//setTimeout(loadBootstrap, 3000);
-					//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-					attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
-					//attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
-					console.log("carregou bootstrap");
-					//setTimeout(attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} ), 500);
+					//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+					attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
 				} );
 			}
 			else {
-				console.log("vai carregar bootstrap 2");
-				//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL, function() {} );
-				attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
-				//attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
+				//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
+				attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
 			}
 
-			
-			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );
-			
-			//window.$ = window.jQuery = require(__libURL);
-			
-
-			//alert("Script loaded and executed.");
-			// here you can use anything you defined in the loaded script
-			
-			
-			
-			// load bootstrap
-			
-			//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL );
-			//attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
-			
+			// load the custom built responsive css.
+			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );				
 			
 			// Wait for library to load.
 			waitForLib();
@@ -343,19 +312,28 @@
 			API.$("<div>", { id: "at-modal-content", class: "modal-content" }).appendTo("#at-modal-dialog");
 			API.$("<div>", { id: "at-modal-header", class: "modal-header" }).appendTo("#at-modal-content");
 			API.$("<button>", {id: "at-modal-x-btn" , type:"button", class: "close", 'data-dismiss':"modal" }).appendTo("#at-modal-header");
-			API.$("<h1>", { id: "at-modal-title", class: "modal-title" }).appendTo("#at-modal-header");
-			API.$("<div>", { id: "at-modal-body", class: "modal-body" }).appendTo("#at-modal-content");
+			API.$("<h1>", { id: "at-modal-title", class: "modal-title" }).appendTo("#at-modal-header"); //the title goes here
+			API.$("<div>", { id: "at-modal-body", class: "modal-body" }).appendTo("#at-modal-content"); //the content goes here
 			API.$("<div>", { id: "at-modal-footer", class: "modal-footer" }).appendTo("#at-modal-content");
 			API.$("<button>", {id:"at-modal-close-btn", type:"button", class: "btn btn-default", 'data-dismiss':"modal" }).appendTo("#at-modal-footer");
 
 			API.$('#at-modal-close-btn').html(API.localisation("closemodal"));
 			API.$('#at-modal-x-btn').html("&times;");
 
-			/*API.$("#at-modal").draggable({
-			    handle: ".modal-header"
-			});*/
+			/*try {
+				API.$("#at-modal").draggable({
+				    handle: ".modal-header"
+				});
+			} catch (err) {
+				debug(err);
+			}*/
 
-			//API.$('#at-modal').drags({handle: '.modal-header'})
+			try {
+				API.$('#at-modal').drags({handle: '.modal-header'});
+			} catch (err) {
+				debug(err);
+			}
+				
 
 			API.$("#at-modal-close-btn").on('click', function(){
 				API.hideModal();
@@ -365,6 +343,7 @@
 				API.hideModal();
 			});
 
+			// the modal should be closed if the user clicks outside its window
 			API.$('body').on('mousedown', function (e) {
 			    if (e.target.getAttribute("id") === "at-modal") {
 			    	API.hideModal();
@@ -403,9 +382,18 @@
 			// Replace in the template.
 			b = b.replace(/\(ID\)/ig, ident);
 			b = b.replace(/\(TITLE\)/ig, API.__env.buttons[ident].tooltip);
+			
+			//(SRC) replaced only if we are using the original icons, i.e. images
 			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img id='at-btn-icon-" + ident +  "' src="+ API.__env.buttons[ident].icon +" class='at-btn-icon'/></img>" : "");
+			
+			//(CLASS) replaced only if we are using glyphicons
 			b = b.replace(/\(CLASS\)/ig, (AtKit.internal.iconMode === 1) ? API.__env.buttons[ident].cssClass : "");
+			
+			//(COLOUR) replaced only for the overlay buttons if we are using glyphicons
 			b = b.replace(/\(COLOUR\)/ig, (AtKit.internal.iconMode === 1 && API.__env.buttons[ident].colour) ? "color:"+API.__env.buttons[ident].colour : "");
+			//note: if we use applyCss() right after the button is rendered, this colour attribute might be overwritten. So, you either don't apply css to at-buttons or set the colour manually in the plugin code. I chose the second option
+			
+			//(MODAL) replaced only if the button should open the modal
 			b = b.replace(/\(MODAL\)/ig, (API.__env.buttons[ident].modal) ? "#at-modal" : "");
 
 			// jQuery'ify
@@ -428,38 +416,6 @@
 			// Return the HTML
 			return API.__env.buttons[ident].HTML;
 		}
-		
-		function css(a) {
-		    var sheets = document.styleSheets, o = {};
-		    for (var i in sheets) {
-		        var rules = sheets[i].rules || sheets[i].cssRules;
-		        for (var r in rules) {
-		            if (a.is(rules[r].selectorText)) {
-		                o = API.$.extend(o, css2json(rules[r].style), css2json(a.attr('style')));
-		            }
-		        }
-		    }
-		    return o;
-		}
-
-		function css2json(css) {
-		    var s = {};
-		    if (!css) return s;
-		    if (css instanceof CSSStyleDeclaration) {
-		        for (var i in css) {
-		            if ((css[i]).toLowerCase) {
-		                s[(css[i]).toLowerCase()] = (css[css[i]]);
-		            }
-		        }
-		    } else if (typeof css == "string") {
-		        css = css.split("; ");
-		        for (var i in css) {
-		            var l = css[i].split(": ");
-		            s[l[0].toLowerCase()] = (l[1]);
-		        }
-		    }
-		    return s;
-		}
 	
 		// Private function used to actually start the toolbar.
 		function start(){
@@ -470,23 +426,18 @@
 			
 			if(API.$("#sbarGhost").length == 0) showLoader();
 
+			// When we close the toolbar we remove the responsive css to prevent unwanted behaviour. So, if the user wants to use the toolbar again, the responsive css has to be loaded again
+			if (API.$("#atkit-responsive-css").length === 0) {
+				attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );	
+			}
+
 			// Insert the bar holder 
-			//API.$( API.$('<div>', { id: 'sbar' }) ).insertAfter("#sbarGhost");
 			API.$( API.$('<nav>', { id: 'sbar', class: 'navbar navbar-default navbar-fixed-top col-xs-12' }) ).insertAfter("#sbarGhost");
 
 			// Load modal.
 			loadModal();
 			
-			// Insert the logo.
-			
-			// Are we in RTL mode? Work out where we should be positioned.
-			var align = API.settings.isRightToLeft ? "right" : "left";
-			
-			/*API.$(
-				API.$("<a>", { id: 'sbarlogo', click: function(){ showAbout() } }).append(
-					API.$("<img>", { "src": API.settings.logoURL, "align": align, "border": "0", "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo", "style": "margin-top:10px;float:" + align }) 
-				)
-			).appendTo('#sbar');*/
+			// Insert the logo.		
 			API.$(
 				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', 'data-toggle':"modal", 'data-target':"#at-modal" }).append(
 					API.$("<img>", { id:'sbarlogo-img', "src": API.settings.logoURL, "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo" }) 
@@ -494,6 +445,13 @@
 			).appendTo('#sbar');
 
 			API.$("#sbarlogo").on('click', function(){showAbout();});
+
+			// Add a button that collapses the toolbar plugin buttons when in small devices.
+			API.$("<button>", {type:"button", id: "at-btn-atkit-toggle", class: "navbar-toggle collapsed", "data-toggle":"collapse", "data-target":"#at-collapse-parent", "aria-expanded":"false", "aria-controls":"at-collapse-parent" }).appendTo("#sbar");
+			API.$("<span>", { class: "sr-only"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
 			
 			API.$("<img>", { "src": "https://misc.services.atbar.org/stats/stat.php?channel=" + AtKit.internal.__channel + "-" + API.settings.name + "&version=" + AtKit.internal.__version.toFixed(1) + "." + AtKit.internal.__build, "alt": " " }).appendTo("#sbar");
 			
@@ -512,43 +470,59 @@
 				API.addButton('atkit-unload', API.localisation("exit"), AtKit.internal.__assetURL + 'img/close.png', function(){ API.close(); }, null, null, {'cssClass':'glyphicon glyphicon-remove', 'allign':'right'});
 			}
 			
+			// Are we in RTL mode? Work out where we should be positioned.
 			var ulPluginsClass = API.settings.isRightToLeft ? "nav navbar-nav navbar-right" : "nav navbar-nav";
 			var ulOtherButtonsClass = API.settings.isRightToLeft ? "nav navbar-nav" : "nav navbar-nav navbar-right";
 
-			// Add a collapsible container before adding the plugin buttons.
-			//API.$( API.$('<div>', { id: 'at-collapse' }) ).appendTo("#sbar");
+			// Add a collapsible container before adding the plugin buttons. Expanded by default
 			API.$(
 				API.$("<div>", { id: 'at-collapse-parent', class: 'navbar-collapse collapse in', 'aria-expanded':"true" }).append(
 					API.$("<ul>", { id: 'at-collapse', class: ulPluginsClass}) 
 				)
 			).appendTo('#sbar');
+			API.$('body').addClass('atbar-expanded');
 
+			// Add a container to hold the close, help and refresh buttons
 			API.$("<ul>", { id: "at-right-buttons", class: ulOtherButtonsClass }).appendTo("#at-collapse-parent");
 			
-			// Add a button that collapses the toolbar plugin buttons when in small devices.
-			/*API.$("<button>", {type:"button", id: "at-btn-atkit-toggle", class: "navbar-toggle collapsed", "data-toggle":"collapse", "data-target":"#at-collapse-parent", "aria-expanded":"false", "aria-controls":"at-collapse-parent" }).appendTo("#sbar");
-			API.$("<span>", { class: "sr-only"}).appendTo("#at-btn-atkit-toggle");
-			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
-			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
-			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");*/
+			// Collapse/expand on click:
+			API.$("#at-btn-atkit-toggle").on('click', function(){
+				var isExpanded = API.$("#at-collapse-parent").attr('aria-expanded');
 
+				if (isExpanded === "true") {
+					//collapse
 
-			/*API.addButton('atkit-toggle', API.localisation("collapse"), AtKit.internal.__assetURL + 'img/collapse.gif', function(){
-				if($('#at-collapse').is(':visible'))
-				{
-					$('#at-collapse').slideUp('fast', function(){
-						$('#at-collapse').addClass('at-hidden');
-						$('#at-collapse').removeClass('at-visible');
-					});
+					API.$("#at-collapse-parent").attr('aria-expanded', 'false');
+
+					//set class to "collapsing" to allow slide animation
+					API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapsing');
+
+					//collapse
+					API.$("#at-collapse-parent").css('height','1px');
+					setTimeout(function(){ //after .35s (the default for bootstrap):
+						API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapse');
+						API.$('body').removeClass('atbar-expanded');
+						API.$('body').addClass('atbar-collapsed');
+					}, 350);
+					
+
+				} else if (isExpanded === "false") {
+					//expand
+
+					API.$("#at-collapse-parent").attr('aria-expanded', 'true');
+
+					//set class to "collapsing" to allow slide animation
+					API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapsing');
+
+					//expand
+					API.$("#at-collapse-parent").css('height','');
+					setTimeout(function(){ //after .35s (the default for bootstrap):
+						API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapse in');
+						API.$('body').removeClass('atbar-collapsed');
+						API.$('body').addClass('atbar-expanded');
+					}, 350);
 				}
-				else
-				{
-					$('#at-collapse').slideDown('fast', function(){
-						$('#at-collapse').addClass('at-visible');
-						$('#at-collapse').removeClass('at-hidden');
-					});
-				}
-			}, null, null, {'cssClass':'fright'});*/
+			});
 			
 			// Add buttons. Only add the plugin buttons to the collapsible div
 			for(b in API.__env.buttons){
@@ -593,8 +567,6 @@
 			}
 			
 			API.$('body').trigger('AtKitRenderComplete');
-
-			console.log(css(API.$("#at-modal-close-btn")));
 		}
 		
 		// Apply the CSS rules that have been defined
@@ -653,6 +625,12 @@
 			
 			// Cleanup.
 			
+			// Remove responsive css to prevent unwanted behaviour
+			API.$("#atkit-responsive-css").remove();
+
+			// Remove atbar.js from header
+			API.$('#ToolBar[src^="'+AtKit.internal.__baseURL+'"]').remove();
+
 			// Reset language
 			AtKit.internal.language = AtKit.internal.defaultLanguage;
 			
@@ -1050,7 +1028,7 @@
 			}
 			API.$('body').addClass('modal-open');
 			API.$('#at-modal').css('display', 'block'); //prepare to slide down modal
-			setTimeout(function(){ //after .15s:
+			setTimeout(function(){ //after .15s (the default for bootstrap):
 				//API.$('#at-modal-div-overlay').addClass('in'); //fade in overlay
 				API.$('#at-modal').addClass('in'); //slide down modal
 			}, 150);
@@ -1062,7 +1040,7 @@
 		API.hideModal = function() {
 			API.$('#at-modal').removeClass('in'); //slide up modal
 			//API.$('#at-modal-div-overlay').removeClass('in'); //fade out overlay
-			setTimeout(function(){ //after .15s:
+			setTimeout(function(){ //after .15s (the default for bootstrap):
 				API.$('#at-modal').css('display', 'none'); //remove modal
 				//API.$("#at-modal-div-overlay").remove(); //remove overlay
 				API.$('body').removeClass('modal-open');

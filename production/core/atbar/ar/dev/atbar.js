@@ -84,6 +84,7 @@ function __start(){
 			});	
 		
 			// Run
+			AtKit.setIconMode(1);
 			AtKit.render();
 			
 			// Select the first button.

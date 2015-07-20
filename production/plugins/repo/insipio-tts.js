@@ -526,15 +526,16 @@
 			function(dialogs, functions){
 				if(AtKit.set('TTS_clickEnabled') == false) return;
 
+				var text = AtKit.call('getSelectedTextInsipioTTS');
+				
+				if(AtKit.get('TTSselectedData') == "" && text != "") AtKit.set('TTSselectedData', text);
+
 				// Set focus to the male voice button
 				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib('#at-modal').on('shown.bs.modal', function () {
-				    $lib('#sbStartInsipioTTSSelectionMale')[0].focus();
-				})
-				
-				var text = AtKit.call('getSelectedTextInsipioTTS');
-
-				if(AtKit.get('TTSselectedData') == "" && text != "") AtKit.set('TTSselectedData', text);
+					//if we focus a button, some browsers may lose the selected text
+				    //$lib('#sbStartInsipioTTSSelectionMale')[0].focus();
+				});
 
 
 				AtKit.show(dialogs.options);

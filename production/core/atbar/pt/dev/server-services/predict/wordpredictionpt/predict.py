@@ -56,8 +56,6 @@ def get_suggestion(args):
 			empty_string = False
 
 		#will be parsed by the JavaScript function
-		output = None
-	
 		output = "0" + current_word + ";;"
 		
 		current_word += "%" #wildcard
@@ -74,7 +72,7 @@ def get_suggestion(args):
 		i = 0 #used to fix a bug in JavaScript (word counts with more than 2 digits would be partially displayed)
 		max_suggestions = 6
 
-		suggestions = set()
+		suggestions = set() #used to check whether or not a word has already been used as suggestion
 
 		for row in rows:
 			suggestion_word = row[0]
@@ -85,7 +83,7 @@ def get_suggestion(args):
 			if suggestion_word.lower() not in suggestions:
 				suggestions.add(suggestion_word.lower())
 				if first_letter:
-					suggestion_word = string.capwords(suggestion_word)
+					suggestion_word = string.capwords(suggestion_word) #capitalise
 				output += str(suggestion_count).encode('UTF-8')
 				output += suggestion_word.encode('UTF-8')
 				output += u";".encode('UTF-8')
