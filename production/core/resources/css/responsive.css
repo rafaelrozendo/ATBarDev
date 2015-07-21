@@ -1,3 +1,7 @@
+#at-modal.modal.fade {
+   background-color: transparent;
+}
+
 #at-collapse-parent.navbar-collapse {  
 	width: auto;
 	height: auto; 

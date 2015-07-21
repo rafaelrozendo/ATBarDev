@@ -313,13 +313,13 @@
 					);
 
 
-					AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
-					AtKit.showModal();
 					// Set focus to the suggestions select
 					$lib( "#at-modal" ).off('shown.bs.modal');
 					$lib('#at-modal').on('shown.bs.modal', function () {
 					    $lib('#spellchecksuggestions')[0].focus();
-					})
+					});
+
+					AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
 					
 					// Add items to spellcheckmistakes.
 					$lib.each(this.results.words, function(i,v){
