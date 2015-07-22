@@ -20,14 +20,12 @@
 			__version: 1.6, // Version.
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
-			__baseURL: "http://localhost/production/core/", // Load AtKit assets from here.
+			__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
-			__pluginURL: "http://localhost/production/plugins/", // Plugins location
-			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
-			//__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
-			__draggableURL: "http://localhost/production/core/resources/js/draggable.min.js",
-			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
-			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
+			__pluginURL: "http://plugins-dev.atbar.org/", // Plugins location
+			__libURL: "https://core.atbar.org/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
+			__responsiveCssURL: "https://core.atbar.org/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
 			__debug: false, // Debug mode on or off.
@@ -121,7 +119,7 @@
 				"separator": '<div class="at-separator at-separator-(ID)"></div>'
 			},
 			__CSS: {
-				"#sbarGhost": "box-sizing: border-box;",
+				"#sbarGhost": "box-sizing: border-box; position:fixed",
 				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
 				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
 				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',

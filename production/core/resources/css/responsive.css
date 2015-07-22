@@ -27,7 +27,7 @@
 }
 
 body.atbar-collapsed {
-	margin-top: 60px; 
+	margin-top: 50px; 
 	margin-left: 0px;
 }
 
@@ -71,6 +71,11 @@ body.atbar-expanded {
 	body.atbar-expanded {
 		margin-left: 101px;
 		margin-top: 0px;
+	}
+
+	body.atbar-collapsed {
+		margin-top: 101px; 
+		margin-left: 0px;
 	}
 
 	#sbar .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
