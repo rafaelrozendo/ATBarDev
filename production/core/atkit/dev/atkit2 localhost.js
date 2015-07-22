@@ -20,12 +20,14 @@
 			__version: 1.6, // Version.
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
-			__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
+			__baseURL: "http://localhost/production/core/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
-			__pluginURL: "http://plugins-dev.atbar.org/", // Plugins location
-			__libURL: "https://core.atbar.org/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
-			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
-			__responsiveCssURL: "https://core.atbar.org/resources/css/responsive.css",
+			__pluginURL: "http://localhost/production/plugins/", // Plugins location
+			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			//__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
+			__draggableURL: "http://localhost/production/core/resources/js/draggable.min.js",
+			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
+			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
 			__debug: false, // Debug mode on or off.

@@ -4,8 +4,7 @@
 	var plugin = function(){
 
 		var settings_css = {
-			//'baseURL': 'https://styles.services.atbar.org/css/'
-			'baseURL': 'http://localhost/production/server-services/styles/css/'
+			'baseURL': 'https://styles.services.atbar.org/css/'
 		};
 
 		var reset_colour = "#F8F8F8";

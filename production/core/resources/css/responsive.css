@@ -23,7 +23,7 @@
 }
 
 #sbar .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
-  max-height: 75vh;
+  max-height: 50px;
 }
 
 body.atbar-collapsed {
@@ -71,6 +71,10 @@ body.atbar-expanded {
 	body.atbar-expanded {
 		margin-left: 101px;
 		margin-top: 0px;
+	}
+
+	#sbar .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+	  max-height: 75vh;
 	}
 
 }
