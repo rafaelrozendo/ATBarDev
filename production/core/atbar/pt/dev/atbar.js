@@ -1,6 +1,6 @@
 if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
-	d=document;jf=d.createElement('script');jf.src='http://localhost/production/core/atkit/dev/atkit2.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/dev/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
 	
 	window.AtKitLoaded = function(){
 		var eventAction = null;
@@ -33,14 +33,14 @@ function __start(){
 			'version': '2.2.0 Dev'
 		};
 		
-		settings.resources = 'http://localhost/production/core/resources/';
+		settings.resources = 'https://core.atbar.org/resources/';
 		
 		var plugins = ["resize", "fonts", "spellngpt", "dictionary", "espeak-tts", "readability", "wordprediction-pt","css", "shortcutkeys", "tooltip", "overlay"];
 		
 		var onLoad = function(){
 		
 			// Set our logo
-			AtKit.setLogo(settings.resources + "img/atbar-beta-transparent2.png");
+			AtKit.setLogo(settings.resources + "img/atbar-beta.png");
 			AtKit.setName("ATBarPortuguese");
 			
 			AtKit.setLanguage("pt");
