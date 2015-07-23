@@ -142,11 +142,11 @@
 			"siteColours": function(){
 				$lib('#applyPageColours').on('click', function(e){ 			
 					if( $lib('#sbtextcolour').val() != "undefined" && $lib('#sbtextcolour').val() != "original" ){
-						$lib('*').css('color', "#" + $lib('#sbtextcolour').val());
+						$lib('*:not([id^="at-"])*:not([id^="atkit-"])*:not([class^="at-"])*:not([class^="atkit-"])*:not([class^="atbar-"])').css('color', "#" + $lib('#sbtextcolour').val());
 					}
 					
 					if( $lib('#sblinkcolour').val() != "undefined" && $lib('#sblinkcolour').val() != "original" ){
-						$lib('a').css('color', "#" + $lib('#sblinkcolour').val());
+						$lib('a:not([id^="at-"])a:not([id^="atkit-"])a:not([class^="at-"])a:not([class^="atkit-"])a:not([class^="atbar-"])').css('color', "#" + $lib('#sblinkcolour').val());
 					}
 				});
 				
