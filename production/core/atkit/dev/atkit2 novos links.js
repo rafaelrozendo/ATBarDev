@@ -116,15 +116,15 @@
 				"barFailed": "<center>library loading failed</center>",
 				"button": '<li id="at-btn-(ID)" class="at-btn"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)" data-toggle="modal" data-target="(MODAL)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true">(SRC)</a></div></li>',
 				"spacer": '<div class="at-spacer"></div>',
-				"separator": '<div class="at-separator at-separator-(ID)"></div>'
+				"separator": '<div id="at-separator-(ID)" class="at-separator at-separator-(ID)"></div>'
 			},
 			__CSS: {
-				"#sbarGhost": "box-sizing: border-box; position:fixed",
+				"#sbarGhost": "box-sizing: border-box; position:fixed;",
 				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
 				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
-				"#sbar": '1030: ; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
-				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; overflow-x: hidden; overflow-y: auto;',
-				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				"#sbar": '1030: ; background-image:initial; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
+				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; background-image:initial; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; overflow-x: hidden; overflow-y: auto;',
+				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; background-image:initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
 				".at-btn": 'box-sizing: border-box; position: relative; display: block; text-align: center;',
 				".at-btn > a": 'box-sizing: border-box; color: rgb(119, 119, 119); display: block; line-height: 20px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative; text-decoration: none;',
 				
@@ -134,14 +134,14 @@
 				".at-btn > a > span > img.at-btn-icon": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; vertical-align: middle;',
 				"#atkit-stats-img": 'position: fixed; width: 1px; height: 1px;',
 				"#at-btn-atkit-toggle": 'width: initial; height: initial;',
-				"#at-right-buttons": 'box-sizing: border-box; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
-				"#at-modal.modal": '0: opacity; 1050: ; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
+				"#at-right-buttons": 'box-sizing: border-box; background-image:initial; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				"#at-modal.modal": '0: opacity; 1050: ; width:initial; height: initial; margin: 0px; top:0px!important; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
 				"#at-modal-dialog": '-webkit-transition-delay: initial; -webkit-transition-duration: 0.3s; -webkit-transition-property: transform; -webkit-transition-timing-function: ease-out; box-sizing: border-box; margin-bottom: 10px; margin-top: 10px; position: relative; transition-delay: initial; transition-duration: 0.3s; transition-property: transform; transition-timing-function: ease-out;',
-				"#at-modal-content": '-webkit-background-clip: padding-box; -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; background-clip: padding-box; background-color: rgb(255, 255, 255); border-bottom-color: rgba(0, 0, 0, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgba(0, 0, 0, 0.2); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.2); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 6px; border-top-right-radius: 6px; border-top-style: solid; border-top-width: 1px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; box-sizing: border-box; outline-color: initial; outline-style: initial; outline-width: 0px; position: relative;',
-				"#at-modal-header": 'border-bottom-color: rgb(229, 229, 229); border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; min-height: 16.42857143px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px;',
-				"#at-modal-body": 'box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative;',
-				"#at-modal-footer": 'border-top-color: rgb(229, 229, 229); border-top-style: solid; border-top-width: 1px; box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; right: ;text-align: right;',
-				"#at-modal .btn.btn-default": '-webkit-appearance: button; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
+				"#at-modal-content": '-webkit-background-clip: padding-box; width: initial; height: initial; -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; background-clip: padding-box; background-color: rgb(255, 255, 255); border-bottom-color: rgba(0, 0, 0, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgba(0, 0, 0, 0.2); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.2); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 6px; border-top-right-radius: 6px; border-top-style: solid; border-top-width: 1px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; box-sizing: border-box; outline-color: initial; outline-style: initial; outline-width: 0px; position: relative;',
+				"#at-modal-header": 'border-bottom-color: rgb(229, 229, 229); width: initial; height: initial; border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; min-height: 16.42857143px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px;',
+				"#at-modal-body": 'box-sizing: border-box; padding-bottom: 15px; width: initial; height: initial; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative;',
+				"#at-modal-footer": 'border-top-color: rgb(229, 229, 229); width: initial; height: initial; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; right: ;text-align: right;',
+				"#at-modal .btn.btn-default": '-webkit-appearance: button; width: initial; height: initial; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
 			},
 			settings: {
 				"noiframe": true, // Don't load if we're in an iframe.
@@ -222,50 +222,43 @@
 		function loadLibrary(){
 			debug('loadLibrary called');
 			// Do we have a jQuery library loaded already?
-			
+		   
 			var needToLoadJQuery = true;
 			if(typeof window.jQuery != "undefined"){
 				try {
 					// We need jQuery 1.5 or above. Get the version string.
-					jQversion = parseFloat(window.jQuery().jquery.match(/\d\.\d/));
+					jQversion = window.jQuery().jquery.match(/\d\.\d[\d]*/)[0].split('.');
 					debug('jQuery already loaded, v' + jQversion);
-				
-					if(jQversion > 1.9) {
+				    
+					if(parseFloat(jQversion[0]) > 1 || (parseFloat(jQversion[0]) === 1 && parseFloat(jQversion[1]) > 9)) {
 						debug('loaded version acceptable, using.');
 						API.$ = window.jQuery;
-						
+				      
 						// Load modal.
 						//loadModal();
 
 						broadcastLoaded();
-						needToLoadJQuery = false;
-					} else {
-						window._jQuery = window.jQuery;
-						window.jQuery = null;
-					}
-				} catch(e){}
+				    	needToLoadJQuery = false;
+				    } else {
+					    window._jQuery = window.jQuery;
+					    window.jQuery = null;
+				    }
+			    } catch(e){}
 			} else {
 				if(typeof window.$ != "undefined") window._$ = window.$;
-			}
-			
-			if(AtKit.internal.__debug) {
-				newVersion = parseFloat(AtKit.internal.__libURL.match(/\d\.\d\d/));
+		   }
+		   
+		   if(AtKit.internal.__debug) {
+				newVersion = parseFloat(AtKit.internal.__libURL.match(/\d\.\d[\d]*/));
 				debug('jQuery not loaded, loading ' + newVersion);
-			}
+		   }
 			
 			// attach bootstrap css
 			attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
 
 			// if jQuery not loaded, then attach.
 			if (needToLoadJQuery) {
-				attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {
-					//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
-					attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
-				} );
-			}
-			else {
-				//attachJS( 'atkit-jquery-ui-js', AtKit.internal.__jQueryUiURL, function() {} );
-				attachJS( 'atkit-draggable-modal-js', AtKit.internal.__draggableURL, function() {} );
+				attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {} );
 			}
 
 			// load the custom built responsive css.
@@ -921,7 +914,12 @@
 	
 			if(AtKit.internal.__invoked){
 				//If the toolbar buttons have already been rendered
-				API.$( renderButton(identifier) ).appendTo('#at-collapse');
+				if (typeof(options.insertAfter) !== "undefined") {
+					API.$( renderButton(identifier) ).insertAfter('#'+options.insertAfter);
+				}
+				else {
+					API.$( renderButton(identifier) ).appendTo('#at-collapse');
+				}
 				applyCSS();
 			}
 		}
