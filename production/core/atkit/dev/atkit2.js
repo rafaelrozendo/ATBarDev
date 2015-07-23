@@ -26,7 +26,7 @@
 			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			//__jQueryUiURL: "http://localhost/production/core/resources/jquery-ui/1.11.4/jquery-ui.min.js",
 			__draggableURL: "http://localhost/production/core/resources/js/draggable.min.js",
-			__bootstrapCssURL: "http://localhost/production/core/resources/css/bootstrap.min.css",
+			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
 			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
@@ -795,6 +795,10 @@
 		
 		API.getResourceURL = function(){
 			return AtKit.internal.__resourceURL;
+		}
+
+		API.getBootstrapURL = function(){
+			return AtKit.internal.__bootstrapCssURL;
 		}
 		
 		API.getChannelURL = function(){

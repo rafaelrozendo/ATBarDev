@@ -795,6 +795,10 @@
 		API.getResourceURL = function(){
 			return AtKit.internal.__resourceURL;
 		}
+
+		API.getBootstrapURL = function(){
+			return AtKit.internal.__bootstrapCssURL;
+		}
 		
 		API.getChannelURL = function(){
 			return AtKit.internal.__channelURL;
