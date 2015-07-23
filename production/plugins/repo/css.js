@@ -174,35 +174,35 @@
 			"CSSStyles": function(){
 				$lib('#sbApplyCSS-yb').on('click', function(e){ 
 					AtKit.hideDialog();
-					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])').remove();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-yo.css", "highvis-yo");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-yo");
 				});
 				
 				$lib('#sbApplyCSS-wb').on('click', function(e){ 
 					AtKit.hideDialog();
-					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])').remove();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-wb.css", "highvis-wb");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wb");
 				});
 				
 				$lib('#sbApplyCSS-wbw').on('click', function(e){
 					AtKit.hideDialog();
-					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])').remove();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-bw.css", "highvis-wbw");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wbw");
 				});
 				
 				$lib('#sbApplyCSS-by').on('click', function(e){
 					AtKit.hideDialog();
-					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])').remove();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-by.css", "highvis-by");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});
 				
 				$lib('#sbApplyCSS-gw').on('click', function(e){
 					AtKit.hideDialog();
-					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])').remove();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-gw.css", "highvis-by");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});	
