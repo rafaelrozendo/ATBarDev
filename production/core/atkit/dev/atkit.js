@@ -20,15 +20,12 @@
 			__version: 1.6, // Version.
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
-			//__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
-			__baseURL: "http://localhost/production/core/",
+			__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
-			__pluginURL: "http://localhost/dev/plugins/", // Plugins location
-			__faceboxURL: "http://localhost/production/core/resources/js/facebox.dev.js", // Facebox JS lib
-			__libURL: "http://localhost/production/core/resources/jquery/1.8/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
-			//__bootstrapJsURL: "https://core.atbar.org/resources/js/bootstrap.min.js",
-			//__bootstrapCssURL: "https://core.atbar.org/resources/css/bootstrap.min.css",
-			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
+			__pluginURL: "http://plugins-dev.atbar.org/", // Plugins location
+			__libURL: "https://core.atbar.org/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
+			__responsiveCssURL: "https://core.atbar.org/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
 			__debug: false, // Debug mode on or off.
@@ -43,19 +40,22 @@
 					"exit": "Exit",
 					"reset": "Reset webpage",
 					"help": "Help & instructions",
-					"collapse": "Collapse and uncollapse plugins"
+					"collapse": "Collapse and uncollapse plugins",
+					"closemodal": "Close"
 				},
 				"ar": {
 					"exit": "&#1582;&#1585;&#1608;&#1580;",
 					"reset": "&#1575;&#1604;&#1605;&#1581;&#1575;&#1608;&#1604;&#1577; &#1605;&#1580;&#1583;&#1583;&#1575;",
 					"help": "&#1605;&#1587;&#1575;&#1593;&#1583;&#1577; &#1608; &#1605;&#1593;&#1604;&#1608;&#1605;&#1575;&#1578; &#1575;&#1590;&#1575;&#1601;&#1610;&#1577;",
-					"collapse": "&#1593;&#1585;&#1590; &#1571;&#1608; &#1573;&#1582;&#1601;&#1575;&#1569; &#1575;&#1604;&#1604;&#1575;&#1574;&#1581;&#1577;"
+					"collapse": "&#1593;&#1585;&#1590; &#1571;&#1608; &#1573;&#1582;&#1601;&#1575;&#1569; &#1575;&#1604;&#1604;&#1575;&#1574;&#1581;&#1577;",
+					"closemodal": "&#1582;&#1585;&#1608;&#1580;"
 				},
 				"pt": {	
 					"exit": "Sair",
 					"reset": "Atualizar página",
 					"help": "Ajuda e instruções",
-					"collapse": "Collapse and uncollapse plugins"
+					"collapse": "Collapse and uncollapse plugins",
+					"closemodal": "Fechar"
 				}
 			},
 			templates:{
@@ -72,7 +72,10 @@
 			},
 			debugCallback: null,
 			language:'en',
-			defaultLanguage: 'en'
+			defaultLanguage: 'en',
+			defaultIconMode: 0,
+			iconMode: 0, //0 = original icons (images), 1 = bootstrap icons (glyphicons)
+			dragging: false
 		}
 	
 		AtKit.internal.__resourceURL = AtKit.internal.__baseURL;
@@ -84,7 +87,14 @@
 			CSS: {
 				"#ATKFBAbout" : "font-family:Helvetica, Verdana, Arial, sans-serif; font-size:12px; color:#364365; direction: ltr; text-align:left",
 				"#ATKFBAbout h2" : "border-bottom:1px solid #DDD; font-size:16px; margin-bottom:5px; margin-top:10px; padding-bottom:5px; direction: ltr; text-align:left",
-				"#ATKFBAbout p#ATKFBAboutFooter" : "border-top:1px solid #DDD;p adding-top:10px; margin-top:25px;"
+				"#ATKFBAbout p#ATKFBAboutFooter" : "border-top:1px solid #DDD;p adding-top:10px; margin-top:25px;",
+				"#ATKFBAbout .btn.btn-default" : '-webkit-appearance: button; -webkit-user-select: none; background-color: rgb(255, 255, 255); background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
+			}
+		}
+
+		AtKit.internal.__modalBody = {
+			CSS: {
+				"#at-modal-body .btn.btn-default": '-webkit-appearance: button; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;',
 			}
 		}
 		
@@ -97,50 +107,41 @@
 			languageMap: {}, // Translations
 			siteFixes: [] // Contains object for each site {regex: /regex/, function: function()} //
 		}
-		
-		//Default CSS attributes settings that help enhance the interoperability of the toolbar by preventing pages' css form affecting the toolbar's. Add it before you declare any css to any element in the toolbar or dialogs
-		default_css = "-webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; height:initial; width:initial; margin:0px; padding:0; border:0; vertical-align:baseline; font-size: initial; font: inherit; float:none; line-height:initial; color:initial; background:initial;";
-		
+
 		// API object. Everything in here becomes public after AtKit has finished executing
 		var API = {
 			__env: AtKit.external, // Load public object into API accessible object
 			__templates: {
 				"barGhost": "<center><img src=\"" + AtKit.internal.__assetURL + "img/loading.gif\" style=\"margin-top:10px;\" /></center>",
 				"barFailed": "<center>library loading failed</center>",
-				"button": '<div id="at-btn-(ID)" title="(TITLE)" class="at-btn (CLASS)"><a title="(TITLE)" id="at-lnk-(ID)" href="#ATBarLink"><img src="(SRC)" alt="(TITLE)" height="16" width="16" border="0" /></a></div>',
+				"button": '<li id="at-btn-(ID)" class="at-btn"><a href="#ATBarLink" id="at-lnk-(ID)" title="(TITLE)" data-toggle="modal" data-target="(MODAL)"><span title="(TITLE)" id="at-spn-(ID)" class="(CLASS)" style="(COLOUR)" aria-hidden="true">(SRC)</a></div></li>',
 				"spacer": '<div class="at-spacer"></div>',
-				"separator": '<div class="at-separator at-separator-(ID)"></div>'
+				"separator": '<div id="at-separator-(ID)" class="at-separator at-separator-(ID)"></div>'
 			},
 			__CSS: {
-				"#sbarGhost, #sbar": default_css,
-				"#sbarGhost *, #sbar *": default_css,
-				"#sbarlogo": default_css + "float:left",
-				"#sbarlogo img": default_css + "margin-top:10px; vertical-align:middle;",
-				"#sbar": default_css + "height:40px; left:0; line-height:40px; margin-left:auto; margin-right:auto; position:fixed; top:0;width:100%; z-index:2147483646; padding:0 5px; background:url(" + AtKit.internal.__assetURL + "img/background.png) repeat-x #EBEAED;",
-				"#sbarGhost": default_css + "height:40px; width:100%;",
-				"#at-collapse": "",
-				".at-spacer": default_css + "display:block; height:40px; width:40px; float:left",
-				".at-separator": default_css + "display:block; height:25px; border-left:2px solid #a9a9a9; margin:7px 1px 4px 7px; float:left;",
-				".at-btn": default_css + "height:28px; width:28px; line-height:14px; text-align:center; color:#FFF; clear:none; margin:5px 0 0 5px;background:url(" + AtKit.internal.__assetURL + "img/button_background.png) no-repeat; float:left;",
-				".at-btn a": default_css + "display:block; height:28px; width:28px; background:transparent; position:inherit;",
-				".at-btn a:active": default_css + "font-size: 100%; font: inherit; border:yellow solid 2px;",
-				".at-btn img": default_css + "padding:6px; default_css + border:none; background:none;",
-				".no-float": "float: none !important;",
-				"#at-btn-atkit-reset, #at-btn-atkit-unload, #at-btn-atkit-help, #at-btn-atkit-toggle": default_css + "height:28px; width:28px; line-height:14px; text-align:center; color:#FFF; clear:none; float:right; margin:5px 10px 0 0; background:url(" + AtKit.internal.__assetURL + "img/button_background.png) no-repeat;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer": default_css + "border-top-width: 1px; border-top-style: solid; border-top-color: rgb(221, 221, 221); padding-top:5px; margin-top:10px; display:block; text-align:left;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer > a ": default_css + "float: left;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-footer > a > img ": default_css + "float: left;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content > .user-dialog > h1": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:18pt; font-weight:bold; color:black; display:block; margin:10px 0px 10px 0px;"/*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content h1": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:18pt; font-weight:bold; color:black; display:block; margin:10px 0px 10px 0px;"/*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content h2": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:16pt; font-weight:bold; color:black; display:block; margin:5px 0px 5px 0px;"/*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content p": default_css + "display:block;" /*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content > .user-dialog > p": default_css + "display:block;" /*float:left;"*/,
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content button": default_css + "font-family:Helvetica Neue,Helvetica,Arial,sans-serif; height:26px; margin:10px; padding:5px; color:white; background-color:#0064CD; border-color:rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25); text-shadow:0 -1px 0 rgba(0,0,0,0.25); background-image: -webkit-linear-gradient(top, #049cdb, #0064cd); border-radius:4px;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content label": default_css + "float:left; display:block; margin:0px; margin-right:5px;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content select": default_css + "border:1px solid black; float:left; display:block;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content input": default_css + "border:1px solid black; float:left; display:block;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content select#spellchecksuggestions": default_css + "border:1px solid black; float:none; display:block;width:360px;",
-				"#at-facebox > .at-popup > table .at-fb-tb-body > .at-fb-content select#spellcheckmistakes": default_css + "border:1px solid black; float:none; display:block;width:360px;"
+				"#sbarGhost": "box-sizing: border-box; position:fixed;",
+				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
+				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
+				"#sbar": '1030: ; background-image:initial; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
+				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; background-image:initial; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; overflow-x: hidden; overflow-y: auto;',
+				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; background-image:initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				".at-btn": 'box-sizing: border-box; position: relative; display: block; text-align: center;',
+				".at-btn > a": 'box-sizing: border-box; color: rgb(119, 119, 119); display: block; line-height: 20px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative; text-decoration: none;',
+				
+				".at-btn > a > span": 'box-sizing: border-box;',
+				".at-btn > a > span.glyphicon": '1: top; width: initial; height:initial; text-indent: initial; background-image:initial; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px;',
+				
+				".at-btn > a > span > img.at-btn-icon": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; vertical-align: middle;',
+				"#atkit-stats-img": 'position: fixed; width: 1px; height: 1px;',
+				"#at-btn-atkit-toggle": 'width: initial; height: initial;',
+				"#at-right-buttons": 'box-sizing: border-box; background-image:initial; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				"#at-modal.modal": '0: opacity; 1050: ; width:initial; height: initial; margin: 0px; top:0px!important; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
+				"#at-modal-dialog": '-webkit-transition-delay: initial; -webkit-transition-duration: 0.3s; -webkit-transition-property: transform; -webkit-transition-timing-function: ease-out; box-sizing: border-box; margin-bottom: 10px; margin-top: 10px; position: relative; transition-delay: initial; transition-duration: 0.3s; transition-property: transform; transition-timing-function: ease-out;',
+				"#at-modal-content": '-webkit-background-clip: padding-box; width: initial; height: initial; -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; background-clip: padding-box; background-color: rgb(255, 255, 255); border-bottom-color: rgba(0, 0, 0, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgba(0, 0, 0, 0.2); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.2); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 6px; border-top-right-radius: 6px; border-top-style: solid; border-top-width: 1px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; box-sizing: border-box; outline-color: initial; outline-style: initial; outline-width: 0px; position: relative;',
+				"#at-modal-header": 'border-bottom-color: rgb(229, 229, 229); width: initial; height: initial; border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; min-height: 16.42857143px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px;',
+				"#at-modal-body": 'box-sizing: border-box; padding-bottom: 15px; width: initial; height: initial; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative;',
+				"#at-modal-footer": 'border-top-color: rgb(229, 229, 229); width: initial; height: initial; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; right: ;text-align: right;',
+				"#at-modal .btn.btn-default": '-webkit-appearance: button; width: initial; height: initial; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
 			},
 			settings: {
 				"noiframe": true, // Don't load if we're in an iframe.
@@ -152,7 +153,8 @@
 				"name": '',
 				"about": ''
 			},
-			htmlTags: ["a","abbr","acronym","address","applet","area","article","aside","audio","b","base","basefont","bdi","bdo","big","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","command","datalist","dd","del","details","dfn","dir","div","dl","dt","em","embed","fieldset","figcaption","figure","font","footer","form","frame","frameset","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","map","mark","menu","meta","meter","nav","noframes","noscript","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strike","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","tt","u","ul","var","video","wbr"],
+			//removed "span" tag because it is used to display the glyphicons
+			htmlTags: ["a","abbr","acronym","address","applet","area","article","aside","audio","b","base","basefont","bdi","bdo","big","blockquote","body","br","button","canvas","caption","center","cite","code","col","colgroup","command","datalist","dd","del","details","dfn","dir","div","dl","dt","em","embed","fieldset","figcaption","figure","font","footer","form","frame","frameset","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","map","mark","menu","meta","meter","nav","noframes","noscript","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","strike","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","title","tr","track","tt","u","ul","var","video","wbr"],
 			version: AtKit.internal.__APIVersion,
 			$: '', // Library used for the Toolbar
 			plugin: function(name){ return new plugin(name); }
@@ -199,7 +201,7 @@
 			debug('bootstrapping AtKit ' + AtKit.internal.versionString + '...');
 			// If we're invoked already don't load again.
 			if( isLoaded() || AtKit.internal.__invoked ) return;
-	
+
 			// Don't load if we're not the top window (running in an iframe)
 			if(API.settings.noiframe && window != window.top) return;
 
@@ -220,44 +222,47 @@
 		function loadLibrary(){
 			debug('loadLibrary called');
 			// Do we have a jQuery library loaded already?
-			
-			// load the custom built responsive css. We did not use bootstrap because there might a version conflict
-			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );
-			
+		   
+			var needToLoadJQuery = true;
 			if(typeof window.jQuery != "undefined"){
 				try {
 					// We need jQuery 1.5 or above. Get the version string.
-					jQversion = parseFloat(window.jQuery().jquery.match(/\d\.\d/));
+					jQversion = window.jQuery().jquery.match(/\d\.\d[\d]*/)[0].split('.');
 					debug('jQuery already loaded, v' + jQversion);
-				
-					if(jQversion > 1.5) {
+				    
+					if(parseFloat(jQversion[0]) > 1 || (parseFloat(jQversion[0]) === 1 && parseFloat(jQversion[1]) > 9)) {
 						debug('loaded version acceptable, using.');
 						API.$ = window.jQuery;
-						
-						// Load facebox.
-						//loadFacebox();
-						
+				      
+						// Load modal.
+						//loadModal();
+
 						broadcastLoaded();
-						return;
-					} else {
-						window._jQuery = window.jQuery;
-						window.jQuery = null;
-					}
-				} catch(e){}
+				    	needToLoadJQuery = false;
+				    } else {
+					    window._jQuery = window.jQuery;
+					    window.jQuery = null;
+				    }
+			    } catch(e){}
 			} else {
 				if(typeof window.$ != "undefined") window._$ = window.$;
-			}
-			
-			if(AtKit.internal.__debug) {
-				newVersion = parseFloat(AtKit.internal.__libURL.match(/\d\.\d/));
+		   }
+		   
+		   if(AtKit.internal.__debug) {
+				newVersion = parseFloat(AtKit.internal.__libURL.match(/\d\.\d[\d]*/));
 				debug('jQuery not loaded, loading ' + newVersion);
-			}
-			// jQuery not loaded. Attach.
-			attachJS( 'atkit-jquery', AtKit.internal.__libURL );
+		   }
 			
-			// load bootstrap
-			//attachJS( 'atkit-bootstrap-js', AtKit.internal.__bootstrapJsURL );
-			//attachJS( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
+			// attach bootstrap css
+			attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );
+
+			// if jQuery not loaded, then attach.
+			if (needToLoadJQuery) {
+				attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {} );
+			}
+
+			// load the custom built responsive css.
+			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );				
 			
 			// Wait for library to load.
 			waitForLib();
@@ -284,16 +289,53 @@
 				if(typeof window._jQuery != "undefined") window.jQuery = window._jQuery;
 				if(typeof window._$ != "undefined") window.$ = window._$;
 
-				// Load facebox.
-				//loadFacebox();
+				// Load modal.
+				//loadModal();
 				
 				// Once the document is ready broadcast ready event.
 				API.$(document).ready(function(){ broadcastLoaded(); });
 			}
 		}
 		
-		function loadFacebox(){
-			if(typeof API.$.facebox == "undefined") API.addScript(AtKit.internal.__faceboxURL);
+		function loadModal(){
+
+			//initialize modal structure
+
+			API.$("<div>", { id: "at-modal", class: "modal fade", role: "dialog" }).insertAfter("#sbar");
+			API.$("<div>", { id: "at-modal-dialog", class: "modal-dialog" }).appendTo("#at-modal");
+			API.$("<div>", { id: "at-modal-content", class: "modal-content" }).appendTo("#at-modal-dialog");
+			API.$("<div>", { id: "at-modal-header", class: "modal-header" }).appendTo("#at-modal-content");
+			API.$("<button>", {id: "at-modal-x-btn" , type:"button", class: "close", 'data-dismiss':"modal" }).appendTo("#at-modal-header");
+			API.$("<h1>", { id: "at-modal-title", class: "modal-title" }).appendTo("#at-modal-header"); //the title goes here
+			API.$("<div>", { id: "at-modal-body", class: "modal-body" }).appendTo("#at-modal-content"); //the content goes here
+			API.$("<div>", { id: "at-modal-footer", class: "modal-footer" }).appendTo("#at-modal-content");
+			API.$("<button>", {id:"at-modal-close-btn", type:"button", class: "btn btn-default", 'data-dismiss':"modal" }).appendTo("#at-modal-footer");
+
+			API.$('#at-modal-close-btn').html(API.localisation("closemodal"));
+			API.$('#at-modal-x-btn').html("&times;");
+
+			if(API.settings.isRightToLeft) {
+				API.$("#at-modal-header").attr("dir", "rtl");
+				API.$("#at-modal-body").attr("dir", "rtl");
+				API.$("#at-modal-footer").attr("dir", "rtl");
+			}
+				
+
+			API.$("#at-modal-close-btn").on('click', function(){
+				API.hideModal();
+			});
+
+			API.$("#at-modal-x-btn").on('click', function(){
+				API.hideModal();
+			});
+
+			// the modal should be closed if the user clicks outside its window
+			//API.$('body').on('mousedown', function (e) {
+			//    if (e.target.getAttribute("id") === "at-modal") {
+			//    	API.hideModal();
+			//    }
+			//});
+
 		}
 
 		function broadcastLoaded(){
@@ -326,14 +368,27 @@
 			// Replace in the template.
 			b = b.replace(/\(ID\)/ig, ident);
 			b = b.replace(/\(TITLE\)/ig, API.__env.buttons[ident].tooltip);
-			b = b.replace(/\(SRC\)/ig, API.__env.buttons[ident].icon);
-			b = b.replace(/\(CLASS\)/ig, API.__env.buttons[ident].cssClass)
-	
+			
+			//(SRC) replaced only if we are using the original icons, i.e. images
+			b = b.replace(/\(SRC\)/ig, (AtKit.internal.iconMode === 0 || !API.__env.buttons[ident].cssClass) ? "<img id='at-btn-icon-" + ident +  "' src="+ API.__env.buttons[ident].icon +" class='at-btn-icon'/></img>" : "");
+			
+			//(CLASS) replaced only if we are using glyphicons
+			b = b.replace(/\(CLASS\)/ig, (AtKit.internal.iconMode === 1) ? API.__env.buttons[ident].cssClass : "");
+			
+			//(COLOUR) replaced only for the overlay buttons if we are using glyphicons
+			b = b.replace(/\(COLOUR\)/ig, (AtKit.internal.iconMode === 1 && API.__env.buttons[ident].colour) ? "color:"+API.__env.buttons[ident].colour : "");
+			//note: if we use applyCss() right after the button is rendered, this colour attribute might be overwritten. So, you either don't apply css to at-buttons or set the colour manually in the plugin code. I chose the second option
+			
+			//(MODAL) replaced only if the button should open the modal
+			b = b.replace(/\(MODAL\)/ig, (API.__env.buttons[ident].modal) ? "#at-modal" : "");
+
 			// jQuery'ify
 			b = API.$(b);
 	
 			// Bind the click event and pass in reference to the button object
-			b.children('a').bind('click touchend', { button: API.__env.buttons[ident] }, function(button){
+			b.children('a').on('click touchend', null, { button: API.__env.buttons[ident] }, function(button){
+				if (AtKit.internal.dragging) return;
+
 				try {
 					API.__env.buttons[ident].action(button.data.button.dialogs, button.data.button.functions);
 				} catch (err){
@@ -343,92 +398,145 @@
 				button.preventDefault();
 			});
 			
-			// Emulate CSS active, hover, etc.
-			b.children('a').bind('focus', function(){
-				API.$(this).attr('style', API.$(this).attr('style') + API.__CSS[".at-btn a:active"]);
-			});
-			
-			b.children('a').bind('focusout', function(){
-				API.$(this).attr('style', API.__CSS[".at-btn a"]);
-			});
-			
 			// Commit the HTML
 			API.__env.buttons[ident].HTML = b;
 	
 			// Return the HTML
 			return API.__env.buttons[ident].HTML;
 		}
-		
 	
 		// Private function used to actually start the toolbar.
 		function start(){
-			// Load facebox.
-			loadFacebox();
+			
 			
 			// If we're already invoked ignore.
 			if( AtKit.internal.__invoked ) return;
 			
 			if(API.$("#sbarGhost").length == 0) showLoader();
 
+			// on drag in touch screens
+			API.$("body").on("touchmove", function(){
+				AtKit.internal.dragging = true;
+			});
+
+			API.$("body").on("touchstart", function(){
+				AtKit.internal.dragging = false;
+			});
+
+			// When we close the toolbar we remove the responsive css to prevent unwanted behaviour. So, if the user wants to use the toolbar again, the responsive css has to be loaded again
+			if (API.$("#atkit-responsive-css").length === 0) {
+				attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );	
+			}
+
 			// Insert the bar holder 
-			API.$( API.$('<div>', { id: 'sbar' }) ).insertAfter("#sbarGhost");
+			API.$( API.$('<nav>', { id: 'sbar', class: 'navbar navbar-default navbar-fixed-top col-xs-12' }) ).insertAfter("#sbarGhost");
+
+			// Load modal.
+			loadModal();
 			
-			// Insert the logo.
-			
-			// Are we in RTL mode? Work out where we should be positioned.
-			var align = API.settings.isRightToLeft ? "right" : "left";
-			
+			// Insert the logo.		
 			API.$(
-				API.$("<a>", { id: 'sbarlogo', click: function(){ showAbout() } }).append(
-					API.$("<img>", { "src": API.settings.logoURL, "align": align, "border": "0", "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo", "style": "margin-top:10px;float:" + align }) 
+				API.$("<a>", { id: 'sbarlogo', class: 'navbar-brand', 'data-toggle':"modal", 'data-target':"#at-modal" }).append(
+					API.$("<img>", { id:'sbarlogo-img', "src": API.settings.logoURL, "title": API.settings.name + "Logo", "alt": API.settings.name + "Logo" }) 
 				)
 			).appendTo('#sbar');
+
+			API.$("#sbarlogo").on('click', function(){showAbout();});
+
+			// Add a button that collapses the toolbar plugin buttons when in small devices.
+			API.$("<button>", {type:"button", id: "at-btn-atkit-toggle", class: "navbar-toggle collapsed", "data-toggle":"collapse", "data-target":"#at-collapse-parent", "aria-expanded":"false", "aria-controls":"at-collapse-parent" }).appendTo("#sbar");
+			API.$("<span>", { class: "sr-only"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
+			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
 			
-			API.$("<img>", { "src": "https://misc.services.atbar.org/stats/stat.php?channel=" + AtKit.internal.__channel + "-" + API.settings.name + "&version=" + AtKit.internal.__version.toFixed(1) + "." + AtKit.internal.__build, "alt": " " }).appendTo("#sbar");
-			
-			
-			// add the close button (if we have been told to use this)
-			if( API.settings.allowclose ){
-				API.addButton('atkit-unload', API.localisation("exit"), AtKit.internal.__assetURL + 'img/close.png', function(){ API.close(); }, null, null, {'cssClass':'fright'});
-			}
-					
-			// add the reset button (if we have been told to use this)
-			if( API.settings.allowreset ){
-				API.addButton('atkit-reset', API.localisation("reset"), AtKit.internal.__assetURL + 'img/reset.png', function(){ API.reset(); }, null, null, {'cssClass':'fright'});
-			}
-			
+			API.$("<img>", {"id":"atkit-stats-img" , "src": "https://misc.services.atbar.org/stats/stat.php?channel=" + AtKit.internal.__channel + "-" + API.settings.name + "&version=" + AtKit.internal.__version.toFixed(1) + "." + AtKit.internal.__build, "alt": " " }).appendTo("#sbar");
+			API.$("#atkit-stats-img").css('position', 'fixed');
+
 			// add the help button (if we have been told to use this)
 			if( API.settings.allowhelp ){
-				API.addButton('atkit-help', API.localisation("help"), AtKit.internal.__assetURL + 'img/help.png', function(){ API.help(); }, null, null, {'cssClass':'fright'});
+				API.addButton('atkit-help', API.localisation("help"), AtKit.internal.__assetURL + 'img/help.png', function(){ API.help(); }, null, null, {'cssClass':'glyphicon glyphicon-question-sign', 'allign':'right'});
+			}
+
+			// add the reset button (if we have been told to use this)
+			if( API.settings.allowreset ){
+				API.addButton('atkit-reset', API.localisation("reset"), AtKit.internal.__assetURL + 'img/reset.png', function(){ API.reset(); }, null, null, {'cssClass':'glyphicon glyphicon-retweet', 'allign':'right'});
+			}
+
+			// add the close button (if we have been told to use this)
+			if( API.settings.allowclose ){
+				API.addButton('atkit-unload', API.localisation("exit"), AtKit.internal.__assetURL + 'img/close.png', function(){ API.close(); }, null, null, {'cssClass':'glyphicon glyphicon-remove', 'allign':'right'});
 			}
 			
-			// Add a collapsible container before adding the plugin buttons.
-			API.$( API.$('<div>', { id: 'at-collapse' }) ).appendTo("#sbar");
+			// Are we in RTL mode? Work out where we should be positioned.
+			var ulPluginsClass = API.settings.isRightToLeft ? "nav navbar-nav navbar-right" : "nav navbar-nav";
+			var ulOtherButtonsClass = API.settings.isRightToLeft ? "nav navbar-nav" : "nav navbar-nav navbar-right";
+
+			// Add a collapsible container before adding the plugin buttons. Expanded by default
+			API.$(
+				API.$("<div>", { id: 'at-collapse-parent', class: 'navbar-collapse collapse in', 'aria-expanded':"true" }).append(
+					API.$("<ul>", { id: 'at-collapse', class: ulPluginsClass}) 
+				)
+			).appendTo('#sbar');
+			API.$('body').addClass('atbar-expanded');
+
+			// Add a container to hold the close, help and refresh buttons
+			API.$("<ul>", { id: "at-right-buttons", class: ulOtherButtonsClass }).appendTo("#at-collapse-parent");
 			
-			// Add a button that collapses the toolbar plugin buttons when in small devices.
-			API.addButton('atkit-toggle', API.localisation("collapse"), AtKit.internal.__assetURL + 'img/collapse.gif', function(){
-				if($('#at-collapse').is(':visible'))
-				{
-					$('#at-collapse').slideUp('fast', function(){
-						$('#at-collapse').addClass('at-hidden');
-						$('#at-collapse').removeClass('at-visible');
-					});
+			// Collapse/expand on click:
+			API.$("#at-btn-atkit-toggle").on('click', function(){
+				var isExpanded = API.$("#at-collapse-parent").attr('aria-expanded');
+
+				if (isExpanded === "true") {
+					//collapse
+
+					API.$("#at-collapse-parent").attr('aria-expanded', 'false');
+
+					//set class to "collapsing" to allow slide animation
+					API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapsing');
+
+					//collapse
+					API.$("#at-collapse-parent").css('height','1px');
+					setTimeout(function(){ //after .35s (the default for bootstrap):
+						API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapse');
+						API.$('body').removeClass('atbar-expanded');
+						API.$('body').addClass('atbar-collapsed');
+					}, 350);
+					
+
+				} else if (isExpanded === "false") {
+					//expand
+
+					API.$("#at-collapse-parent").attr('aria-expanded', 'true');
+
+					//set class to "collapsing" to allow slide animation
+					API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapsing');
+
+					//expand
+					API.$("#at-collapse-parent").css('height','');
+					setTimeout(function(){ //after .35s (the default for bootstrap):
+						API.$("#at-collapse-parent").attr('class', 'navbar-collapse collapse in');
+						API.$('body').removeClass('atbar-collapsed');
+						API.$('body').addClass('atbar-expanded');
+					}, 350);
 				}
-				else
-				{
-					$('#at-collapse').slideDown('fast', function(){
-						$('#at-collapse').addClass('at-visible');
-						$('#at-collapse').removeClass('at-hidden');
-					});
-				}
-			}, null, null, {'cssClass':'fright'});
+			});
 			
 			// Add buttons. Only add the plugin buttons to the collapsible div
 			for(b in API.__env.buttons){
-				if(API.__env.buttons[b].cssClass == 'fright')
-					API.$( renderButton(b) ).appendTo('#sbar');
-				else
-					API.$( renderButton(b) ).appendTo('#at-collapse');
+				var btn = API.$( renderButton(b) );
+				if(API.__env.buttons[b].allign == 'right') {
+					if (API.settings.isRightToLeft)
+						API.$( "#at-right-buttons" ).prepend( btn );
+					else
+						btn.appendTo('#at-right-buttons');
+				}	
+				else {
+					if (API.settings.isRightToLeft)
+						API.$( "#at-collapse" ).prepend( btn );
+					else
+						btn.appendTo('#at-collapse');
+				}	
 			}
 			
 			// Apply CSS
@@ -463,6 +571,9 @@
 		function applyCSS(obj){
 			var cssObj = (typeof obj == "undefined") ? API.__CSS : obj;
 
+			// sbar background colour will be changed, so we have to set it to the previous colour after "applyCss" is done
+			var prevColour = API.$('#sbar').css('background-color');
+
 			for(c in cssObj){
 				if(/:active/.test( c ) || API.$( c ).length == 0) continue;
 				try {		
@@ -491,6 +602,8 @@
 					debug(e.description);	
 				}
 			}
+
+			API.$('#sbar').css('background-color', prevColour);
 		}
 		
 		// Shut down the toolbar
@@ -510,6 +623,12 @@
 			
 			// Cleanup.
 			
+			// Remove responsive css to prevent unwanted behaviour
+			API.$("#atkit-responsive-css").remove();
+
+			// Remove atbar.js from header
+			API.$('#ToolBar[src^="'+AtKit.internal.__baseURL+'"]').remove();
+
 			// Reset language
 			AtKit.internal.language = AtKit.internal.defaultLanguage;
 			
@@ -537,7 +656,7 @@
 		
 		function showAbout(){
 			// Create the dialog
-			AtKit.internal.__aboutDialog.HTML = "<h2>About " + API.settings.name + "</h2>";
+			AtKit.internal.__aboutDialog.HTML = "";
 			
 			// Append user text
 			AtKit.internal.__aboutDialog.HTML += "<p id='ATKFBUserSpecifiedAbout'>" + API.settings.about + "</p>";
@@ -551,7 +670,7 @@
 				AtKit.internal.__aboutDialog.HTML += "<br /> Registered plugins: ";
 
 				plugins.map(function(el, index, fullList){
-					AtKit.internal.__aboutDialog.HTML += "<button class='pluginLink'>" + el + "</button>";
+					AtKit.internal.__aboutDialog.HTML += "<button class='btn btn-default'>" + el + "</button>";
 				});
 			}
 			
@@ -560,7 +679,15 @@
 			// Convert to jQuery object & wrap
 			AtKit.internal.__aboutDialog.HTML = API.$("<div>", { id: "ATKFBAbout" }).append(AtKit.internal.__aboutDialog.HTML);
 
-			API.message(AtKit.internal.__aboutDialog.HTML);
+			// Set focus to the close button
+			API.$( "#at-modal" ).off('shown.bs.modal');
+			API.$('#at-modal').on('shown.bs.modal', function () {
+			    API.$('#at-modal-close-btn')[0].focus();
+			})
+
+			API.$("#at-modal-dialog").attr('class', 'modal-dialog');
+
+			API.message("About " + API.settings.name, AtKit.internal.__aboutDialog.HTML);
 			applyCSS(AtKit.internal.__aboutDialog.CSS);
 		}
 		
@@ -604,12 +731,18 @@
 		}
 	
 		// Attach a javascript file to the DOM
-		function attachJS(identifier, url){
+		function attachJS(identifier, url, callback){
 			var j = document.createElement("script");
 			j.src = url;
 			j.type = "text/javascript";
 			j.id = identifier;
-			document.getElementsByTagName('head')[0].appendChild(j);	
+			var script = document.getElementsByTagName('head')[0].appendChild(j);
+			script.onload = callback;
+			script.onreadystatechange = function() {
+		        if (this.readyState == 'complete') {
+		            callback();
+		        }
+		    }
 		}
 		
 		// Attach a CSS file to the DOM
@@ -654,6 +787,10 @@
 		
 		API.getResourceURL = function(){
 			return AtKit.internal.__resourceURL;
+		}
+
+		API.getBootstrapURL = function(){
+			return AtKit.internal.__bootstrapCssURL;
 		}
 		
 		API.getChannelURL = function(){
@@ -768,7 +905,7 @@
 		}	
 		
 		// Attach a button to the toolbar
-		// Assets should be an object containing any dialogs that will be shown with facebox, as well a
+		// Assets should be an object containing any dialogs that will be shown with modal, as well a
 		API.addButton = function(identifier, tooltip, icon, action, dialogs, functions, options){
 			if(typeof API.__env.buttons[identifier] != "undefined") return;
 			API.__env.buttons[identifier] = { 'icon': icon, 'tooltip': tooltip, 'action': action, 'dialogs': dialogs, 'functions': functions };
@@ -776,8 +913,13 @@
 			if(options != null) API.__env.buttons[identifier] = API.$.extend(true, API.__env.buttons[identifier], options);
 	
 			if(AtKit.internal.__invoked){
-				//If the toolbar buttons have already been rendered 
-				API.$( renderButton(identifier) ).appendTo('#at-collapse');
+				//If the toolbar buttons have already been rendered
+				if (typeof(options.insertAfter) !== "undefined") {
+					API.$( renderButton(identifier) ).insertAfter('#'+options.insertAfter);
+				}
+				else {
+					API.$( renderButton(identifier) ).appendTo('#at-collapse');
+				}
 				applyCSS();
 			}
 		}
@@ -830,7 +972,7 @@
 				debug('remove separator ' + ident);				
 				API.$(".at-separator-" + ident).each(function() {
 					this.remove();
-				});				
+				});			
 			}
 		}	
 
@@ -865,33 +1007,51 @@
 		
 		// Pass in a dialog and we'll format it and show to the users.
 		API.show = function(dialog, callback){
-			dialog = API.$("<div>", { "class": "userDialog" }).append(
-				API.$('<h2>', { 'html': dialog.title }),
-				API.$("<p>", { 'html': dialog.body })
-			);
-
-			API.$('body').find('.facebox_hide').remove();
-
-			API.$.facebox(dialog);
-			
-			applyCSS();
-			
-			if(typeof callback != "null" && typeof callback != "undefined") callback();
+			API.$("#at-modal-title").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-title").html(dialog.title);
+			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-body").html(dialog.body);
+			API.showModal();
 		}
 		
 		// Show message not stored in a dialog object.
-		API.message = function(data, callback){
-			API.$('body').find('.facebox_hide').remove();
-
-			API.$.facebox(data);
-			
-			applyCSS();
-			
-			if(typeof callback != "null" && typeof callback != "undefined") callback();
+		API.message = function(title, data, callback){
+			API.$("#at-modal-title").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-title").html(title);
+			API.$("#at-modal-body").html(""); //clear everything to avoid bugs
+			API.$("#at-modal-body").html(data);
+			API.showModal();
 		}
 		
 		API.hideDialog = function(){
-			API.$(window.document).trigger('close.facebox');
+			API.hideModal();
+			API.$("#at-modal-title").html("");
+			API.$("#at-modal-body").html("");
+		}
+
+		API.showModal = function() {
+			if (typeof(API.$("#at-modal-div-overlay").attr("class")) === "undefined") {
+				//API.$("<div>", { id:"at-modal-div-overlay" , class: "modal-backdrop fade" }).appendTo("body"); //prepare to fade in overlay
+			}
+			API.$('body').addClass('modal-open');
+			API.$('#at-modal').css('display', 'block'); //prepare to slide down modal
+			setTimeout(function(){ //after .15s (the default for bootstrap):
+				//API.$('#at-modal-div-overlay').addClass('in'); //fade in overlay
+				API.$('#at-modal').addClass('in'); //slide down modal
+			}, 150);
+			API.$("#at-modal").trigger('shown.bs.modal');
+				
+			applyCSS(AtKit.internal.__modalBody.CSS);
+		}
+
+		API.hideModal = function() {
+			API.$('#at-modal').removeClass('in'); //slide up modal
+			//API.$('#at-modal-div-overlay').removeClass('in'); //fade out overlay
+			setTimeout(function(){ //after .15s (the default for bootstrap):
+				API.$('#at-modal').css('display', 'none'); //remove modal
+				//API.$("#at-modal-div-overlay").remove(); //remove overlay
+				API.$('body').removeClass('modal-open');
+			}, 150);
 		}
 		
 		// Call a global function
@@ -951,6 +1111,15 @@
 			if(typeof API.$ == 'function') return API.$;
 			if(typeof API.$ == 'string' && typeof window.jQuery == 'function') return window.jQuery;
 			return false;
+		}
+
+		// Set the icon mode. If iconMode is 0, the original icons will be used. If iconMode is 1, bootstrap icons will be used
+		// Any other value is understood as the default mode
+		API.setIconMode = function(iconMode){
+			if (iconMode === 0 || iconMode === 1)
+				AtKit.internal.iconMode = iconMode;
+			else
+				AtKit.internal.iconMode = AtKit.internal.defaultIconMode;
 		}
 		
 		// Toolbar calls this to render the bar.

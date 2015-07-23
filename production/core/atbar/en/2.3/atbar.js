@@ -1,7 +1,7 @@
 if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
 	
-	d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/latest/atkit.min.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/latest/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
 
 	window.AtKitLoaded = function(){
 		var eventAction = null;

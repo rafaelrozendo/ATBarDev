@@ -20,12 +20,12 @@
 			__version: 1.6, // Version.
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
-			__baseURL: "http://localhost/production/core/", // Load AtKit assets from here.
+			__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
-			__pluginURL: "http://localhost/production/plugins/", // Plugins location
-			__libURL: "http://localhost/production/core/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
+			__pluginURL: "http://plugins-dev.atbar.org/", // Plugins location
+			__libURL: "https://core.atbar.org/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
-			__responsiveCssURL: "http://localhost/production/core/resources/css/responsive.css",
+			__responsiveCssURL: "https://core.atbar.org/resources/css/responsive.css",
 			__channel: "atkit", // Release channel we're running in for this version of AtKit.
 			__invoked: false, // Is the framework already loaded?
 			__debug: false, // Debug mode on or off.
@@ -229,11 +229,11 @@
 					// We need jQuery 1.5 or above. Get the version string.
 					jQversion = window.jQuery().jquery.match(/\d\.\d[\d]*/)[0].split('.');
 					debug('jQuery already loaded, v' + jQversion);
-
+				    
 					if(parseFloat(jQversion[0]) > 1 || (parseFloat(jQversion[0]) === 1 && parseFloat(jQversion[1]) > 9)) {
 						debug('loaded version acceptable, using.');
 						API.$ = window.jQuery;
-
+				      
 						// Load modal.
 						//loadModal();
 
@@ -260,7 +260,6 @@
 			if (needToLoadJQuery) {
 				attachJS( 'atkit-jquery', AtKit.internal.__libURL, function() {} );
 			}
-
 
 			// load the custom built responsive css.
 			attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );				
@@ -331,11 +330,11 @@
 			});
 
 			// the modal should be closed if the user clicks outside its window
-			API.$('body').on('mousedown', function (e) {
-			    if (e.target.getAttribute("id") === "at-modal") {
-			    	API.hideModal();
-			    }
-			});
+			//API.$('body').on('mousedown', function (e) {
+			//    if (e.target.getAttribute("id") === "at-modal") {
+			//    	API.hideModal();
+			//    }
+			//});
 
 		}
 
@@ -452,6 +451,7 @@
 			API.$("<span>", { class: "icon-bar"}).appendTo("#at-btn-atkit-toggle");
 			
 			API.$("<img>", {"id":"atkit-stats-img" , "src": "https://misc.services.atbar.org/stats/stat.php?channel=" + AtKit.internal.__channel + "-" + API.settings.name + "&version=" + AtKit.internal.__version.toFixed(1) + "." + AtKit.internal.__build, "alt": " " }).appendTo("#sbar");
+			API.$("#atkit-stats-img").css('position', 'fixed');
 
 			// add the help button (if we have been told to use this)
 			if( API.settings.allowhelp ){
@@ -919,7 +919,7 @@
 				}
 				else {
 					API.$( renderButton(identifier) ).appendTo('#at-collapse');
-				}			
+				}
 				applyCSS();
 			}
 		}
@@ -963,7 +963,6 @@
 			s = API.$(s);	
 			//s.appendTo('#sbar'); Separators are now added to the collapsible area
 			s.appendTo('#at-collapse');
-			
 			applyCSS();
 		}
 		

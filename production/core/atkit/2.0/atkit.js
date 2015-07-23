@@ -17,12 +17,12 @@
 	
 		// Internal properties
 		AtKit.internal = AtKit.prototype = {
-			__version: 1.6, // Version.
+			__version: 2.0, // Version.
 			__build: 1, // Build.
 			__APIVersion: 1.0, // The version of the API.
 			__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
-			__pluginURL: "http://plugins-dev.atbar.org/", // Plugins location
+			__pluginURL: "https://plugins.atbar.org/", // Plugins location
 			__libURL: "https://core.atbar.org/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
 			__responsiveCssURL: "https://core.atbar.org/resources/css/responsive.css",

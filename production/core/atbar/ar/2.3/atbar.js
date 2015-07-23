@@ -1,8 +1,8 @@
 if(typeof window['AtKit'] == "undefined"){
 	// Load AtKit
 	
-	d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/latest/atkit.min.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
-
+	d=document;jf=d.createElement('script');jf.src='https://core.atbar.org/atkit/latest/atkit.js';jf.type='text/javascript';jf.id='AtKitLib';d.getElementsByTagName('head')[0].appendChild(jf); 
+	
 	window.AtKitLoaded = function(){
 		var eventAction = null;
 		
@@ -31,17 +31,17 @@ function __start(){
 		$lib = AtKit.lib();
 		
 		var settings = {
-			'version': '2.2.2'
+			'version': '2.3.0'
 		};
 		
 		settings.resources = 'https://core.atbar.org/resources/';
 		
-		var plugins = ["resize", "fonts", "spellng", "insipio-tts", "wordprediction", "css", "dictionary-stemmer", "overlay", "shortcutkeys", "tooltip"];
+		var plugins = ["resize", "fonts", "spellng", "insipio-tts", "wordprediction", "css", "overlay", "shortcutkeys", "tooltip"];
 		
 		var onLoad = function(){
 		
 			// Set our logo
-			AtKit.setLogo(settings.resources + "img/atbar.png");
+			AtKit.setLogo(settings.resources + "img/atbar-beta.png");
 			AtKit.setName("ATBarArabic");
 			
 			AtKit.setLanguage("ar");
@@ -54,7 +54,7 @@ function __start(){
 			});
 
 			var about = "Version " + settings.version;
-			about += "<p style=\"line-height:120%\">Created by <a href='http://seb.skus.es'>Sebastian Skuse</a>, <a href='http://www.ecs.soton.ac.uk/people/mpw'>Magnus White</a> and the <a href='http://access.ecs.soton.ac.uk'>Accessibility Team</a>. Web and Internet Science, ECS<br> &copy; University of Southampton 2010-2013.";
+			about += "<div class='at-fb-about' style='line-height:120%; text-align:left'>Created by <a href='http://seb.skus.es'>Sebastian Skuse</a>, <a href='http://www.ecs.soton.ac.uk/people/mpw'>Magnus White</a> and the <a href='http://access.ecs.soton.ac.uk'>Accessibility Team</a>. Web and Internet Science, ECS<br> &copy; University of Southampton 2010-2013.";
 			about += "<br><br>";
 			about += "Fugue Icons &copy; <a href='http://www.pinvoke.com'>pinvoke</a> under Creative Commons licence.<br>";
 			about += "Dictionary &copy; <a href='http://en.wiktionary.org'>Wiktionary</a> under Creative Commons licence.<br>";
@@ -62,7 +62,7 @@ function __start(){
 			about += "Portions of the spelling engine &copy; <a href=\"http://brandonaaron.net\">Brandon Aaron</a> under MIT licence.<br>";
 			about += "Word prediction provided by <a href='http://www.aitype.com/'>AIType</a>.<br>";
 			about += "Text-to-Speech provided by <a href='http://www.acapela-group.com/'>Acapela Group</a>.";
-			about += "</p>";
+			about += "</div>";
 			
 			AtKit.setAbout(about);
 			
@@ -83,10 +83,11 @@ function __start(){
 			});	
 		
 			// Run
+			AtKit.setIconMode(1);
 			AtKit.render();
 			
 			// Select the first button.
-			$lib('.at-btn:first a').focus();
+			$lib('.at-btn:first a')[0].focus();
 			
 			// Save state
 			if(typeof localStorage != null) localStorage.setItem("ATBarAutoLoad", 1);
