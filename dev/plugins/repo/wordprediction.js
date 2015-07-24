@@ -28,7 +28,7 @@
 
 		AtKit.set('WordPrediction_TextSelected', null);
 		
-		$lib('input[type="text"], textarea').bind('focus', function(){
+		$lib('input[type="text"], textarea').on('focus', function(){
 			AtKit.set('WordPrediction_TextSelected', $lib(this));
 		});
 
@@ -75,10 +75,12 @@
 			AtKit.getPluginURL() + 'images/aitype.png',
 			function(dialogs, functions){
 
+				$lib('#at-btn-wordprediction').addClass('active');
+
 				ctrlModifier = false;
 				altModifier = false;
 
-				$lib('input[type="text"], textarea').bind('keydown', function(e){
+				$lib('input[type="text"], textarea').on('keydown', function(e){
 					if(e.which == 17 || e.which == 18 || ctrlModifier || altModifier) return; // ctrl & alt keys ignore.
 					
 					clearTimeout(wpTimeout);
@@ -144,7 +146,8 @@
 									"color": "black",
 									"border": "2px solid black",
 									"z-index": "9999999999",
-									"padding": "10px"
+									"padding": "10px",
+									"height": "auto"
 								});
 							} else {
 								suggestions = $lib('#AtKitWordPrediction').empty();
@@ -152,7 +155,7 @@
 							
 							
 							suggestions.append(
-								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red;padding-right:10px;float:left;" }).bind('click', function(){
+								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red!important;font-weight: bold;;padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).on('click', function(){
 									$lib('#AtKitWordPrediction').remove();
 									el.focus();
 								})
@@ -169,7 +172,7 @@
 								// Remove the liklihood from the string.
 								suggestion = suggestion.substring(1);
 
-								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px;float:left;" }).data('suggestion', suggestion).bind('click', function(e){
+								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;color:#337ab7!important;font-weight: bold;;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).data('suggestion', suggestion).on('click', function(e){
 									var pos = AtKit.get('WordPrediction_CaretPos');
 									var toInsert = $lib(this).data('suggestion') + " ";
 									var el = AtKit.get('WordPrediction_TextSelected');
@@ -209,10 +212,12 @@
 							
 							// Bind shortcutkeys
 							
-							textElement.keyup(function (e) {
+							textElement.on('keyup', function (e) {
 								if(e.keyCode == 17) ctrlModifier = false;
 								if(e.keyCode == 18) altModifier = false;
-							}).keydown(function (e) {
+							});
+
+							textElement.on('keydown', function (e) {
 								if(e.keyCode == 17) ctrlModifier = true;
 								if(e.keyCode == 18) altModifier = true;
 								
@@ -240,7 +245,7 @@
 					
 					}, 500);
 				});
-			}
+			}, null, null, {'cssClass':'glyphicon glyphicon-pencil'}
 		);
 
 	};

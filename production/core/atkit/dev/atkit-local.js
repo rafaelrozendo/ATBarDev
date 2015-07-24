@@ -23,7 +23,7 @@
 			__baseURL: "https://core.atbar.org/", // Load AtKit assets from here.
 			__APIURL: "http://a.atbar.org/", // API endpoint
 			//__pluginURL: "http://plugins.atbar.org/", // Plugins location
-			__pluginURL: "http://localhost/production/plugins/",
+			__pluginURL: "http://localhost/dev/plugins/",
 			__libURL: "https://core.atbar.org/resources/jquery/1.11.3/jquery.min.js", // URL to jQuery. CDN preferred unless this is a local install.
 			__bootstrapCssURL: "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css",
 			__responsiveCssURL: "https://core.atbar.org/resources/css/responsive.css",

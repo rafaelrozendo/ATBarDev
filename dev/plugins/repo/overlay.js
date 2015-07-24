@@ -131,28 +131,33 @@
 						AtKit.getPluginURL() + 'images/overlay-yellow.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayYellow', {});
-						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'yellow'});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'#FFCC00', 'insertAfter':'at-btn-overlay'});
 					
 					AtKit.addButton('overlayRed', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_red"),
 						AtKit.getPluginURL() + 'images/overlay-red.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayRed', {});
-						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'red'});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'red', 'insertAfter':'at-btn-overlay'});
 					
 					AtKit.addButton('overlayBlue', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_blue"),
 						AtKit.getPluginURL() + 'images/overlay-blue.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayBlue', {});
-						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'blue'});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'blue', 'insertAfter':'at-btn-overlay'});
 					
 					AtKit.addButton('overlayGreen', 
 						AtKit.localisation("overlay_title") + " " + AtKit.localisation("overlay_title_green"),
 						AtKit.getPluginURL() + 'images/overlay-green.png', 
 						function(dialogs, functions){
 							AtKit.call('toggleOverlayGreen', {});
-						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'green'});
+						}, null, null, {'cssClass':'glyphicon glyphicon-certificate', 'colour':'green', 'insertAfter':'at-btn-overlay'});
+
+					$lib("#at-spn-overlayYellow").css('color', '#FFCC00');
+					$lib("#at-spn-overlayRed").css('color', 'red');
+					$lib("#at-spn-overlayBlue").css('color', 'blue');
+					$lib("#at-spn-overlayGreen").css('color', 'green');
 				}
 				else{
 					overlayRunning = 0;

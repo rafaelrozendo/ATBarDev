@@ -114,42 +114,43 @@
 		var CSSDialogs = {
 			"main": {
 				"title":AtKit.localisation("css_changeColour"),
-				"body":"<button id=\"sbColourChange\"> " + AtKit.localisation("css_changeToolbar") + "</button> <br /><button id=\"sbChangeSiteColours\"> " + AtKit.localisation("css_changeText") + "</button><br /> <button id=\"sbAttachCSSStyle\">" + AtKit.localisation("css_changePage") + "</button>"
+				"body":"<button id=\"sbColourChange\" class=\"btn btn-default\"> " + AtKit.localisation("css_changeToolbar") + "</button> <br /><button id=\"sbChangeSiteColours\" class=\"btn btn-default\"> " + AtKit.localisation("css_changeText") + "</button><br /> <button id=\"sbAttachCSSStyle\" class=\"btn btn-default\">" + AtKit.localisation("css_changePage") + "</button>"
 			},
 			"toolbar": {
 				"title":AtKit.localisation("css_changeATbar"),
-				"body":"<label for=\"sbbackgroundcolour\">" + AtKit.localisation("css_changeBackground") + "</label><input type=\"text\" name=\"sbbackgroundcolour\" id=\"sbbackgroundcolour\"> <button id=\"sbSetColour\">" + AtKit.localisation("css_set") + "</button> <br /> <p><button onclick=\"document.getElementById('sbbackgroundcolour').value = 'black';\">" + AtKit.localisation("css_black") + "</button> <button onclick=\"document.getElementById('sbbackgroundcolour').value = 'white';\">" + AtKit.localisation("css_white") + "</button> <button onclick=\"document.getElementById('sbbackgroundcolour').value = 'grey';\">" + AtKit.localisation("css_grey") + "</button></p> <br /> <button id=\"sbRandomColour\"> " + AtKit.localisation("css_random") + "</button> <button id=\"sbColourReset\">" + AtKit.localisation("css_reset_defaults") + "</button>"
+				"body":"<label for=\"sbbackgroundcolour\">" + AtKit.localisation("css_changeBackground") + "</label><input type=\"text\" name=\"sbbackgroundcolour\" id=\"sbbackgroundcolour\"> <button id=\"sbSetColour\" class=\"btn btn-default\">" + AtKit.localisation("css_set") + "</button> <br /> <p><button class=\"btn btn-default\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'black';\">" + AtKit.localisation("css_black") + "</button> <button class=\"btn btn-default\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'white';\">" + AtKit.localisation("css_white") + "</button> <button class=\"btn btn-default\" onclick=\"document.getElementById('sbbackgroundcolour').value = 'grey';\">" + AtKit.localisation("css_grey") + "</button></p> <br /> <button class=\"btn btn-default\" id=\"sbRandomColour\"> " + AtKit.localisation("css_random") + "</button> <button id=\"sbColourReset\" class=\"btn btn-default\">" + AtKit.localisation("css_reset_defaults") + "</button>"
 			},
 			"siteColours": {
 				"title": AtKit.localisation("css_change_linktext"),
-				"body": "<label for=\"sbtextcolour\" style=\"display:block\">" + AtKit.localisation("css_textcolour") + "</label><select id=\"sbtextcolour\" name=\"sbtextcolour\">" + colourOptions + "</select><br /><br /><label for=\"sblinkcolour\" style=\"display:block\">" + AtKit.localisation("css_linkColour") + "</label><select id =\"sblinkcolour\">" + colourOptions + "</select> <br /><br /><button id=\"applyPageColours\">" + AtKit.localisation("css_apply") + "</button>"
+				"body": "<label for=\"sbtextcolour\" style=\"display:block\">" + AtKit.localisation("css_textcolour") + "</label><select id=\"sbtextcolour\" name=\"sbtextcolour\">" + colourOptions + "</select><br /><br /><label for=\"sblinkcolour\" style=\"display:block\">" + AtKit.localisation("css_linkColour") + "</label><select id =\"sblinkcolour\">" + colourOptions + "</select> <br /><br /><button id=\"applyPageColours\" class=\"btn btn-default\">" + AtKit.localisation("css_apply") + "</button>"
 			},
 			"CSSStyles":{
 				"title": AtKit.localisation("css_change_page"),
-				"body": "<button id=\"sbApplyCSS-wb\">" + AtKit.localisation("css_black_white") + "</button><br /> <button id=\"sbApplyCSS-wbw\">" + AtKit.localisation("css_white_black") + "</button><br /> <button id=\"sbApplyCSS-yb\">" + AtKit.localisation("css_yellow_black") + "</button><br /> <button id=\"sbApplyCSS-by\">" + AtKit.localisation("css_black_yellow") + "</button><br /> <button id=\"sbApplyCSS-gw\">" + AtKit.localisation("css_white_grey") + "</button>"
+				"body": "<button id=\"sbApplyCSS-wb\" class=\"btn btn-default\">" + AtKit.localisation("css_black_white") + "</button><br /> <button id=\"sbApplyCSS-wbw\" class=\"btn btn-default\">" + AtKit.localisation("css_white_black") + "</button><br /> <button id=\"sbApplyCSS-yb\" class=\"btn btn-default\">" + AtKit.localisation("css_yellow_black") + "</button><br /> <button id=\"sbApplyCSS-by\" class=\"btn btn-default\">" + AtKit.localisation("css_black_yellow") + "</button><br /> <button id=\"sbApplyCSS-gw\" class=\"btn btn-default\">" + AtKit.localisation("css_white_grey") + "</button>"
 			}
 		};
 		
 		CSSFunctions = {
 			"changeToolbar": function(){
-				$lib("#sbbackgroundcolour").focus();
 				
-				$lib('#sbRandomColour').click(function(){ AtKit.call('setColour', "rand"); });
-				$lib('#sbSetColour').click(function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
-				$lib('#sbColourReset').click(function(){ AtKit.call('setColour', reset_colour); });
+				$lib("#sbbackgroundcolour")[0].focus();
+				
+				$lib('#sbRandomColour').on('click', function(){ AtKit.call('setColour', "rand"); });
+				$lib('#sbSetColour').on('click', function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
+				$lib('#sbColourReset').on('click', function(){ AtKit.call('setColour', reset_colour); });
 			},
 			"siteColours": function(){
-				$lib('#applyPageColours').click(function(e){ 			
+				$lib('#applyPageColours').on('click', function(e){ 			
 					if( $lib('#sbtextcolour').val() != "undefined" && $lib('#sbtextcolour').val() != "original" ){
-						$lib('*').css('color', "#" + $lib('#sbtextcolour').val());
+						$lib('*:not([id^="at-"])*:not([id^="atkit-"])*:not([class^="at-"])*:not([class^="atkit-"])*:not([class^="atbar-"])').css('color', "#" + $lib('#sbtextcolour').val());
 					}
 					
 					if( $lib('#sblinkcolour').val() != "undefined" && $lib('#sblinkcolour').val() != "original" ){
-						$lib('a').css('color', "#" + $lib('#sblinkcolour').val());
+						$lib('a:not([id^="at-"])a:not([id^="atkit-"])a:not([class^="at-"])a:not([class^="atkit-"])a:not([class^="atbar-"])').css('color', "#" + $lib('#sblinkcolour').val());
 					}
 				});
 				
-				$lib('#sblinkcolour').keypress(function(e){ 
+				$lib('#sblinkcolour').on('keypress', function(e){ 
 					if(e.keyCode == 13){  
 						if( $lib('#sbpagebackgroundcolour').val() != "undefined"){
 							$lib('body').css('backgroundColor', $lib('#sbpagebackgroundcolour').val());
@@ -168,46 +169,46 @@
 				
 				});
 				
-				$lib("#sbtextcolour").focus();			
+				$lib("#sbtextcolour")[0].focus();			
 			},
 			"CSSStyles": function(){
-				$lib('#sbApplyCSS-yb').click(function(e){ 
-					$lib(document).trigger('close.facebox');
-					$lib('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-yb').on('click', function(e){ 
+					AtKit.hideDialog();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-yo.css", "highvis-yo");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-yo");
 				});
 				
-				$lib('#sbApplyCSS-wb').click(function(e){ 
-					$lib(document).trigger('close.facebox');
-					$lib('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-wb').on('click', function(e){ 
+					AtKit.hideDialog();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-wb.css", "highvis-wb");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wb");
 				});
 				
-				$lib('#sbApplyCSS-wbw').click(function(e){
-					$lib(document).trigger('close.facebox');
-					$lib('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-wbw').on('click', function(e){
+					AtKit.hideDialog();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-bw.css", "highvis-wbw");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-wbw");
 				});
 				
-				$lib('#sbApplyCSS-by').click(function(e){
-					$lib(document).trigger('close.facebox');
-					$lib('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-by').on('click', function(e){
+					AtKit.hideDialog();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-by.css", "highvis-by");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});
 				
-				$lib('#sbApplyCSS-gw').click(function(e){
-					$lib(document).trigger('close.facebox');
-					$lib('link[rel=stylesheet]').remove();
+				$lib('#sbApplyCSS-gw').on('click', function(e){
+					AtKit.hideDialog();
+					$lib('link[rel=stylesheet]link:not([href^="'+ AtKit.getResourceURL() +'"])link:not([href="'+ AtKit.getBootstrapURL() +'"])').remove();
 					AtKit.addStylesheet(settings_css.baseURL + "css/high-gw.css", "highvis-by");
 					if(AtKit.getLanguage() == "ar") AtKit.addStylesheet(settings_css.baseURL + "css/high-rtl.css", "high-rtl-by");
 				});	
 				
-				
-				$lib("#sbApplyCSS-wb").focus();
+				$lib("#sbApplyCSS-wb")[0].focus();
+						
 			}
 		};
 		
@@ -248,21 +249,32 @@
 			AtKit.localisation("css_title"),
 			AtKit.getPluginURL() + 'images/palette.png',
 			function(dialogs, functions){
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+
+				// Set focus to the "change toolbar colour" button
+				$lib( "#at-modal" ).off('shown.bs.modal');
+				$lib('#at-modal').on('shown.bs.modal', function () {
+					$lib("#sbColourChange")[0].focus();
+				})
+
 				AtKit.show(dialogs.main);
 				
-				$lib('#sbColourChange').click(function(){
+				$lib('#sbColourChange').on('click', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					AtKit.show(dialogs.toolbar);
 					functions.changeToolbar();
 					changeBackgroundColour();
 				});
 
-				$lib('#sbChangeSiteColours').click(function(){
+				$lib('#sbChangeSiteColours').on('click', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					AtKit.show(dialogs.siteColours);
 					functions.siteColours();
 					changeBackgroundColour();
 				});
 
-				$lib('#sbAttachCSSStyle').click(function(){
+				$lib('#sbAttachCSSStyle').on('click', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					AtKit.show(dialogs.CSSStyles);
 					functions.CSSStyles();
 					changeBackgroundColour();
@@ -270,7 +282,7 @@
 
 				changeBackgroundColour();
 			}, 
-			CSSDialogs, CSSFunctions, {'cssClass':'glyphicon glyphicon-eye-open'}
+			CSSDialogs, CSSFunctions, {'cssClass':'glyphicon glyphicon-eye-open', 'modal':'true'}
 		);		
 
 	}

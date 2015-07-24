@@ -25,10 +25,11 @@
 			"tts_problem": "Something went wrong while we were converting this page to speech. Please try again shortly.",
 			"tts_servererror": "An error occurred on the server. Please try again later.",
 			"tts_seconds": "seconds",
-			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (CTRL+C) and try again.",
+			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (<kbd>CTRL+C</kbd>) and try again.",
 			"tts_select_voice": "Highlight text and select a voice",
 			"tts_male": "Male",
-			"tts_female": "Female"
+			"tts_female": "Female",
+			"read_math": "Read Math"
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -48,7 +49,8 @@
 			"tts_explain":"&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1582;&#1575;&#1589;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1578;&#1581;&#1583;&#1610;&#1583; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1585;&#1575;&#1583; &#1578;&#1581;&#1608;&#1610;&#1604;&#1607; &#1593;&#1604;&#1609; &#1607;&#1584;&#1607; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1576;&#1593;&#1583; &#1584;&#1604;&#1603; &#1575;&#1590;&#1594;&#1591; &#1586;&#1585; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1608;&#1575;&#1590;&#1594;&#1591; &#1582;&#1610;&#1575;&#1585; &quot;&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;&quot;.",
 			"tts_select_voice": "&#1602;&#1605; &#1576;&#1578;&#1592;&#1604;&#1610;&#1604; &#1575;&#1604;&#1606;&#1589; &#1608;&#1575;&#1582;&#1578;&#1610;&#1575;&#1585; &#1575;&#1604;&#1589;&#1608;&#1578;",
 			"tts_male": "&#1605;&#1584;&#1603;&#1585;",
-			"tts_female": "&#1605;&#1572;&#1606;&#1579;"
+			"tts_female": "&#1605;&#1572;&#1606;&#1579;",
+			"read_math": "&#1585;&#1610;&#1575;&#1590;&#1610;&#1575;&#1578;"
 		});
 
 		AtKit.addLocalisationMap("pt", {
@@ -68,14 +70,15 @@
 			"tts_explain": "Para usar o recurso texto a voz com o texto selecionado, por favor, primeiro selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção 'texto selecionado'. Se isso não funcionou e você está usando Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
 			"tts_male": "Masculino",
-			"tts_female": "Feminino"
+			"tts_female": "Feminino",
+			"read_math": "Ler Matemática"
 		});
 
 		// Text to speech
 		var TTSDialogs = {
 			"options": {
 				"title": AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartInsipioTTSSelectionFemale\"> " + AtKit.localisation("tts_female") + "</button>"
+				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartInsipioTTSSelectionFemale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_female") + "</button> </br> <button id=\"sbReadMath\" class=\"btn btn-default\">" + AtKit.localisation("read_math") + "</button>"
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
@@ -128,6 +131,23 @@
 		
 
 		// Add functions to AtKit.
+
+		AtKit.addFn('getBrowser', function(){
+			var ua= navigator.userAgent, tem,
+		    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+		    if(/trident/i.test(M[1])){
+		        tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+		        return 'IE '+(tem[1] || '');
+		    }
+		    if(M[1]=== 'Chrome'){
+		        tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+		        if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+		    }
+		    M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+		    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+		    return M.join(' ');
+		});
+
 		AtKit.addFn('getSelectedTextInsipioTTS', function(strip){
 			
 			var text = AtKit.call('getSelectedTextInElementInsipio');
@@ -280,20 +300,21 @@
 			urlString += "&callback=?";
 			
 			$lib.getJSON(urlString, function(RO){
+				$lib( "#at-modal" ).off('shown.bs.modal');
 				$lib("#compactStatus").html(args.block + " / " + args.totalBlocks);
 				
-				var errorTitle = "<h2>" + AtKit.localisation("tts_error") + "</h2>";
+				var errorTitle = AtKit.localisation("tts_error");
 				if(args.block == args.totalBlocks){
 					// Finished request..
 					AtKit.show(TTSDialogs.starting);
 					if(RO.status == "encoding"){
 						AtKit.call('countdownInsipioTTS', { 'timeLeft':(RO.est_completion / RO.chunks), 'id': RO.ID });
 					} else if(RO.status == "failure" && RO.reason == "overcapacity"){
-						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_overloaded") + "</p>");
+						AtKit.message(errorTitle, AtKit.localisation("tts_overloaded"));
 					} else if(RO.status == "failure" && RO.message === "") {
-						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_problem") + "</p>");
+						AtKit.message(errorTitle , AtKit.localisation("tts_problem"));
 					} else {
-						AtKit.message(errorTitle + "<p>" + RO.reason + " " + RO.data.message + "</p>");
+						AtKit.message(errorTitle , RO.reason + " " + RO.data.message );
 					}
 
 				} else {
@@ -301,9 +322,10 @@
 					if(RO.data.message == "ChunkSaved"){
 						AtKit.call('sendInsipioTTSChunk', { 'fullData':args.fullData, 'block':(args.block + 1), 'totalBlocks':args.totalBlocks, 'reqID':args.reqID });
 					} else {
-						AtKit.message(errorTitle + "<p>" + AtKit.localisation("tts_servererror") + "</p>");
+						AtKit.message(errorTitle , AtKit.localisation("tts_servererror"));
 					}
 				}
+				$lib("#at-modal-close-btn")[0].focus();
 				
 			});
 		
@@ -311,7 +333,7 @@
 		
 		AtKit.addFn('countdownInsipioTTS', function(arg){
 			if(isNaN(arg.timeLeft)){
-				AtKit.message("<h2>" + AtKit.localisation("tts_error") + "</h2> <p>" + AtKit.localisation("tts_problem") + "</p>");
+				AtKit.message(AtKit.localisation("tts_error") , AtKit.localisation("tts_problem"));
 			} else {
 				if(arg.timeLeft == 0){
 
@@ -447,9 +469,10 @@
 		AtKit.addFn('sbStartInsipioTTSSelection', function(args){
 						
 			AtKit.set('TTS_clickEnabled', false);
-
+			
 			var selectedData = AtKit.get('TTSselectedData');
 			if(selectedData == "" || typeof selectedData == "undefined") selectedData = AtKit.call('getSelectedTextInsipioTTS');
+			if(typeof args.source != "undefined" && args.source == "math") selectedData = args.text;
 			
 			if(typeof selectedData != "undefined" && selectedData !== ""){
 		
@@ -463,16 +486,17 @@
 				if(chunks > 0){
 					var reqID = Math.floor(Math.random() * 5001);
 					
-					AtKit.message( "<h2>" + AtKit.localisation("tts_pleasewait") + "</h2><p>" + AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div></p>" );
-					
+					AtKit.message(AtKit.localisation("tts_pleasewait") , AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus'>0 / " + chunks + "</div>" );
+
 					AtKit.call('sendInsipioTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID, 'voice':args.voice });
 				} else {
-					AtKit.message( "<h2>" + AtKit.localisation("tts_error") + "</h2><p>" + AtKit.localisation("tts_problem") + "</p>" );
+					AtKit.message(AtKit.localisation("tts_error") , AtKit.localisation("tts_problem"));
 				}
 				
 			} else {
-				AtKit.message("<h2>" + AtKit.localisation("tts_title") + "</h2><p>" + AtKit.localisation("tts_explain") + "</p>");
+				AtKit.message(AtKit.localisation("tts_title") , AtKit.localisation("tts_explain"));
 			}
+			$lib("#at-modal-close-btn")[0].focus();
 		
 		});
 		
@@ -497,10 +521,23 @@
 
 		AtKit.set('TTS_clickEnabled', true);
 		
-		$lib(document).delegate('#at-btn-tts', 'mousemove, focus, mouseover', function(){
-			var text = AtKit.call('getSelectedTextInsipioTTS');
-			if(typeof text == "undefined" || text == "") return;		
-			AtKit.set('TTSselectedData', text);
+		//same function for mousemove, focus and mouseover
+		$lib("#at-btn-tts").on({
+		    mousemove: function () {
+		        var text = AtKit.call('getSelectedTextInsipioTTS');
+				if(typeof text == "undefined" || text == "") return;		
+				AtKit.set('TTSselectedData', text);
+		    },
+		    focus: function () {
+		        var text = AtKit.call('getSelectedTextInsipioTTS');
+				if(typeof text == "undefined" || text == "") return;		
+				AtKit.set('TTSselectedData', text);
+		    },
+		    mouseover: function() {
+		    	var text = AtKit.call('getSelectedTextInsipioTTS');
+				if(typeof text == "undefined" || text == "") return;		
+				AtKit.set('TTSselectedData', text);
+		    }
 		});
 
 		AtKit.addButton(
@@ -509,10 +546,24 @@
 			AtKit.getPluginURL() + 'images/sound.png',
 			function(dialogs, functions){
 				if(AtKit.set('TTS_clickEnabled') == false) return;
-				
-				var text = AtKit.call('getSelectedTextInsipioTTS');
 
+				var text = AtKit.call('getSelectedTextInsipioTTS');
+				
 				if(AtKit.get('TTSselectedData') == "" && text != "") AtKit.set('TTSselectedData', text);
+
+				// Set focus to the male voice button
+				$lib( "#at-modal" ).off('shown.bs.modal');
+				$lib('#at-modal').on('shown.bs.modal', function () {
+					//if we focus a button, some browsers may lose the selected text
+					if (AtKit.call('getBrowser').split(" ")[0] === "Chrome" || AtKit.call('getBrowser').split(" ")[0] === "IE") {
+						try {
+							$lib('#sbStartInsipioTTSSelectionMale')[0].focus();
+						}
+						catch(err) {
+							console.log("no button to focus on!");
+						}
+					}
+				});
 
 
 				AtKit.show(dialogs.options);
@@ -522,6 +573,7 @@
 				
 				
 				$lib('#sbStartInsipioTTSSelectionMale').on('click touchend', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
 					a = document.createElement('audio');
 					audio = new Audio();
@@ -531,7 +583,38 @@
 					AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male' });
 				});
 				
+				$lib('#sbReadMath').on('click touchend', function(){
+					$lib("m\\:math, math").each(function(index) {
+						if(index == 0) {
+							var mathml = '<math xmlns="http://www.w3.org/1998/Math/MathML">' + $lib(this).html() + '</math>';
+							
+							$lib.getJSON("http://waisvm-cd8e10.ecs.soton.ac.uk:4444/api?mathml=" + encodeURIComponent(mathml) + "&callback=?").done(function(d) {
+								var text = d.data;
+								selectedData = text;
+								//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
+								a = document.createElement('audio');
+								audio = new Audio();
+								audio.play();
+								audio.pause();
+								//text = "(\"" + text.toUpperCase().split(" ").join("\")(\"") + "\")";
+								text = text.toUpperCase().split(" ");
+								for (var i=0; i<text.length; i++) {
+
+									if (text[i].length === 1 || text[i] === "PI") {
+										if (text[i] === "A") text[i] = "A.";
+
+										text[i] = "(\"" + text[i] + "\")";
+									}
+								}
+								text = text.join(" ");
+								AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male', 'source':'math', 'text':text });
+							});
+						}
+					});
+				});
+				
 				$lib('#sbStartInsipioTTSSelectionFemale').on('click touchend', function(){
+					$lib( "#at-modal" ).off('shown.bs.modal');
 					//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
 					a = document.createElement('audio');
 					audio = new Audio();
@@ -541,7 +624,7 @@
 					AtKit.call('sbStartInsipioTTSSelection', { 'voice':'female' });
 				});			
 			},
-			TTSDialogs, TTSFunctions//, TTSExtendedObject
+			TTSDialogs, TTSFunctions, {'cssClass':'glyphicon glyphicon-volume-up', 'modal':'true'}//, TTSExtendedObject
 		);
 		
 		if(navigator.userAgent.match(/(iPhone|iPod|iPad)/i))

@@ -24,7 +24,7 @@
 				
 				externalWindow.all['edit-field-report-url'].focus();
 			}, 
-			null, null
+			null, null, {'cssClass':'glyphicon glyphicon-heart'}
 		);
 
 	}

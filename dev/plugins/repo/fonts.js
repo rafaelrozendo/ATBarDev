@@ -30,7 +30,8 @@
 
 		// Font settings
 		var fontDialogs = {
-				'main': '<h1>' + AtKit.localisation('fonts_dialogTitle') + '</h1><label for="sbfontface">' + AtKit.localisation('fonts_fontFace') + ':</label> <select id="sbfontface"><option value="sitespecific">--Site Specific--</option><option value="arial">Arial</option><option value="courier">Courier</option><option value="cursive">Cursive</option><option value="fantasy">Fantasy</option><option value="georgia">Georgia</option><option value="helvetica">Helvetica</option><option value="impact">Impact</option><option value="monaco">Monaco</option><option value="monospace">Monospace</option><option value="sans-serif">Sans-Serif</option><option value="tahoma">Tahoma</option><option value="times new roman">Times New Roman</option><option value="trebuchet ms">Trebuchet MS</option><option value="verdant">Verdana</option></select><br /><br /> <label for="sblinespacing">' + AtKit.localisation('fonts_lineSpacing') + '</label> <input type="text" name="sblinespacing" id="sblinespacing" maxlength="3" size="3" value="100">%<br /><br /><button id="ATApplyFont">' + AtKit.localisation('fonts_apply') + '</a></div>'
+				'title': AtKit.localisation('fonts_dialogTitle'),
+				'body': '<label for="sbfontface">' + AtKit.localisation('fonts_fontFace') + ':</label> <select id="sbfontface"><option value="sitespecific">--Site Specific--</option><option value="arial">Arial</option><option value="courier">Courier</option><option value="cursive">Cursive</option><option value="fantasy">Fantasy</option><option value="georgia">Georgia</option><option value="helvetica">Helvetica</option><option value="impact">Impact</option><option value="monaco">Monaco</option><option value="monospace">Monospace</option><option value="sans-serif">Sans-Serif</option><option value="tahoma">Tahoma</option><option value="times new roman">Times New Roman</option><option value="trebuchet ms">Trebuchet MS</option><option value="verdant">Verdana</option></select><br /><br /> <label for="sblinespacing">' + AtKit.localisation('fonts_lineSpacing') + '</label> <input type="text" name="sblinespacing" id="sblinespacing" maxlength="3" size="3" value="100">%<br /><br /><button id="ATApplyFont" class="btn btn-default">' + AtKit.localisation('fonts_apply') + '</a></div>'
 		};
 		
 		AtKit.addFn('changeFont', function(args){
@@ -47,6 +48,22 @@
 					$lib(tags[k]).css('line-height', args.lineHeight + '%');
 				}
 				
+				if (typeof String.prototype.startsWith != 'function') {
+				  String.prototype.startsWith = function (str){
+				    return this.indexOf(str) === 0;
+				  };
+				}
+
+				var spans = document.getElementsByTagName("span");
+				for (var j = 0; j<spans.length; j++) {
+					var spanID = spans[j].getAttribute("id");
+					try {
+						if (!spanID.startsWith("at-spn-")) {
+							spans[j].setAttribute("style", "font-family:" + args.fontFace + "; line-height: " + args.lineHeight + "%;");	
+						}
+					} catch (err) {}
+				}
+
 				// Set ATbar line height back to 0%
 				$lib('#sbar').find('div').css('line-height', '0%');
 			}
@@ -58,18 +75,23 @@
 			AtKit.localisation("fonts_dialogTitle"),
 			AtKit.getPluginURL() + 'images/font.png',
 			function(dialogs, functions){
-				AtKit.message(dialogs.main);
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');	
 				
-				$lib('#ATApplyFont').click(function(){
+				$lib( "#at-modal" ).off('shown.bs.modal');
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#sbfontface')[0].focus();			    
+				})
+				
+				AtKit.message(dialogs.title, dialogs.body);	
+				
+				$lib('#ATApplyFont').on('click', function(){
 					AtKit.call('changeFont', { 
 						'fontFace': $lib('#sbfontface').val(),
 						'lineHeight': $lib('#sblinespacing').val()
 					});
 				});
-				
-				$lib("#sbfontface").focus();
 			},
-			fontDialogs, null, {'cssClass':'glyphicon glyphicon-font'}
+			fontDialogs, null, {'cssClass':'glyphicon glyphicon-font', 'modal':'true'}
 		);
 
 	}

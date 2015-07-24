@@ -97,7 +97,7 @@
 					height = '';
 				}
 				
-				AtKit.message('<h2>' + AtKit.localisation("dictionary_stemmer_definition") + ': ' + finalWord + '</h2><div style="' + height + ' overflow-x:scroll">' + message + '</div>');
+				AtKit.message(AtKit.localisation("dictionary_stemmer_definition") + ': ' + finalWord , '<div style="' + height + ' overflow-x:scroll">' + message + '</div>');
 				$lib("#at-lnk-dictionary-stemmer").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				
 			});
@@ -115,6 +115,14 @@
 			AtKit.localisation("dictionary_title"),
 			AtKit.getPluginURL() + 'images/book_open.png',
 			function(dialogs, functions){
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+
+				// Set focus to the close button
+				$lib( "#at-modal" ).off('shown.bs.modal');
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#at-modal-close-btn')[0].focus();
+				})
+				
 				var text = AtKit.call('getSelectedStemmerText');
 				var stored = AtKit.get('dictionaryStemmerSelectedData');
 				
@@ -128,7 +136,7 @@
 					AtKit.show(dictionaryStemmerDialogs.options);
 				}
 				else{
-					AtKit.message("<h2>" + AtKit.localisation("dictionary_stemmer_title") + "</h2><p>" + AtKit.localisation("dictionary_stemmer_use") + "</p>");
+					AtKit.message(AtKit.localisation("dictionary_stemmer_title") , AtKit.localisation("dictionary_stemmer_use"));
 					$lib("#at-lnk-dictionary-stemmer").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 				
@@ -146,7 +154,7 @@
 		);
 
 		
-		$lib('#at-btn-dictionary-stemmer').mouseover(function(){
+		$lib('#at-btn-dictionary-stemmer').on("mouseover", function(){
 			AtKit.set('DictionaryStemmerText', AtKit.call('getSelectedStemmerText'));
 		});
 

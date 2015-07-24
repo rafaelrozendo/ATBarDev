@@ -77,12 +77,25 @@
 			AtKit.localisation("dictionary_title"),
 			AtKit.getPluginURL() + 'images/book_open.png',
 			function(dialogs, functions){
+				$lib("#at-modal-dialog").attr('class', 'modal-dialog');
+				
+				// Set focus to the close button
+				$lib( "#at-modal" ).off('shown.bs.modal');
+				$lib('#at-modal').on('shown.bs.modal', function () {
+				    $lib('#at-modal-close-btn')[0].focus();
+				})
+
 				var text = AtKit.call('getSelectedText');
 				var stored = AtKit.get('DictionaryText');
 				
 				if(text == "" && stored != "") text = stored;
 				
-				var data = eval("\"" + text.split(" ").slice(0, 1) + "\";");
+				var data = "";
+
+				try {
+					data = eval("\"" + text.split(" ").slice(0, 1) + "\";");
+				} catch (err) {
+				}
 				
 				if(data != ""){
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/loading.gif");
@@ -100,20 +113,19 @@
 							}
 						}
 						
-						AtKit.message("<h2>" + AtKit.localisation("dictionary_definition") + " \"" + title + "\"</h2><div style=\"height:300px; overflow-x:scroll\">" + definition + "</div>");
+						AtKit.message(AtKit.localisation("dictionary_definition") + " \"" + title , "<div style=\"height:300px; overflow-x:scroll\">" + definition + "</div>");
 						$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 					});
-					
 				} else {
-					AtKit.message("<h2>" + AtKit.localisation("dictionary_title") + "</h2><p>" + AtKit.localisation("dictionary_use") + "</p>");
+					AtKit.message(AtKit.localisation("dictionary_title") , AtKit.localisation("dictionary_use"));
 					$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 				}
 			},
-			null, null, {'cssClass':'glyphicon glyphicon-book'}
+			null, null, {'cssClass':'glyphicon glyphicon-book', 'modal':'true'}
 		);
 
 		
-		$lib('#at-btn-dictionary').mouseover(function(){
+		$lib('#at-btn-dictionary').on("mouseover", function(){
 			AtKit.set('DictionaryText', AtKit.call('getSelectedText'));
 		});
 

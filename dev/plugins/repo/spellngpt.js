@@ -44,7 +44,8 @@
 			"spell_record": "Send anonymous usage data?",
 			"spell_record_data": "Data to be sent: ",
 			"spell_record_allow": "Allow",
-			"spell_record_disallow": "Disallow"
+			"spell_record_disallow": "Disallow",
+			"spell_modal_title": "<h3>Spell Check</h3>"
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -57,20 +58,22 @@
 			"spell_record": "&#1571;&#1585;&#1587;&#1575;&#1604; &#1587;&#1580;&#1604; &#1575;&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1583;&#1608;&#1606; &#1603;&#1588;&#1601; &#1607;&#1608;&#1610;&#1577; &#1575;&#1604;&#1605;&#1587;&#1578;&#1582;&#1583;&#1605;",
 			"spell_record_data": "&#1575;&#1604;&#1605;&#1581;&#1578;&#1608;&#1609; &#1575;&#1604;&#1582;&#1575;&#1589; &#1576;&#1604;&#1571;&#1585;&#1587;&#1575;&#1604; : ",
 			"spell_record_allow": " &#1575;&#1604;&#1587;&#1605;&#1575;&#1581; &#1576;&#1600;",
-			"spell_record_disallow": " &#1593;&#1583;&#1605; &#1575;&#1604;&#1587;&#1605;&#1575;&#1581; &#1576;&#1600;"
+			"spell_record_disallow": " &#1593;&#1583;&#1605; &#1575;&#1604;&#1587;&#1605;&#1575;&#1581; &#1576;&#1600;",
+			"spell_modal_title": "<h3>&#1575;&#1604;&#1578;&#1583;&#1602;&#1610;&#1602; &#1575;&#1604;&#1575;&#1605;&#1604;&#1575;&#1574;&#1610;</h3>"
 		});
 
 		AtKit.addLocalisationMap("pt", {
 			"spell_title" : "Iniciar Corretor Ortográfico",
 			"spell_complete": "Correção Ortográfica Completa!",
-			"spell_mistake": "Erro de Ortografía",
+			"spell_mistake": "Erro de Ortografia",
 			"spell_suggestions": "Sugestões de Ortografia",
 			"spell_ignore": "Ignorar",
 			"spell_replace": "Substituir",
 			"spell_record": "Enviar uso de dados anonimo?",
 			"spell_record_data": "Dados a serem enviados: ",
 			"spell_record_allow": "Permitir",
-			"spell_record_disallow": "Negar"
+			"spell_record_disallow": "Negar",
+			"spell_modal_title": "<h3>Corretor Ortográfico</h3>"
 		});
 
 		AtKit.set('spellInitialised', false);
@@ -90,7 +93,8 @@
 
 			// If there are no more replacements, we're done.
 			if($lib(selector).children().length === 0){
-				AtKit.message(spell_settings.completeDialog);
+				$lib('#at-modal-close-btn')[0].focus();
+				AtKit.message(AtKit.localisation("spell_modal_title"), spell_settings.completeDialog);
 			} else {
 				$lib(selector).trigger('change');
 			}
@@ -108,20 +112,19 @@
 				dlg.append($lib('<div>', { "id": "AtKitSpellRecordContainer" }));
 				dlg.append($lib('<p>', { "html": AtKit.localisation("spell_record_data") + spellngSentance }));
 				dlg.append($lib('<div>', { "id": "AtKitSpellRecordContainerData" }));
-				dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_allow"), "id": "AtKitSpellRecordAllow" }));
-				dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_disallow"), "id": "AtKitSpellRecordDisallow" }));
+				dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_allow"), "id": "AtKitSpellRecordAllow", "class":"btn btn-default" }));
+				dlg.append($lib('<button>', { "html": AtKit.localisation("spell_record_disallow"), "id": "AtKitSpellRecordDisallow", "class":"btn btn-default" }));
 				
-				AtKit.message(dlg);
-				$lib("#AtKitSpellRecordDialog").focus();
+				AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
 				
-				$lib('#AtKitSpellRecordAllow').click(function(){
+				$lib('#AtKitSpellRecordAllow').on('click', function(){
 					AtKit.call('recordSpellng');
-					AtKit.message(spell_settings.completeDialog);
+					AtKit.message(AtKit.localisation("spell_modal_title"),spell_settings.completeDialog);
 					allowRecord = true;
 				});
 				
-				$lib('#AtKitSpellRecordDisallow').click(function(){
-					AtKit.message(spell_settings.completeDialog);
+				$lib('#AtKitSpellRecordDisallow').on('click', function(){
+					AtKit.message(AtKit.localisation("spell_modal_title"),spell_settings.completeDialog);
 					allowRecord = false;
 				});
 				
@@ -132,11 +135,11 @@
 				if(allowRecord)
 				{
 					AtKit.call('recordSpellng');
-					AtKit.message(spell_settings.completeDialog);
+					AtKit.message(AtKit.localisation("spell_modal_title"),spell_settings.completeDialog);
 				}
 				else
 				{
-					AtKit.message(spell_settings.completeDialog);
+					AtKit.message(AtKit.localisation("spell_modal_title"),spell_settings.completeDialog);
 				}
 			}
 		});
@@ -207,7 +210,7 @@
 				bindEvents: function() {
 					if ( !this.options.events ) return;
 					var self = this, timeout;
-					this.$element.bind(this.options.events, function(event) {
+					this.$element.on(this.options.events, function(event) {
 						if ( /^key[press|up|down]/.test(event.type) ) {
 							if ( timeout ) clearTimeout(timeout);
 							timeout = setTimeout(function() { self.checkSpelling(); }, self.options.autocheck);
@@ -271,19 +274,21 @@
 				displayResults: function() {
 					if ( !this.results.count ) return;
 
+					$lib("#at-modal-dialog").attr('class', 'modal-dialog modal-sm');
+
 					var dlg = $lib('<div>', { "style": "", "id": "AtKitSpellDialog" });
-					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_mistake") }));
+					dlg.append($lib('<h4>', { "html": AtKit.localisation("spell_mistake") }));
 					dlg.append($lib('<div>', { "id": "AtKitSpellMistakeContainer" }));
-					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_suggestions") }));
+					dlg.append($lib('<h4>', { "html": AtKit.localisation("spell_suggestions") }));
 					dlg.append($lib('<div>', { "id": "AtKitSpellSuggestionContainer" }));
-					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_replace"), "id": "AtKitSpellReplace" }));
-					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_ignore"), "id": "AtKitSpellIgnore" }));
+					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_replace"), "id": "AtKitSpellReplace", "class":"btn btn-default" }));
+					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_ignore"), "id": "AtKitSpellIgnore", "class":"btn btn-default" }));
 
 
 					var self = this;
 
 					dlg.children("#AtKitSpellMistakeContainer").append(
-						$lib('<select>', { "name": "spellcheckmistakes", "id": "spellcheckmistakes", "size": 7, "style": "width: 350px;", "class": "no-float" }).change(
+						$lib('<select>', { "name": "spellcheckmistakes", "id": "spellcheckmistakes", "style": "width: 250px;", "class": "no-float" }).on('change',
 							function(){
 								// Remove children from suggestions
 								$lib('#spellchecksuggestions').empty();
@@ -304,12 +309,17 @@
 					);
 
 					dlg.children("#AtKitSpellSuggestionContainer").append(
-						$lib('<select>', { "name": "spellchecksuggestions", "id": "spellchecksuggestions", "size": 7, "style": "width: 350px;", "class": "no-float" })
+						$lib('<select>', { "name": "spellchecksuggestions", "id": "spellchecksuggestions", "style": "width: 250px;", "class": "no-float" })
 					);
 
 
-					AtKit.message(dlg);
-					$lib("#AtKitSpellDialog").focus();
+					// Set focus to the suggestions select
+					$lib( "#at-modal" ).off('shown.bs.modal');
+					$lib('#at-modal').on('shown.bs.modal', function () {
+					    $lib('#spellchecksuggestions')[0].focus();
+					});
+
+					AtKit.message(AtKit.localisation("spell_modal_title"),dlg);
 					
 					// Add items to spellcheckmistakes.
 					$lib.each(this.results.words, function(i,v){
@@ -320,7 +330,8 @@
 
 
 					// Ignore this mistake
-					$lib('#AtKitSpellIgnore').click(function(){
+					$lib('#AtKitSpellIgnore').on('click', function(){
+						$lib( "#at-modal" ).off('shown.bs.modal');
 						// Record error and correction
 						spellngIgnore = 1;
 						
@@ -331,7 +342,8 @@
 						AtKit.call('removeIncorrectWord');
 					});
 
-					$lib('#AtKitSpellReplace').click(function(){
+					$lib('#AtKitSpellReplace').on('click', function(){
+						$lib( "#at-modal" ).off('shown.bs.modal');
 						var selector = "#spellcheckmistakes";
 
 						var mistake = dlg.find(selector).val();
@@ -375,6 +387,8 @@
 				// Initialise spelling if not already
 				if(AtKit.get('spellInitialised') === false) AtKit.call('initSpell');
 
+				$lib('#at-btn-spell').addClass('active');
+
 				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR", baseURL: spell_settings.baseURL });
 				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR", baseURL: spell_settings.baseURL });
 
@@ -392,7 +406,7 @@
 				if((typeof AtKit.__env.window.CKEDITOR) != 'undefined'){
 					CKE = AtKit.__env.window.CKEDITOR;
 					for(var o in CKE.instances){
-						CKE.instances[o].document.bind('keypress', function(){
+						CKE.instances[o].document.on('keypress', function(){
 							if ( rteSpellTimer ) window.clearTimeout(rteSpellTimer);
 							var content = CKE.instances[o].getData();
 							rteSpellTimer = window.setTimeout(function() { $lib("#" + CKE.instances[o].element.getId()).rteSpellCheck(content, CKE.instances[o], { useXHRMethod: AtKit.__env.transport, 'lang': "pt_BR",  RTEType: 'CKE' }); }, 750);
@@ -406,15 +420,17 @@
 				ctrlModifier = false;
 				altModifier = false;
 				
-				$lib('input[type="text"], textarea').bind('keydown', function(e){
+				$lib('input[type="text"], textarea').on('keydown', function(e){
 					
 					var textElement = $lib(this);
 					
 					// Bind shortcutkeys
-					textElement.keyup(function (e) {
+					textElement.on('keyup', function (e) {
 						if(e.keyCode == 17) ctrlModifier = false;
 						if(e.keyCode == 18) altModifier = false;
-					}).keydown(function (e) {
+					});
+
+					textElement.on('keydown', function (e) {
 						if(e.keyCode == 17) ctrlModifier = true;
 						if(e.keyCode == 18) altModifier = true;
 						
@@ -425,9 +441,6 @@
 						if(ctrlModifier && altModifier && e.keyCode == shortcutKey) {
 							ctrlModifier = false;
 							altModifier = false;
-							
-							// Set focus to dialog box
-							$lib('#spellcheckmistakes').focus();
 							
 							e.returnValue = false;
 						}	

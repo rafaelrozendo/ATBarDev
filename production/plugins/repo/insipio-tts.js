@@ -28,7 +28,8 @@
 			"tts_explain": "To use the text to speech feature with selected text, please first select the text on this page that you would like to convert. After you have done this, click the Text to Speech button, and select your preferred voice option. If you have already tried this and you are using Internet Explorer, please copy the selected text (<kbd>CTRL+C</kbd>) and try again.",
 			"tts_select_voice": "Highlight text and select a voice",
 			"tts_male": "Male",
-			"tts_female": "Female"
+			"tts_female": "Female",
+			"read_math": "Read Math"
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -48,7 +49,8 @@
 			"tts_explain":"&#1604;&#1575;&#1587;&#1578;&#1582;&#1583;&#1575;&#1605; &#1582;&#1575;&#1589;&#1610;&#1577; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1575;&#1604;&#1585;&#1580;&#1575;&#1569; &#1578;&#1581;&#1583;&#1610;&#1583; &#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1585;&#1575;&#1583; &#1578;&#1581;&#1608;&#1610;&#1604;&#1607; &#1593;&#1604;&#1609; &#1607;&#1584;&#1607; &#1575;&#1604;&#1589;&#1601;&#1581;&#1577;. &#1576;&#1593;&#1583; &#1584;&#1604;&#1603; &#1575;&#1590;&#1594;&#1591; &#1586;&#1585; &#1606;&#1591;&#1602; &#1575;&#1604;&#1606;&#1589;&#1548; &#1608;&#1575;&#1590;&#1594;&#1591; &#1582;&#1610;&#1575;&#1585; &quot;&#1575;&#1604;&#1606;&#1589; &#1575;&#1604;&#1605;&#1581;&#1583;&#1583;&quot;.",
 			"tts_select_voice": "&#1602;&#1605; &#1576;&#1578;&#1592;&#1604;&#1610;&#1604; &#1575;&#1604;&#1606;&#1589; &#1608;&#1575;&#1582;&#1578;&#1610;&#1575;&#1585; &#1575;&#1604;&#1589;&#1608;&#1578;",
 			"tts_male": "&#1605;&#1584;&#1603;&#1585;",
-			"tts_female": "&#1605;&#1572;&#1606;&#1579;"
+			"tts_female": "&#1605;&#1572;&#1606;&#1579;",
+			"read_math": "&#1585;&#1610;&#1575;&#1590;&#1610;&#1575;&#1578;"
 		});
 
 		AtKit.addLocalisationMap("pt", {
@@ -68,14 +70,15 @@
 			"tts_explain": "Para usar o recurso texto a voz com o texto selecionado, por favor, primeiro selecione o texto nesta página que você gostaria de converter. Feito isso, clique no botão texto a voz e selecione a opção 'texto selecionado'. Se isso não funcionou e você está usando Internet Explorer, copie o texto selecionado (CTRL+C) e tente novamente.",
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
 			"tts_male": "Masculino",
-			"tts_female": "Feminino"
+			"tts_female": "Feminino",
+			"read_math": "Ler Matemática"
 		});
 
 		// Text to speech
 		var TTSDialogs = {
 			"options": {
 				"title": AtKit.localisation("tts_options"),
-				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartInsipioTTSSelectionFemale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_female") + "</button>"
+				"body": AtKit.localisation("tts_select_voice") + " <br /><button id=\"sbStartInsipioTTSSelectionMale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_male") + "</button> <button id=\"sbStartInsipioTTSSelectionFemale\" class=\"btn btn-default\"> " + AtKit.localisation("tts_female") + "</button> </br> <button id=\"sbReadMath\" class=\"btn btn-default\">" + AtKit.localisation("read_math") + "</button>"
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
@@ -466,9 +469,10 @@
 		AtKit.addFn('sbStartInsipioTTSSelection', function(args){
 						
 			AtKit.set('TTS_clickEnabled', false);
-
+			
 			var selectedData = AtKit.get('TTSselectedData');
 			if(selectedData == "" || typeof selectedData == "undefined") selectedData = AtKit.call('getSelectedTextInsipioTTS');
+			if(typeof args.source != "undefined" && args.source == "math") selectedData = args.text;
 			
 			if(typeof selectedData != "undefined" && selectedData !== ""){
 		
@@ -552,7 +556,12 @@
 				$lib('#at-modal').on('shown.bs.modal', function () {
 					//if we focus a button, some browsers may lose the selected text
 					if (AtKit.call('getBrowser').split(" ")[0] === "Chrome" || AtKit.call('getBrowser').split(" ")[0] === "IE") {
-						$lib('#sbStartInsipioTTSSelectionMale')[0].focus();
+						try {
+							$lib('#sbStartInsipioTTSSelectionMale')[0].focus();
+						}
+						catch(err) {
+							console.log("no button to focus on!");
+						}
 					}
 				});
 
@@ -572,6 +581,36 @@
 					audio.pause();
 					
 					AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male' });
+				});
+				
+				$lib('#sbReadMath').on('click touchend', function(){
+					$lib("m\\:math, math").each(function(index) {
+						if(index == 0) {
+							var mathml = '<math xmlns="http://www.w3.org/1998/Math/MathML">' + $lib(this).html() + '</math>';
+							
+							$lib.getJSON("http://waisvm-cd8e10.ecs.soton.ac.uk:4444/api?mathml=" + encodeURIComponent(mathml) + "&callback=?").done(function(d) {
+								var text = d.data;
+								selectedData = text;
+								//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
+								a = document.createElement('audio');
+								audio = new Audio();
+								audio.play();
+								audio.pause();
+								//text = "(\"" + text.toUpperCase().split(" ").join("\")(\"") + "\")";
+								text = text.toUpperCase().split(" ");
+								for (var i=0; i<text.length; i++) {
+
+									if (text[i].length === 1 || text[i] === "PI") {
+										if (text[i] === "A") text[i] = "A.";
+
+										text[i] = "(\"" + text[i] + "\")";
+									}
+								}
+								text = text.join(" ");
+								AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male', 'source':'math', 'text':text });
+							});
+						}
+					});
 				});
 				
 				$lib('#sbStartInsipioTTSSelectionFemale').on('click touchend', function(){
