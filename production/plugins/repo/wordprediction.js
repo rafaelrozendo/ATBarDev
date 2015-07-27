@@ -155,7 +155,7 @@
 							
 							
 							suggestions.append(
-								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red!important;font-weight: bold;;padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).on('click', function(){
+								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red!important; background-color: initial!important; font-weight: bold;;padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).on('click', function(){
 									$lib('#AtKitWordPrediction').remove();
 									el.focus();
 								})
@@ -172,7 +172,7 @@
 								// Remove the liklihood from the string.
 								suggestion = suggestion.substring(1);
 
-								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;color:#337ab7!important;font-weight: bold;;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).data('suggestion', suggestion).on('click', function(e){
+								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;color:#337ab7!important; background-color: initial!important; font-weight: bold;;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).data('suggestion', suggestion).on('click', function(e){
 									var pos = AtKit.get('WordPrediction_CaretPos');
 									var toInsert = $lib(this).data('suggestion') + " ";
 									var el = AtKit.get('WordPrediction_TextSelected');
@@ -203,7 +203,7 @@
 							
 							
 							// Add the information div.
-							var info = $lib('<p>', { "html": AtKit.localisation("wp_instruct"), "style": "font-size:12pt; padding-top:10px;clear:left" });
+							var info = $lib('<p>', { "html": AtKit.localisation("wp_instruct"), "style": "font-size:12pt; padding-top:10px;clear:left; background-color: initial!important; color: initial!important;" });
 							
 							suggestions.append(info);
 							
