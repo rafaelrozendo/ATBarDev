@@ -77,7 +77,7 @@
 			},
 			"starting": {
 				"title": AtKit.localisation("tts_title"),
-				"body": "<center style='background-color: initial; color: initial;'>" + AtKit.localisation("tts_converting") + " <br /><img src='" + AtKit.getPluginURL() + "images/loadingbig.gif' /><br />"+ AtKit.localisation("tts_timeremaining") +" <div id='sbttstimeremaining' style='background-color: initial; color: initial;'>...</div><br />" + AtKit.localisation("tts_pleasewait") + " </center>"
+				"body": "<center style='background-color: inherit; color: inherit;'>" + AtKit.localisation("tts_converting") + " <br /><img src='" + AtKit.getPluginURL() + "images/loadingbig.gif' /><br />"+ AtKit.localisation("tts_timeremaining") +" <div id='sbttstimeremaining' style='background-color: inherit; color: inherit;'>...</div><br />" + AtKit.localisation("tts_pleasewait") + " </center>"
 			}
 		};
 		var TTSFunctions = {};
@@ -482,7 +482,7 @@
 				if(chunks > 0){
 					var reqID = Math.floor(Math.random() * 5001);
 					
-					AtKit.message(AtKit.localisation("tts_pleasewait") , AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus' style='background-color: initial; color: initial;'>0 / " + chunks + "</div>" );
+					AtKit.message(AtKit.localisation("tts_pleasewait") , AtKit.localisation("tts_converting") + "...<br /><div id='compactStatus' style='background-color: inherit; color: inherit;'>0 / " + chunks + "</div>" );
 
 					AtKit.call('sendInsipioTTSChunk', { 'fullData':transmitData, 'block':1, 'totalBlocks':chunks, 'reqID':reqID, 'voice':args.voice });
 				} else {

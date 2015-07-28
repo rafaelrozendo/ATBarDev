@@ -135,9 +135,9 @@
 				
 				$lib("#sbbackgroundcolour")[0].focus();
 				
-				$lib('#sbRandomColour').on('click', function(){ AtKit.call('setColour', "rand"); });
-				$lib('#sbSetColour').on('click', function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); });
-				$lib('#sbColourReset').on('click', function(){ AtKit.call('setColour', reset_colour); });
+				$lib('#sbRandomColour').on('click', function(){ AtKit.call('setColour', "rand"); AtKit.applyCssToolbarOnly();});
+				$lib('#sbSetColour').on('click', function(){ AtKit.call('setColour', $lib("#sbbackgroundcolour").val() ); AtKit.applyCssToolbarOnly(); });
+				$lib('#sbColourReset').on('click', function(){ AtKit.call('setColour', reset_colour); AtKit.applyCssToolbarOnly();});
 			},
 			"siteColours": function(){
 				$lib('#applyPageColours').on('click', function(e){ 			
@@ -240,7 +240,7 @@
 			
 			var currentColour = element.value;
 			if (currentColour && currentColour != "") {
-				AtKit.call('setColour', $lib("#atbar_background_colour").val() ); 
+				AtKit.call('setColour', $lib("#atbar_background_colour").val() );
 			}
 		}
 		

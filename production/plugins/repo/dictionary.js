@@ -113,7 +113,7 @@
 							}
 						}
 						
-						AtKit.message(AtKit.localisation("dictionary_definition") + " \"" + title , "<div style=\"height:300px; overflow-x:scroll; background-color: initial; color: initial;\">" + definition + "</div>");
+						AtKit.message(AtKit.localisation("dictionary_definition") + " \"" + title , "<div style=\"height:300px; overflow-x:scroll; background-color: inherit; color: inherit;\">" + definition + "</div>");
 						$lib("#at-lnk-dictionary").children('img').attr('src', AtKit.getPluginURL() + "images/book_open.png");
 					});
 				} else {

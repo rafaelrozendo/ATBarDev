@@ -65,6 +65,8 @@
 			function(dialogs, functions){
 
 				$lib('#at-btn-wordprediction').addClass('active');
+				$lib('#at-btn-wordprediction').css('background-color', '#e6e6e6');
+				$lib('#at-spn-wordprediction').css('background-color', '#e6e6e6');
 
 				ctrlModifier = false;
 				altModifier = false;
@@ -121,6 +123,7 @@
 									"width": width,
 									"top": (5 + pos.top + height) + "px",
 									"background": "white",
+									"background-color": "white",
 									"font-size": "16pt",
 									"font-weight": "bold",
 									"color": "black",
@@ -135,7 +138,7 @@
 							
 							
 							suggestions.append(
-								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red!important; background-color: initial!important; font-weight: bold;;padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).on('click', function(){
+								$lib("<a>", { "href": "#", "html": AtKit.localisation("wp_ignore"), "style": "color:red!important; background-color: inherit!important; font-weight: bold;;padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).on('click', function(){
 									$lib('#AtKitWordPrediction').remove();
 									el.focus();
 								})
@@ -152,7 +155,7 @@
 								// Remove the liklihood from the string.
 								suggestion = suggestion.substring(1);
 
-								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;color:#337ab7!important; background-color: initial!important; font-weight: bold;;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).data('suggestion', suggestion).on('click', function(e){
+								var link = $lib('<a>', { "html": suggestion, "href": "#", "style": "padding-right:10px!important;float:left;display:block;padding-top:0px!important;padding-left:0px!important;padding-bottom:0px!important;color:#337ab7!important; background-color: inherit!important; font-weight: bold;;border-right: 0px;border-left:0px;line-height:1.42857143;min-height:0;" }).data('suggestion', suggestion).on('click', function(e){
 									var pos = AtKit.get('WordPrediction_CaretPos');
 									var toInsert = $lib(this).data('suggestion') + " ";
 									var el = AtKit.get('WordPrediction_TextSelected');
@@ -183,7 +186,7 @@
 							
 							
 							// Add the information div.
-							var info = $lib('<p>', { "html": AtKit.localisation("wp_instruct"), "style": "font-size:12pt; padding-top:10px;clear:left; background-color: initial!important; color: initial!important;" });
+							var info = $lib('<p>', { "html": AtKit.localisation("wp_instruct"), "style": "font-size:12pt; padding-top:10px;clear:left; background-color: white!important; color: black!important;" });
 							
 							suggestions.append(info);
 							

@@ -124,25 +124,25 @@
 				"#sbarlogo": 'background-color: transparent; box-sizing: border-box; color: rgb(119, 119, 119); float: left; font-size: 18px; height: 50px; left: 0px; line-height: 20px; padding-bottom: 15px; padding-left: 10px; padding-right: 10px; padding-top: 15px; text-decoration: none;' ,
 				"#sbarlogo img": 'border-bottom-color: initial; border-bottom-style: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; display: block; vertical-align: middle;',
 				"#sbar": '1030: ; background-image:initial; background-color: rgb(248, 248, 248); border-bottom-color: rgb(231, 231, 231); border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(231, 231, 231); border-left-style: solid; border-left-width: 0px; border-right-color: rgb(231, 231, 231); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(231, 231, 231); border-top-style: solid; border-top-width: 0px; box-sizing: border-box; display: block; left: 0px; margin-bottom: 20px; min-height: 50px; position: fixed; right: 0px; top: 0px; z-index: 1030;',
-				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; background-image:initial; background: initial; background-color: initial; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; overflow-x: hidden; overflow-y: auto;',
-				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; background-image:initial; background: initial; background-color: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
-				".at-btn": 'font-size: inherit; box-sizing: border-box; position: relative; display: block; text-align: center; background: initial; background-color: initial;',
-				".at-btn > a": 'font-size: inherit; box-sizing: border-box; color: rgb(119, 119, 119); background: initial; background-color: initial; display: block; line-height: 20px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative; text-decoration: none;',
+				"#at-collapse-parent": '-webkit-box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; background-image:initial; background: initial; background-color: inherit; border-bottom-color: rgb(231, 231, 231); border-left-color: rgb(231, 231, 231); border-right-color: rgb(231, 231, 231); border-top-color: rgb(231, 231, 231); border-top-style: solid; box-shadow: rgba(255, 255, 255, 0.0980392) 0px 1px 0px inset; box-sizing: border-box; display: block; overflow-x: hidden; overflow-y: auto;',
+				"#at-collapse": 'box-sizing: border-box; list-style-image: initial; background-image:initial; background: initial; background-color: inherit; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				".at-btn": 'font-size: inherit; box-sizing: border-box; position: relative; display: block; text-align: center; background: initial; background-color: inherit;',
+				".at-btn > a": 'font-size: inherit; box-sizing: border-box; color: rgb(119, 119, 119); background: initial; background-color: inherit; display: block; line-height: 20px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative; text-decoration: none;',
 				
-				".at-btn > a > span": 'font-size: inherit; box-sizing: border-box; color:initial; background: initial; background-color: initial;',
-				".at-btn > a > span.glyphicon": 'font-size: inherit; 1: top; color:inherit; width: initial; height:initial; text-indent: initial; background-image:initial; background: initial; background-color: initial; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px; text-decoration:none;',
+				".at-btn > a > span": 'font-size: inherit; box-sizing: border-box; color:initial; background: initial; background-color: inherit;',
+				".at-btn > a > span.glyphicon": 'font-size: inherit; 1: top; color:inherit; width: initial; height:initial; text-indent: initial; background-image:initial; background-color: inherit; -webkit-font-smoothing: antialiased; box-sizing: border-box; display: inline-block; font-family: \'Glyphicons Halflings\'; font-style: normal; font-weight: normal; line-height: 1; position: relative; top: 1px; text-decoration:none;',
 				
-				".at-btn > a > span > img.at-btn-icon": 'border-bottom-color: initial; border-bottom-style: initial; background: initial; background-color: initial; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; vertical-align: middle;',
+				".at-btn > a > span > img.at-btn-icon": 'border-bottom-color: initial; border-bottom-style: initial; background: initial; background-color: inherit; border-bottom-width: 0px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: initial; border-left-style: initial; border-left-width: 0px; border-right-color: initial; border-right-style: initial; border-right-width: 0px; border-top-color: initial; border-top-style: initial; border-top-width: 0px; box-sizing: border-box; vertical-align: middle;',
 				"#atkit-stats-img": 'position: fixed; width: 1px; height: 1px;',
 				"#at-btn-atkit-toggle": 'width: initial; height: initial;',
-				"#at-right-buttons": 'box-sizing: border-box; background-image:initial; background: initial; background-color: initial; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
+				"#at-right-buttons": 'box-sizing: border-box; background-image:initial; background: initial; background-color: inherit; list-style-image: initial; list-style-position: initial; list-style-type: none; margin-left: -15px; margin-right: -15px; padding-left: 0px;',
 				"#at-modal.modal": '0: opacity; 1050: ; width:initial; height: initial; margin: 0px; top:0px!important; -webkit-transition-delay: initial; -webkit-transition-duration: 0.15s; -webkit-transition-property: opacity; -webkit-transition-timing-function: linear; bottom: 0px; box-sizing: border-box; display: none; left: 0px; outline-color: initial; outline-style: initial; outline-width: 0px; overflow-x: hidden; overflow-y: hidden; position: fixed; right: 0px; top: 0px; transition-delay: initial; transition-duration: 0.15s; transition-property: opacity; transition-timing-function: linear; z-index: 1050;', 
-				"#at-modal-dialog": 'background: white; background-color: white; -webkit-transition-delay: initial; -webkit-transition-duration: 0.3s; -webkit-transition-property: transform; -webkit-transition-timing-function: ease-out; box-sizing: border-box; margin-bottom: 10px; margin-top: 10px; position: relative; transition-delay: initial; transition-duration: 0.3s; transition-property: transform; transition-timing-function: ease-out;',
-				"#at-modal-content": '-webkit-background-clip: padding-box; width: initial; height: initial; background: initial; background-color: initial; -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; background-clip: padding-box; background-color: rgb(255, 255, 255); border-bottom-color: rgba(0, 0, 0, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgba(0, 0, 0, 0.2); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.2); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 6px; border-top-right-radius: 6px; border-top-style: solid; border-top-width: 1px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; box-sizing: border-box; outline-color: initial; outline-style: initial; outline-width: 0px; position: relative;',
-				"#at-modal-header": 'border-bottom-color: rgb(229, 229, 229); width: initial; height: initial; background: initial; background-color: initial; border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; min-height: 16.42857143px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px;',
-				"#at-modal-title": 'background: initial; background-color: initial; color: initial;' ,
-				"#at-modal-body": 'color: initial; box-sizing: border-box; padding-bottom: 15px; width: initial; height: initial; background: initial; background-color: initial; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative;',
-				"#at-modal-footer": 'border-top-color: rgb(229, 229, 229); width: initial; height: initial; background: initial; background-color: initial; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; right: ;text-align: right;',
+				"#at-modal-dialog": 'background: white; background-color: white; color: black; -webkit-transition-delay: initial; -webkit-transition-duration: 0.3s; -webkit-transition-property: transform; -webkit-transition-timing-function: ease-out; box-sizing: border-box; margin-bottom: 10px; margin-top: 10px; position: relative; transition-delay: initial; transition-duration: 0.3s; transition-property: transform; transition-timing-function: ease-out;',
+				"#at-modal-content": '-webkit-background-clip: padding-box; width: initial; height: initial; background: initial; background-color: inherit; color: inherit; -webkit-box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; background-clip: padding-box; background-color: rgb(255, 255, 255); border-bottom-color: rgba(0, 0, 0, 0.2); border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgba(0, 0, 0, 0.2); border-left-style: solid; border-left-width: 1px; border-right-color: rgba(0, 0, 0, 0.2); border-right-style: solid; border-right-width: 1px; border-top-color: rgba(0, 0, 0, 0.2); border-top-left-radius: 6px; border-top-right-radius: 6px; border-top-style: solid; border-top-width: 1px; box-shadow: rgba(0, 0, 0, 0.498039) 0px 3px 9px; box-sizing: border-box; outline-color: initial; outline-style: initial; outline-width: 0px; position: relative;',
+				"#at-modal-header": 'border-bottom-color: rgb(229, 229, 229); width: initial; height: initial; background: initial; background-color: inherit; color: inherit; border-bottom-style: solid; border-bottom-width: 1px; box-sizing: border-box; min-height: 16.42857143px; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px;',
+				"#at-modal-title": 'background: initial; background-color: inherit; color: inherit;' ,
+				"#at-modal-body": 'color: inherit; box-sizing: border-box; padding-bottom: 15px; width: initial; height: initial; background: initial; background-color: inherit; padding-left: 15px; padding-right: 15px; padding-top: 15px; position: relative;',
+				"#at-modal-footer": 'border-top-color: rgb(229, 229, 229); width: initial; height: initial; background: initial; background-color: inherit; color: inherit; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; padding-bottom: 15px; padding-left: 15px; padding-right: 15px; padding-top: 15px; right: ;text-align: right;',
 				"#at-modal .btn.btn-default": '-webkit-appearance: button; width: initial; height: initial; -webkit-user-select: none; background-image: none; border-bottom-color: rgb(204, 204, 204); border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; border-bottom-style: solid; border-bottom-width: 1px; border-image-outset: initial; border-image-repeat: initial; border-image-slice: initial; border-image-source: initial; border-image-width: initial; border-left-color: rgb(204, 204, 204); border-left-style: solid; border-left-width: 1px; border-right-color: rgb(204, 204, 204); border-right-style: solid; border-right-width: 1px; border-top-color: rgb(204, 204, 204); border-top-left-radius: 4px; border-top-right-radius: 4px; border-top-style: solid; border-top-width: 1px; box-sizing: border-box; color: rgb(51, 51, 51); cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-stretch: inherit; font-style: inherit; font-variant: inherit; font-weight: normal; line-height: 1.42857143; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; margin-top: 0px; overflow-x: visible; overflow-y: visible; padding-bottom: 6px; padding-left: 12px; padding-right: 12px; padding-top: 6px; text-align: center; text-transform: none; touch-action: manipulation; vertical-align: middle; white-space: nowrap;'
 			},
 			settings: {
@@ -425,7 +425,11 @@
 				AtKit.internal.dragging = false;
 			});
 
-			// When we close the toolbar we remove the responsive css to prevent unwanted behaviour. So, if the user wants to use the toolbar again, the responsive css has to be loaded again
+			// When we close the toolbar we remove the responsive css and bootstrap css to prevent unwanted behaviour. So, if the user wants to use the toolbar again, they have to be loaded again
+			if (API.$("#atkit-bootstrap-css").length === 0) {
+				attachCss( 'atkit-bootstrap-css', AtKit.internal.__bootstrapCssURL );	
+			}
+
 			if (API.$("#atkit-responsive-css").length === 0) {
 				attachCss( 'atkit-responsive-css', AtKit.internal.__responsiveCssURL );	
 			}
@@ -625,8 +629,9 @@
 			
 			// Cleanup.
 			
-			// Remove responsive css to prevent unwanted behaviour
+			// Remove responsive css and bootstrap css to prevent unwanted behaviour
 			API.$("#atkit-responsive-css").remove();
+			API.$("#atkit-bootstrap-css").remove();
 
 			// Remove atbar.js from header
 			API.$('#ToolBar[src^="'+AtKit.internal.__baseURL+'"]').remove();
@@ -1122,6 +1127,26 @@
 				AtKit.internal.iconMode = iconMode;
 			else
 				AtKit.internal.iconMode = AtKit.internal.defaultIconMode;
+		}
+
+		API.applyCssToolbarOnly = function() {
+			var cssObj = {
+				"#sbarGhost": API.__CSS["#sbarGhost"],
+				"#sbarlogo": API.__CSS["#sbarlogo"],
+				"#sbarlogo img": API.__CSS["#sbarlogo img"],
+				"#sbar": API.__CSS["#sbar"],
+				"#at-collapse-parent": API.__CSS["#at-collapse-parent"],
+				"#at-collapse": API.__CSS["#at-collapse"],
+				".at-btn": API.__CSS[".at-btn"],
+				".at-btn > a": API.__CSS[".at-btn > a"],
+				".at-btn > a > span": API.__CSS[".at-btn > a > span"],
+				".at-btn > a > span.glyphicon": API.__CSS[".at-btn > a > span.glyphicon"],
+				".at-btn > a > span > img.at-btn-icon": API.__CSS[".at-btn > a > span > img.at-btn-icon"],
+				"#atkit-stats-img": API.__CSS["#atkit-stats-img"],
+				"#at-btn-atkit-toggle": API.__CSS["#at-btn-atkit-toggle"],
+				"#at-right-buttons": API.__CSS["#at-right-buttons"],
+			}; 
+			applyCSS(cssObj);
 		}
 		
 		// Toolbar calls this to render the bar.

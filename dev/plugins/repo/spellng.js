@@ -262,11 +262,11 @@
 
 					$lib("#at-modal-dialog").attr('class', 'modal-dialog modal-sm');
 
-					var dlg = $lib('<div>', { "style": "background-color: initial; background: initial; color: initial; font-size: initial;", "id": "AtKitSpellDialog" });
-					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_mistake"), "style":"background-color: initial; background: initial; color: initial; font-size: initial;" }));
-					dlg.append($lib('<div>', { "id": "AtKitSpellMistakeContainer", "style": "background-color: initial; color: initial;" }));
-					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_suggestions"), "style":"background-color: initial; background: initial; color: initial; font-size: initial;" }));
-					dlg.append($lib('<div>', { "id": "AtKitSpellSuggestionContainer", "style": "background-color: initial; color: initial;" }));
+					var dlg = $lib('<div>', { "style": "background-color: inherit; background: initial; color: inherit; font-size: initial;", "id": "AtKitSpellDialog" });
+					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_mistake"), "style":"background-color: inherit; background: initial; color: inherit; font-size: initial;" }));
+					dlg.append($lib('<div>', { "id": "AtKitSpellMistakeContainer", "style": "background-color: inherit; color: inherit;" }));
+					dlg.append($lib('<h3>', { "html": AtKit.localisation("spell_suggestions"), "style":"background-color: inherit; background: initial; color: inherit; font-size: initial;" }));
+					dlg.append($lib('<div>', { "id": "AtKitSpellSuggestionContainer", "style": "background-color: inherit; color: inherit;" }));
 					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_replace"), "id": "AtKitSpellReplace", "class":"btn btn-default" }));
 					dlg.append($lib('<button>', { "html": AtKit.localisation("spell_ignore"), "id": "AtKitSpellIgnore", "class":"btn btn-default" }));
 
@@ -274,7 +274,7 @@
 					var self = this;
 
 					dlg.children("#AtKitSpellMistakeContainer").append(
-						$lib('<select>', { "name": "spellcheckmistakes", "id": "spellcheckmistakes", "style": "width: 250px; background-color: initial; color: initial;", "class": "no-float" }).on('change',
+						$lib('<select>', { "name": "spellcheckmistakes", "id": "spellcheckmistakes", "style": "width: 250px; background-color: inherit; color: inherit;", "class": "no-float" }).on('change',
 							function(){
 								// Remove children from suggestions
 								$lib('#spellchecksuggestions').empty();
@@ -295,7 +295,7 @@
 					);
 
 					dlg.children("#AtKitSpellSuggestionContainer").append(
-						$lib('<select>', { "name": "spellchecksuggestions", "id": "spellchecksuggestions", "style": "width: 250px; background-color: initial; color: initial;", "class": "no-float" })
+						$lib('<select>', { "name": "spellchecksuggestions", "id": "spellchecksuggestions", "style": "width: 250px; background-color: inherit; color: inherit;", "class": "no-float" })
 					);
 
 
@@ -374,6 +374,8 @@
 				if(AtKit.get('spellInitialised') === false) AtKit.call('initSpell');
 
 				$lib('#at-btn-spell').addClass('active');
+				$lib('#at-btn-spell').css('background-color', '#e6e6e6');
+				$lib('#at-spn-spell').css('background-color', '#e6e6e6');
 
 				$lib("textarea").spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
 				$lib('input[type=text]').spellcheck({ useXHRMethod: AtKit.__env.transport, 'lang': AtKit.getLanguage(), baseURL: spell_settings.baseURL });
