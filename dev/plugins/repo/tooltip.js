@@ -162,12 +162,12 @@
 		        $tip.remove()
 		    }
 		
-		  , fixTitle: function () {
+		  /*, fixTitle: function () {
 		      var $e = this.$element
 		      if ($e.attr('title') || typeof($e.attr('data-original-title')) != 'string') {
 		        $e.attr('data-original-title', $e.attr('title') || '').removeAttr('title')
 		      }
-		    }
+		    }*/
 		
 		  , hasContent: function () {
 		      return this.getTitle()
