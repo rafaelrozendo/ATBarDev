@@ -29,7 +29,9 @@
 			"tts_select_voice": "Highlight text and select a voice",
 			"tts_male": "Male",
 			"tts_female": "Female",
-			"read_math": "Read Math"
+			"read_math": "Read Math",
+			"math_reader_title": "Choose an Equation",
+			"read_equation": "Read expression",
 		});
 
 		AtKit.addLocalisationMap("ar", {
@@ -50,7 +52,9 @@
 			"tts_select_voice": "&#1602;&#1605; &#1576;&#1578;&#1592;&#1604;&#1610;&#1604; &#1575;&#1604;&#1606;&#1589; &#1608;&#1575;&#1582;&#1578;&#1610;&#1575;&#1585; &#1575;&#1604;&#1589;&#1608;&#1578;",
 			"tts_male": "&#1605;&#1584;&#1603;&#1585;",
 			"tts_female": "&#1605;&#1572;&#1606;&#1579;",
-			"read_math": "&#1585;&#1610;&#1575;&#1590;&#1610;&#1575;&#1578;"
+			"read_math": "&#1585;&#1610;&#1575;&#1590;&#1610;&#1575;&#1578;",
+			"math_reader_title": "&#1575;&#1582;&#1578;&#1610;&#1575;&#1585; &#1605;&#1593;&#1575;&#1583;&#1604;&#1577;",
+			"read_equation": "&#1602;&#1585;&#1575;&#1569;&#1577; &#1575;&#1604;&#1578;&#1593;&#1576;&#1610;&#1585;",
 		});
 
 		AtKit.addLocalisationMap("pt", {
@@ -71,7 +75,9 @@
 			"tts_select_voice": "Destaque o texto e selecione uma voz",
 			"tts_male": "Masculino",
 			"tts_female": "Feminino",
-			"read_math": "Ler Matemática"
+			"read_math": "Ler Matemática",
+			"math_reader_title": "Escolha uma equação",
+			"read_equation": "Ler Expressão",
 		});
 
 		// Text to speech
@@ -518,6 +524,33 @@
 			}
 		});
 
+		// sends mathml code to the API server which translates it into readable text so it can be read by the TTS plugin
+		AtKit.addFn('readMathMLEquation', function(args){
+			var mathml = args["mathml"];
+
+			$lib.getJSON("http://waisvm-cd8e10.ecs.soton.ac.uk:4444/api?mathml=" + encodeURIComponent(mathml) + "&callback=?").done(function(d) {
+				var text = d.data;
+				selectedData = text;
+				//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
+				a = document.createElement('audio');
+				audio = new Audio();
+				audio.play();
+				audio.pause();
+				//text = "(\"" + text.toUpperCase().split(" ").join("\")(\"") + "\")";
+				text = text.toUpperCase().split(" ");
+				for (var i=0; i<text.length; i++) {
+
+					//if it is a common variable like "x", "y", "a" etc it will have length 1. Some common greek letters like "pi" may be treated the same way
+					if (text[i].length === 1 || text[i] === "PI") {
+						if (text[i] === "A") text[i] = "A."; //the TTS plugin pronounces "a" as an indefinite article instead of a letter
+
+						text[i] = "(\"" + text[i] + "\")";
+					}
+				}
+				text = text.join(" ");
+				AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male', 'source':'math', 'text':text });
+			});
+		});
 
 		AtKit.set('TTS_clickEnabled', true);
 		
@@ -584,33 +617,40 @@
 				});
 				
 				$lib('#sbReadMath').on('click touchend', function(){
+					var dlg = {
+						"title": AtKit.localisation("math_reader_title"),
+						"body": ""
+					}
+					var n_equations = 0;
+
+					// find all mathml elements and iterate over them
 					$lib("m\\:math, math").each(function(index) {
-						if(index == 0) {
-							var mathml = '<math xmlns="http://www.w3.org/1998/Math/MathML">' + $lib(this).html() + '</math>';
-							
-							$lib.getJSON("http://waisvm-cd8e10.ecs.soton.ac.uk:4444/api?mathml=" + encodeURIComponent(mathml) + "&callback=?").done(function(d) {
-								var text = d.data;
-								selectedData = text;
-								//Perform a fake start and pause playback. This is to solve the ios autoplay restrictions
-								a = document.createElement('audio');
-								audio = new Audio();
-								audio.play();
-								audio.pause();
-								//text = "(\"" + text.toUpperCase().split(" ").join("\")(\"") + "\")";
-								text = text.toUpperCase().split(" ");
-								for (var i=0; i<text.length; i++) {
+						var mathml = '<math xmlns="http://www.w3.org/1998/Math/MathML">' + $lib(this).html() + '</math>';
 
-									if (text[i].length === 1 || text[i] === "PI") {
-										if (text[i] === "A") text[i] = "A.";
-
-										text[i] = "(\"" + text[i] + "\")";
-									}
-								}
-								text = text.join(" ");
-								AtKit.call('sbStartInsipioTTSSelection', { 'voice':'male', 'source':'math', 'text':text });
-							});
-						}
+						// add mathml to dialog
+						dlg.body += "<label for='at-mathreader-eq-" + index + "'>" + mathml + "</label> <button id='at-mathreader-eq-"+ index +"' class=\"btn btn-default\"> "+ AtKit.localisation("read_equation") + " " + (index + 1) +" </button><br>";
+						n_equations += 1;
+						
 					});
+
+					$lib( "#at-modal" ).off('shown.bs.modal');
+					AtKit.show(dlg);
+
+					// set click callback for each button
+					for (var i=0; i<n_equations; i++) {
+						$lib("#at-mathreader-eq-"+i).on('click touchend', function() {
+							var mathML = $lib('label[for='+$lib(this).attr("id")+']').html();
+							AtKit.call('readMathMLEquation', { 'mathml': mathML });
+						});
+					}
+
+					// try to set focus on the first equation button. If there is no equation, set focus on the close button
+					try {
+						$lib('#at-mathreader-eq-0')[0].focus();
+					}
+					catch(err) {
+						$lib('#at-modal-close-btn')[0].focus();
+					}
 				});
 				
 				$lib('#sbStartInsipioTTSSelectionFemale').on('click touchend', function(){
