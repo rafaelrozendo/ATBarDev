@@ -8,6 +8,9 @@
 		};
 
 		var reset_colour = "#F8F8F8";
+
+		// The following colours have good contrast with the glyphicons
+		var random_colours = ["#e9bcff", "#74e59f", "#3ff0cc", "#aacbe6", "#66ff66", "#fdb68f", "#ffff77"];
 		
 		$lib = AtKit.lib();		
 
@@ -214,7 +217,9 @@
 		
 		AtKit.addFn('setColour', function(code){
 			if(code == "rand"){
-				colour = '#'+Math.floor(Math.random()*16777215).toString(16);
+				//colour = '#'+Math.floor(Math.random()*16777215).toString(16);
+				var index = Math.floor(Math.random()*(random_colours.length));
+				colour = random_colours[index];
 				$lib("#sbbackgroundcolour").val(colour);
 			} else {
 				colour = code;
